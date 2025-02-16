@@ -1,0 +1,13 @@
+@mixin nav-text-fixed{
+    color: $primary-color-1;
+    font-size: 18px;
+    font-family: roboto;
+    font-weight: 300;
+}
+
+@mixin nav-text-optional($color, $font-size, $font-family, $font-weight){
+    color: $color;
+    font-size: $font-size;
+    font-family: $font-family;
+    font-weight: $font-weight;
+}

@@ -25,3 +25,10 @@
     justify-content: $justify-content;
     align-items: $align-items;
 }
+
+@mixin display-flex-direction-column($justify-content, $align-items){
+    display: flex;
+    flex-direction: column;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}

@@ -24,7 +24,7 @@ html{
         width: auto;
         height: 90px;
         border: 1px solid $header-border-color;
-        box-shadow: 0px 2px 5px $header-border-color;
+        box-shadow: 0px 2px 2px $header-border-color;
         background-color: white;
         position: fixed;
         top: 0px;
@@ -42,8 +42,7 @@ html{
             border-right: 1px solid $header-border-color;
 
             .header-icon-link{
-                width: 100%;
-                height: 100%;
+                @include width-height-100;
                 @include display-flex-all-optional(end, center);
                 padding-right: 70px;
 
@@ -77,13 +76,13 @@ html{
                             transition: 0.2s;
     
                             &:hover{
-                                @include nav-text-optional($primary-color-2, 18px, roboto, 300);
+                                @include text-properties-optional($primary-color-2, 18px, roboto, 300);
                                 transition: 0.2s;
                             }
                         }
 
                         .header-nav-home-span, .header-nav-hotels-span, .header-nav-rooms-span, .header-nav-booked-rooms-span{
-                            @include nav-text-optional($primary-color-2, 18px, roboto, 300); 
+                            @include text-properties-optional($primary-color-2, 18px, roboto, 300); 
                         }
                     }
                 }
@@ -97,14 +96,107 @@ html{
     // --------------------------------- body start ----------------------------------------
 
     .parent{
-        height: 1500px;
+        width: 100%;
         padding-top: 90px;
-        background-color: red;
         animation-name: page-to-page;
         animation-duration: 0.5s;
         animation-fill-mode: forwards;
 
-        
+        .bg-img{
+            height: 400px;
+            background-image: url(./imgs/home-bg.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center -70px;
+            @include display-flex-justify-content(end);
+
+            .bg-overlay-text{
+                width: auto;
+                margin: 0px 200px;
+                padding-top: 60px;
+                
+                .fice-stars-title, .stars-div, .five-stars-subtext, .five-stars-see-hotels{
+                    @include display-flex-all-center;
+                }
+
+                .fice-stars-title{
+                    margin-bottom: 20px;
+
+                    .stars-div i{
+                        color: white;
+                        font-size: 20px;
+                        margin: 0px 2px;
+                        text-shadow: 0px 3px 3px $text-shadow-color-1;
+                    }
+
+                    .star-text{
+                        @include text-properties-optional(white, 40px, roboto, 300);
+                        margin: 0px 10px;
+                        text-shadow: 0px 3px 3px $text-shadow-color-1;
+                    }
+                }
+
+                .five-stars-subtext{
+                    margin-bottom: 30px;
+
+                    .star-subtext{
+                        @include text-properties-optional(white, 28px, roboto, 200);
+                        text-shadow: 0px 3px 3px $text-shadow-color-1;
+                    }
+                }
+
+                .five-stars-see-hotels .five-stars-link{
+                    width: 115px;
+                    height: 40px;
+                    @include display-flex-all-center;
+                    background-color: rgb(228, 49, 193);
+                    border: 0.5px solid rgb(128, 43, 137);
+                    border-radius: 6px;
+                    text-decoration: none;
+                    transition: 0.3s;
+
+                    span{
+                        @include text-properties-optional(white, 14px, roboto, 100);
+                        text-shadow: 0px 3px 3px $text-shadow-color-1;
+                    }
+
+                    &:hover{
+                        background-color: rgb(254, 110, 242);
+                        border: 0.5px solid rgb(128, 43, 137);
+                        border-radius: 6px;
+                        transition: 0.3s;
+                    }
+                }
+            }
+        }
+
+        .guestrooms{
+            width: auto;
+            height: 120px;
+            margin: 0px 200px;
+            display: grid;
+            grid-template-columns: auto 30% auto;
+
+            .side-line-property{
+                @include width-height-100;
+                @include display-flex-all-center;
+
+                .side-line{
+                    width: 100%;
+                    height: 2px;
+                    
+                    border-top: 2px solid $primary-color-1;
+                }
+            }
+
+            .guests-favorite-rooms{
+                @extend .side-line-property;
+
+                h2{
+                    @include text-properties-optional($primary-color-1, 22px, roboto, 300)
+                }
+            }
+        }
     }
 
 

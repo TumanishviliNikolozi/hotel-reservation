@@ -27,7 +27,7 @@ html {
     width: auto;
     height: 90px;
     border: 1px solid rgb(228, 228, 228);
-    box-shadow: 0px 2px 5px rgb(228, 228, 228);
+    box-shadow: 0px 2px 2px rgb(228, 228, 228);
     background-color: white;
     position: fixed;
     top: 0px;
@@ -94,11 +94,106 @@ html {
     font-weight: 300;
   }
   .parent {
-    height: 1500px;
+    width: 100%;
     padding-top: 90px;
-    background-color: red;
     animation-name: page-to-page;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
+  }
+  .parent .bg-img {
+    height: 400px;
+    background-image: url(./imgs/home-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center -70px;
+    display: flex;
+    justify-content: end;
+  }
+  .parent .bg-img .bg-overlay-text {
+    width: auto;
+    margin: 0px 200px;
+    padding-top: 60px;
+  }
+  .parent .bg-img .bg-overlay-text .fice-stars-title, .parent .bg-img .bg-overlay-text .stars-div, .parent .bg-img .bg-overlay-text .five-stars-subtext, .parent .bg-img .bg-overlay-text .five-stars-see-hotels {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .parent .bg-img .bg-overlay-text .fice-stars-title {
+    margin-bottom: 20px;
+  }
+  .parent .bg-img .bg-overlay-text .fice-stars-title .stars-div i {
+    color: white;
+    font-size: 20px;
+    margin: 0px 2px;
+    text-shadow: 0px 3px 3px rgba(59, 59, 59, 0.4);
+  }
+  .parent .bg-img .bg-overlay-text .fice-stars-title .star-text {
+    color: white;
+    font-size: 40px;
+    font-family: roboto;
+    font-weight: 300;
+    margin: 0px 10px;
+    text-shadow: 0px 3px 3px rgba(59, 59, 59, 0.4);
+  }
+  .parent .bg-img .bg-overlay-text .five-stars-subtext {
+    margin-bottom: 30px;
+  }
+  .parent .bg-img .bg-overlay-text .five-stars-subtext .star-subtext {
+    color: white;
+    font-size: 28px;
+    font-family: roboto;
+    font-weight: 200;
+    text-shadow: 0px 3px 3px rgba(59, 59, 59, 0.4);
+  }
+  .parent .bg-img .bg-overlay-text .five-stars-see-hotels .five-stars-link {
+    width: 115px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(228, 49, 193);
+    border: 0.5px solid rgb(128, 43, 137);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  .parent .bg-img .bg-overlay-text .five-stars-see-hotels .five-stars-link span {
+    color: white;
+    font-size: 14px;
+    font-family: roboto;
+    font-weight: 100;
+    text-shadow: 0px 3px 3px rgba(59, 59, 59, 0.4);
+  }
+  .parent .bg-img .bg-overlay-text .five-stars-see-hotels .five-stars-link:hover {
+    background-color: rgb(254, 110, 242);
+    border: 0.5px solid rgb(128, 43, 137);
+    border-radius: 6px;
+    transition: 0.3s;
+  }
+  .parent .guestrooms {
+    width: auto;
+    height: 120px;
+    margin: 0px 200px;
+    display: grid;
+    grid-template-columns: auto 30% auto;
+  }
+  .parent .guestrooms .side-line-property, .parent .guestrooms .guests-favorite-rooms {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .parent .guestrooms .side-line-property .side-line, .parent .guestrooms .guests-favorite-rooms .side-line {
+    width: 100%;
+    height: 2px;
+    border-top: 2px solid rgb(98, 98, 98);
+  }
+  .parent .guestrooms .guests-favorite-rooms h2 {
+    color: rgb(98, 98, 98);
+    font-size: 22px;
+    font-family: roboto;
+    font-weight: 300;
   }
 }/*# sourceMappingURL=style.css.map */

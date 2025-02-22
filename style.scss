@@ -193,7 +193,7 @@ html{
                 @extend .side-line-property;
 
                 h2{
-                    @include text-properties-optional($primary-color-1, 22px, roboto, 300)
+                    @include text-properties-optional($primary-color-1, 22px, roboto, 300);
                 }
             }
         }

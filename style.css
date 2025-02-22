@@ -101,34 +101,38 @@ html {
     animation-fill-mode: forwards;
   }
   .parent .bg-img {
+    width: 100%;
     height: 400px;
     background-image: url(./imgs/home-bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center -70px;
+    background-position: center center;
+  }
+  .parent .bg-img .bg-overlay-text {
+    width: 1280px;
+    margin: 0px auto;
+    padding-top: 60px;
     display: flex;
     justify-content: end;
   }
-  .parent .bg-img .bg-overlay-text {
-    width: auto;
-    margin: 0px 200px;
-    padding-top: 60px;
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position {
+    display: inline-block;
   }
-  .parent .bg-img .bg-overlay-text .fice-stars-title, .parent .bg-img .bg-overlay-text .stars-div, .parent .bg-img .bg-overlay-text .five-stars-subtext, .parent .bg-img .bg-overlay-text .five-stars-see-hotels {
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .fice-stars-title, .parent .bg-img .bg-overlay-text .bg-overlay-text-position .stars-div, .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-subtext, .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-see-hotels {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .parent .bg-img .bg-overlay-text .fice-stars-title {
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .fice-stars-title {
     margin-bottom: 20px;
   }
-  .parent .bg-img .bg-overlay-text .fice-stars-title .stars-div i {
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .fice-stars-title .stars-div i {
     color: white;
     font-size: 20px;
     margin: 0px 2px;
     text-shadow: 0px 3px 3px rgba(59, 59, 59, 0.4);
   }
-  .parent .bg-img .bg-overlay-text .fice-stars-title .star-text {
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .fice-stars-title .star-text {
     color: white;
     font-size: 40px;
     font-family: roboto;
@@ -136,17 +140,17 @@ html {
     margin: 0px 10px;
     text-shadow: 0px 3px 3px rgba(59, 59, 59, 0.4);
   }
-  .parent .bg-img .bg-overlay-text .five-stars-subtext {
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-subtext {
     margin-bottom: 30px;
   }
-  .parent .bg-img .bg-overlay-text .five-stars-subtext .star-subtext {
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-subtext .star-subtext {
     color: white;
     font-size: 28px;
     font-family: roboto;
     font-weight: 200;
     text-shadow: 0px 3px 3px rgba(59, 59, 59, 0.4);
   }
-  .parent .bg-img .bg-overlay-text .five-stars-see-hotels .five-stars-link {
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-see-hotels .five-stars-link {
     width: 115px;
     height: 40px;
     display: flex;
@@ -158,42 +162,127 @@ html {
     text-decoration: none;
     transition: 0.3s;
   }
-  .parent .bg-img .bg-overlay-text .five-stars-see-hotels .five-stars-link span {
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-see-hotels .five-stars-link span {
     color: white;
     font-size: 14px;
     font-family: roboto;
     font-weight: 100;
     text-shadow: 0px 3px 3px rgba(59, 59, 59, 0.4);
   }
-  .parent .bg-img .bg-overlay-text .five-stars-see-hotels .five-stars-link:hover {
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-see-hotels .five-stars-link:hover {
     background-color: rgb(254, 110, 242);
     border: 0.5px solid rgb(128, 43, 137);
     border-radius: 6px;
     transition: 0.3s;
   }
-  .parent .guestrooms {
-    width: auto;
+  .parent .between-section-title {
+    max-width: 1280px;
+    margin: 0px auto;
+    padding: 0px 20px;
     height: 120px;
-    margin: 0px 200px;
     display: grid;
     grid-template-columns: auto 30% auto;
   }
-  .parent .guestrooms .side-line-property, .parent .guestrooms .guests-favorite-rooms {
+  .parent .between-section-title .side-line-property, .parent .between-section-title .between-section-title-text {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .parent .guestrooms .side-line-property .side-line, .parent .guestrooms .guests-favorite-rooms .side-line {
+  .parent .between-section-title .side-line-property .side-line, .parent .between-section-title .between-section-title-text .side-line {
     width: 100%;
     height: 2px;
     border-top: 2px solid rgb(98, 98, 98);
   }
-  .parent .guestrooms .guests-favorite-rooms h2 {
+  .parent .between-section-title .between-section-title-text h2 {
     color: rgb(98, 98, 98);
     font-size: 22px;
     font-family: roboto;
     font-weight: 300;
+  }
+  .parent .guestrooms-browse {
+    max-width: 1280px;
+    margin: 0px auto;
+    padding: 0px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 50px;
+  }
+  .parent .guestrooms-browse div {
+    width: 390px;
+    height: 280px;
+    background-color: red;
+  }
+  .parent .usp-block {
+    max-width: 1280px;
+    margin: 0px auto;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 100px;
+  }
+  .parent .usp-block .usp-section {
+    width: 25%;
+    padding: 0px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+  }
+  .parent .usp-block .usp-section .usp-circle {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(94, 200, 212);
+    border-radius: 50%;
+  }
+  .parent .usp-block .usp-section .usp-circle i {
+    color: rgb(94, 200, 212);
+  }
+  .parent .usp-block .usp-section h2 {
+    color: rgb(98, 98, 98);
+    font-size: 18px;
+    font-family: roboto;
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+  .parent .usp-block .usp-section p {
+    color: rgb(98, 98, 98);
+    font-size: 14px;
+    font-family: roboto;
+    font-weight: 100;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .parent .usp-block .usp-section .usp-link {
+    text-decoration: none;
+    color: rgb(94, 200, 212);
+    font-size: 16px;
+    font-family: roboto;
+    font-weight: 200;
+  }
+  .parent footer {
+    width: 100%;
+    height: 70px;
+  }
+  .parent footer .footer-text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: black;
+  }
+  .parent footer .footer-text p {
+    margin-left: 225px;
+    color: rgb(98, 98, 98);
+    font-size: 14px;
+    font-family: roboto;
+    font-weight: 100;
   }
 }/*# sourceMappingURL=style.css.map */

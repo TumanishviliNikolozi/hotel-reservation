@@ -183,17 +183,24 @@ html {
     display: grid;
     grid-template-columns: auto 30% auto;
   }
-  .parent .between-section-title .side-line-property, .parent .between-section-title .between-section-title-text {
+  .parent .between-section-title .side-line-property {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .parent .between-section-title .side-line-property .side-line, .parent .between-section-title .between-section-title-text .side-line {
+  .parent .between-section-title .side-line-property .side-line {
     width: 100%;
     height: 2px;
     border-top: 2px solid rgb(98, 98, 98);
+  }
+  .parent .between-section-title .between-section-title-text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .parent .between-section-title .between-section-title-text h2 {
     color: rgb(98, 98, 98);
@@ -280,6 +287,239 @@ html {
   }
   .parent footer .footer-text p {
     margin-left: 225px;
+    color: rgb(98, 98, 98);
+    font-size: 14px;
+    font-family: roboto;
+    font-weight: 100;
+  }
+}
+@media screen and (max-width: 1279.9px) and (max-width: 767.9px) {
+  header {
+    width: 100%;
+    height: 70px;
+    border: 1px solid rgb(228, 228, 228);
+    box-shadow: 0px 2px 2px rgb(228, 228, 228);
+    background-color: white;
+    display: flex;
+  }
+  header .header-icon-property {
+    width: 75%;
+    height: 100%;
+    border-right: 1px solid rgb(228, 228, 228);
+  }
+  header .header-icon-property .header-icon-link {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 70px;
+  }
+  header .header-icon-property .header-icon-link .header-icon {
+    overflow: hidden;
+  }
+  header .header-icon-property .header-icon-link .header-icon .header-icon-img {
+    width: 40px;
+    border-radius: 0px 0px 5px 5px;
+  }
+  header nav {
+    width: 25%;
+    height: 100%;
+  }
+  header nav ul {
+    display: none;
+  }
+  .parent {
+    width: 100%;
+  }
+  .parent .bg-img {
+    width: 100%;
+    height: 400px;
+    background-image: url(./imgs/home-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: left center;
+  }
+  .parent .bg-img .bg-overlay-text {
+    padding: 60px 20px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position {
+    display: inline-block;
+  }
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .fice-stars-title, .parent .bg-img .bg-overlay-text .bg-overlay-text-position .stars-div, .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-subtext, .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-see-hotels {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .fice-stars-title {
+    margin-bottom: 20px;
+  }
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .fice-stars-title .stars-div i {
+    display: none;
+  }
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .fice-stars-title .star-text {
+    color: white;
+    font-size: 40px;
+    font-family: roboto;
+    font-weight: 300;
+    margin: 0px 10px;
+    text-shadow: 0px 3px 3px rgba(59, 59, 59, 0.4);
+    text-align: center;
+  }
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-subtext {
+    margin-bottom: 30px;
+  }
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-subtext .star-subtext {
+    color: white;
+    font-size: 28px;
+    font-family: roboto;
+    font-weight: 200;
+    text-shadow: 0px 3px 3px rgba(59, 59, 59, 0.4);
+    text-align: center;
+  }
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-see-hotels .five-stars-link {
+    width: 115px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(228, 49, 193);
+    border: 0.5px solid rgb(128, 43, 137);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-see-hotels .five-stars-link span {
+    color: white;
+    font-size: 14px;
+    font-family: roboto;
+    font-weight: 100;
+    text-shadow: 0px 3px 3px rgba(59, 59, 59, 0.4);
+  }
+  .parent .bg-img .bg-overlay-text .bg-overlay-text-position .five-stars-see-hotels .five-stars-link:hover {
+    background-color: rgb(254, 110, 242);
+    border: 0.5px solid rgb(128, 43, 137);
+    border-radius: 6px;
+    transition: 0.3s;
+  }
+  .parent .between-section-title {
+    width: 100%;
+    height: 70px;
+    display: grid;
+    grid-template-columns: auto 225px auto;
+  }
+  .parent .between-section-title .side-line-property {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 20px;
+  }
+  .parent .between-section-title .side-line-property .side-line {
+    width: 100%;
+    height: 2px;
+    border-top: 2px solid rgb(98, 98, 98);
+  }
+  .parent .between-section-title .between-section-title-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .parent .between-section-title .between-section-title-text h2 {
+    width: auto;
+    color: rgb(98, 98, 98);
+    font-size: 22px;
+    font-family: roboto;
+    font-weight: 300;
+    text-align: center;
+  }
+  .parent .guestrooms-browse {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    row-gap: 30px;
+  }
+  .parent .guestrooms-browse div {
+    max-width: 350px;
+    height: 300px;
+    background-color: red;
+  }
+  .parent .guestrooms-browse div .test {
+    width: 100%;
+  }
+  .parent .usp-block {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    row-gap: 30px;
+  }
+  .parent .usp-block .usp-section {
+    max-width: 350px;
+    margin: 0px auto 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+  }
+  .parent .usp-block .usp-section .usp-circle {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(94, 200, 212);
+    border-radius: 50%;
+  }
+  .parent .usp-block .usp-section .usp-circle i {
+    color: rgb(94, 200, 212);
+  }
+  .parent .usp-block .usp-section h2 {
+    color: rgb(98, 98, 98);
+    font-size: 18px;
+    font-family: roboto;
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+  .parent .usp-block .usp-section p {
+    color: rgb(98, 98, 98);
+    font-size: 14px;
+    font-family: roboto;
+    font-weight: 100;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .parent .usp-block .usp-section .usp-link {
+    text-decoration: none;
+    color: rgb(94, 200, 212);
+    font-size: 16px;
+    font-family: roboto;
+    font-weight: 200;
+  }
+  .parent footer {
+    width: 100%;
+    height: 70px;
+  }
+  .parent footer .footer-text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: black;
+  }
+  .parent footer .footer-text p {
+    width: auto;
+    margin: 0px 40px;
     color: rgb(98, 98, 98);
     font-size: 14px;
     font-family: roboto;

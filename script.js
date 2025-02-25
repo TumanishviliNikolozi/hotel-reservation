@@ -7,10 +7,10 @@ fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetAll')
     return response.json()
 })
 
-let button = document.getElementById('test-button');
-button.addEventListener('click', () => {
+// let button = document.getElementById('test-button');
+// button.addEventListener('click', () => {
     
-})
+// })
 .then(data => {
     const guestroomsBrowse = document.getElementById('guestrooms-browse');
 
@@ -35,7 +35,7 @@ button.addEventListener('click', () => {
         <a class="view-rooms-link" href="">${"View Rooms"}</a>
         `
 
-        
+
         guestroomsBrowse.appendChild(hotelCard);
         hotelCard.appendChild(hotelCardImg);
         hotelCard.appendChild(bookButtonSlide);

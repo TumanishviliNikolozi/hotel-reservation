@@ -12,6 +12,7 @@ html{
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 
@@ -31,10 +32,6 @@ html{
         left: 0px;
         right: 0px;
         z-index: 999;
-
-        a{
-            text-decoration: none;
-        }
 
         .header-icon-property{
             width: 25%;
@@ -156,7 +153,6 @@ html{
                         background-color: rgb(228, 49, 193);
                         border: 0.5px solid rgb(128, 43, 137);
                         border-radius: 6px;
-                        text-decoration: none;
                         transition: 0.3s;
     
                         span{
@@ -210,10 +206,71 @@ html{
             justify-content: space-between;
             row-gap: 50px;
 
-            div{
+            .hotel-card{
                 width: 390px;
-                height: 280px;
-                background-color: red;
+                height: auto;
+                position: relative;
+                text-shadow: 0px 3px 3px $text-shadow-color-1;
+                overflow: hidden;
+
+                .hotel-card-img{
+                    width: 100%;
+                    height: 260px;
+                    margin-bottom: 70px;
+
+                    img{
+                        width: 100%;
+                    }
+                }
+
+                .book-button-slide{
+                    height: 70px;
+                    position: absolute;
+                    bottom: 0px;
+                    left: 0px;
+                    right: 0px;
+                    transition: 0.5s;
+                    border: 0.5px solid $border-color-1;
+                    background-color: white;
+
+                    h2{
+                        width: 100%;
+                        height: 70px;
+                        @include display-flex-align-items(center);
+                        padding-left: 40px;
+
+                        span{
+                            @include text-properties-optional($primary-color-1, 14px, roboto, 300);
+                            text-shadow: 0px 1px 1px $text-shadow-color-1;
+                        }
+                    }
+
+                    .view-rooms-link{
+                        display: inline-block;
+                        width: 100%;
+                        height: 40px;
+                        background: linear-gradient(rgb(174, 241, 250) ,$primary-color-3) ;
+                        border: 0.5px solid $border-color-2;
+                        border-radius: 5px;
+                        text-align: center;
+                        align-content: center;
+                        @include text-properties-optional(white, 18px, roboto, 200);
+                        text-shadow: 0px 1px 1px $text-shadow-color-1;
+                        transition: 0.2s;
+
+                        &:hover{
+                            filter: brightness(1.08);
+                            transition: 0.2s
+                        }
+                    }
+                }
+
+                &:hover{
+                    .book-button-slide{
+                        height: 100%;
+                        transition: 0.5s;
+                    }
+                }
             }
         }
 
@@ -253,7 +310,6 @@ html{
                 }
     
                 .usp-link{
-                    text-decoration: none;
                     @include text-properties-optional($primary-color-3, 16px, roboto, 200);
     
                 }
@@ -387,7 +443,6 @@ html{
                             background-color: rgb(228, 49, 193);
                             border: 0.5px solid rgb(128, 43, 137);
                             border-radius: 6px;
-                            text-decoration: none;
                             transition: 0.3s;
         
                             span{
@@ -442,15 +497,15 @@ html{
                 @include display-flex-direction-column(start, center);
                 row-gap: 30px;
 
-                div{
-                    max-width: 350px;
-                    height: 300px;
-                    background-color: red;
+                // div{
+                //     max-width: 350px;
+                //     height: 300px;
+                //     background-color: red;
 
-                    .test{
-                        width: 100%;
-                    }
-                }
+                //     .test{
+                //         width: 100%;
+                //     }
+                // }
             }
 
             .usp-block{
@@ -489,7 +544,6 @@ html{
                     }
         
                     .usp-link{
-                        text-decoration: none;
                         @include text-properties-optional($primary-color-3, 16px, roboto, 200);
         
                     }

@@ -2,6 +2,10 @@
   font-family: roboto;
   src: url(./fonts/Roboto/Roboto-Medium.ttf);
 }
+@font-face {
+  font-family: roboto-lite;
+  src: url(./fonts/Roboto/Roboto-Light.ttf);
+}
 @keyframes page-to-page {
   0% {
     opacity: 0;
@@ -13,6 +17,10 @@
 @keyframes card-button-review {}
 html {
   scroll-behavior: smooth;
+}
+
+html, body, .parent {
+  min-height: 100vh;
 }
 
 * {
@@ -93,11 +101,11 @@ html {
     font-weight: 300;
   }
   .parent {
-    width: 100%;
-    padding-top: 90px;
+    padding: 90px 0px 150px;
     animation-name: page-to-page;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
+    position: relative;
   }
   .parent .bg-img {
     width: 100%;
@@ -206,31 +214,32 @@ html {
     font-family: roboto;
     font-weight: 300;
   }
-  .parent .guest-favorite-rooms {
+  .parent .guest-favorite-rooms, .parent .hotel-container {
     max-width: 1280px;
     margin: 0px auto;
     padding: 0px 20px;
+    margin-bottom: 50px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     row-gap: 50px;
   }
-  .parent .guest-favorite-rooms .hotel-card {
+  .parent .guest-favorite-rooms .hotel-card, .parent .hotel-container .hotel-card {
     width: 390px;
     height: auto;
     position: relative;
-    text-shadow: 0px 3px 3px rgba(59, 59, 59, 0.4);
+    box-shadow: 0px 3px 3px rgba(117, 117, 117, 0.4);
     overflow: hidden;
   }
-  .parent .guest-favorite-rooms .hotel-card .hotel-card-img {
+  .parent .guest-favorite-rooms .hotel-card .hotel-card-img, .parent .hotel-container .hotel-card .hotel-card-img {
     width: 100%;
     height: 260px;
     margin-bottom: 70px;
   }
-  .parent .guest-favorite-rooms .hotel-card .hotel-card-img img {
+  .parent .guest-favorite-rooms .hotel-card .hotel-card-img img, .parent .hotel-container .hotel-card .hotel-card-img img {
     width: 100%;
   }
-  .parent .guest-favorite-rooms .hotel-card .book-button-slide {
+  .parent .guest-favorite-rooms .hotel-card .book-button-slide, .parent .hotel-container .hotel-card .book-button-slide {
     height: 70px;
     position: absolute;
     bottom: 0px;
@@ -240,21 +249,21 @@ html {
     border: 0.5px solid rgb(228, 228, 228);
     background-color: white;
   }
-  .parent .guest-favorite-rooms .hotel-card .book-button-slide h2 {
+  .parent .guest-favorite-rooms .hotel-card .book-button-slide h2, .parent .hotel-container .hotel-card .book-button-slide h2 {
     width: 100%;
     height: 70px;
     display: flex;
     align-items: center;
     padding-left: 40px;
   }
-  .parent .guest-favorite-rooms .hotel-card .book-button-slide h2 span {
+  .parent .guest-favorite-rooms .hotel-card .book-button-slide h2 span, .parent .hotel-container .hotel-card .book-button-slide h2 span {
     color: rgb(98, 98, 98);
     font-size: 14px;
     font-family: roboto;
     font-weight: 300;
     text-shadow: 0px 1px 1px rgba(59, 59, 59, 0.4);
   }
-  .parent .guest-favorite-rooms .hotel-card .book-button-slide .view-rooms-link {
+  .parent .guest-favorite-rooms .hotel-card .book-button-slide .view-rooms-link, .parent .hotel-container .hotel-card .book-button-slide .view-rooms-link {
     display: inline-block;
     width: 100%;
     height: 40px;
@@ -270,11 +279,11 @@ html {
     text-shadow: 0px 1px 1px rgba(59, 59, 59, 0.4);
     transition: 0.2s;
   }
-  .parent .guest-favorite-rooms .hotel-card .book-button-slide .view-rooms-link:hover {
+  .parent .guest-favorite-rooms .hotel-card .book-button-slide .view-rooms-link:hover, .parent .hotel-container .hotel-card .book-button-slide .view-rooms-link:hover {
     filter: brightness(1.08);
     transition: 0.2s;
   }
-  .parent .guest-favorite-rooms .hotel-card:hover .book-button-slide {
+  .parent .guest-favorite-rooms .hotel-card:hover .book-button-slide, .parent .hotel-container .hotel-card:hover .book-button-slide {
     height: 100%;
     transition: 0.5s;
   }
@@ -285,7 +294,6 @@ html {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-bottom: 100px;
   }
   .parent .usp-block .usp-section {
     width: 25%;
@@ -329,18 +337,64 @@ html {
     font-family: roboto;
     font-weight: 200;
   }
-  .parent footer {
+  .parent .sort-button-container {
+    max-width: 1280px;
+    margin: 0px auto;
+    padding: 0px 20px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    -moz-column-gap: 5px;
+         column-gap: 5px;
+  }
+  .parent .sort-button-container .button-for-all {
+    width: 60px;
+    height: 50px;
+    background-color: rgb(94, 200, 212);
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-family: roboto-lite;
+    font-weight: 200;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .parent .sort-button-container .button-for-all:hover {
+    filter: brightness(1.1);
+    transition: 0.2s;
+  }
+  .parent .sort-button-container .button-for-sort {
+    height: 50px;
+    padding: 0px 15px;
+    background-color: transparent;
+    border: none;
+    color: rgb(98, 98, 98);
+    font-size: 16px;
+    font-family: roboto-lite;
+    font-weight: 200;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .parent .sort-button-container .button-for-sort:hover {
+    background-color: rgba(153, 153, 153, 0.4);
+    border-radius: 5px;
+    transition: 0.2s;
+  }
+  footer {
     width: 100%;
     height: 70px;
+    position: absolute;
+    bottom: 0px;
   }
-  .parent footer .footer-text {
+  footer .footer-text {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     background-color: black;
   }
-  .parent footer .footer-text p {
+  footer .footer-text p {
     margin-left: 225px;
     color: rgb(98, 98, 98);
     font-size: 14px;
@@ -483,19 +537,21 @@ html {
     width: 350px;
     height: auto;
     position: relative;
-    text-shadow: 0px 3px 3px rgba(59, 59, 59, 0.4);
+    box-shadow: 0px 3px 3px rgba(117, 117, 117, 0.4);
     overflow: hidden;
   }
   .parent .guest-favorite-rooms .hotel-card .hotel-card-img {
     width: 100%;
     height: 233px;
-    margin-bottom: 111px;
+    margin-bottom: 70px;
   }
   .parent .guest-favorite-rooms .hotel-card .hotel-card-img img {
     width: 100%;
   }
   .parent .guest-favorite-rooms .hotel-card .book-button-slide {
-    height: 111px;
+    display: flex;
+    align-items: center;
+    height: 70px;
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -505,11 +561,11 @@ html {
     background-color: white;
   }
   .parent .guest-favorite-rooms .hotel-card .book-button-slide h2 {
-    width: 100%;
+    width: 70%;
     height: 70px;
     display: flex;
     align-items: center;
-    padding-left: 40px;
+    padding-left: 20px;
   }
   .parent .guest-favorite-rooms .hotel-card .book-button-slide h2 span {
     color: rgb(98, 98, 98);
@@ -520,8 +576,9 @@ html {
   }
   .parent .guest-favorite-rooms .hotel-card .book-button-slide .view-rooms-link {
     display: inline-block;
-    width: 100%;
-    height: 40px;
+    width: 30%;
+    height: 100%;
+    padding: 0px 20px;
     background: linear-gradient(rgb(174, 241, 250), rgb(94, 200, 212));
     border: 0.5px solid rgb(88, 153, 161);
     border-radius: 5px;

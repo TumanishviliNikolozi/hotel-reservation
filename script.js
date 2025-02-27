@@ -12,7 +12,7 @@ fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetAll')
     
 // })
 .then(data => {
-    const guestroomsBrowse = document.getElementById('guestrooms-browse');
+    const guestFavoriteRooms = document.getElementById('guest-favorite-rooms');
 
     data.forEach(hotels => {
         let hotelCard = document.createElement('div');
@@ -36,7 +36,7 @@ fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetAll')
         `
 
 
-        guestroomsBrowse.appendChild(hotelCard);
+        guestFavoriteRooms.appendChild(hotelCard);
         hotelCard.appendChild(hotelCardImg);
         hotelCard.appendChild(bookButtonSlide);
         

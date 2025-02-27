@@ -199,7 +199,7 @@ html{
             }
         }
 
-        .guestrooms-browse{
+        .guest-favorite-rooms{
             @include sides-free-space;
             display: flex;
             flex-wrap: wrap;
@@ -347,228 +347,305 @@ html{
 
 @media screen and (max-width: 1279.9px){
 
-    @media screen and (max-width: 767.9px){
-        
-        header{
+
+    header{
+        width: 100%;
+        height: 70px;
+        border: 1px solid $header-border-color;
+        box-shadow: 0px 2px 2px $header-border-color;
+        background-color: white;
+        display: flex;
+
+        .header-icon-property{
+            width: 75%;
+            height: 100%;
+            border-right: 1px solid $header-border-color;
+
+            .header-icon-link{
+                @include width-height-100;
+                @include display-flex-all-optional(start, center);
+                padding-left: 70px;
+
+                .header-icon{
+                    overflow: hidden;
+
+                    .header-icon-img{
+                        width: 40px;
+                        border-radius: 0px 0px 5px 5px;
+                    }
+                }
+            }
+        }
+
+        nav{
+            width: 25%;
+            height: 100%;
+
+            ul{
+                display: none;
+            }
+        }
+
+    }
+
+    .parent{
+        width: 100%;
+
+        .bg-img{
+            width: 100%;
+            height: 400px;
+            background-image: url(./imgs/home-bg.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: left center;
+
+            .bg-overlay-text .bg-overlay-text-position{
+                
+                display: inline-block;
+    
+                .fice-stars-title, .stars-div, .five-stars-subtext, .five-stars-see-hotels{
+                    @include display-flex-all-center;
+                }
+    
+                .fice-stars-title{
+                    margin-bottom: 20px;
+
+                    .stars-div i{
+                        display: none;
+                    }
+
+                    .star-text{
+                        @include text-properties-optional(white, 40px, roboto, 300);
+                        margin: 0px 10px;
+                        text-shadow: 0px 3px 3px $text-shadow-color-1;
+                        text-align: center;
+                    }
+                }
+
+                .five-stars-subtext{
+                    margin-bottom: 30px;
+
+                    .star-subtext{
+                        @include text-properties-optional(white, 28px, roboto, 200);
+                        text-shadow: 0px 3px 3px $text-shadow-color-1;
+                        text-align: center;
+                    }
+                }
+
+                .five-stars-see-hotels .five-stars-link{
+                    width: 115px;
+                    height: 40px;
+                    @include display-flex-all-center;
+                    background-color: rgb(228, 49, 193);
+                    border: 0.5px solid rgb(128, 43, 137);
+                    border-radius: 6px;
+                    transition: 0.3s;
+
+                    span{
+                        @include text-properties-optional(white, 14px, roboto, 100);
+                        text-shadow: 0px 3px 3px $text-shadow-color-1;
+                    }
+                }
+            }
+        }
+
+        .between-section-title{
+            width: 100%;
+            height: 100px;
+            display: grid;
+            grid-template-columns: auto 225px auto;
+
+            .side-line-property{
+                @include width-height-100;
+                @include display-flex-all-center;
+                padding: 0px 20px;
+
+                .side-line{
+                    width: 100%;
+                    height: 2px;
+                    
+                    border-top: 2px solid $primary-color-1;
+                }
+            }
+
+            .between-section-title-text{
+                @include display-flex-all-center;
+
+                h2{
+                    width: auto;
+                    @include text-properties-optional($primary-color-1, 22px, roboto, 300);
+                    text-align: center;
+                }
+            }
+        }
+
+        .guest-favorite-rooms .hotel-card{
+            width: 350px;
+            height: auto;
+            position: relative;
+            text-shadow: 0px 3px 3px $text-shadow-color-1;
+            overflow: hidden;
+
+            .hotel-card-img{
+                width: 100%;
+                height: 233px;
+                margin-bottom: 111px;
+
+                img{
+                    width: 100%;
+                }
+            }
+
+            .book-button-slide{
+                height: 111px;
+                position: absolute;
+                bottom: 0px;
+                left: 0px;
+                right: 0px;
+                transition: 0.5s;
+                border: 0.5px solid $border-color-1;
+                background-color: white;
+
+                h2{
+                    width: 100%;
+                    height: 70px;
+                    @include display-flex-align-items(center);
+                    padding-left: 40px;
+
+                    span{
+                        @include text-properties-optional($primary-color-1, 14px, roboto, 300);
+                        text-shadow: 0px 1px 1px $text-shadow-color-1;
+                    }
+                }
+
+                .view-rooms-link{
+                    display: inline-block;
+                    width: 100%;
+                    height: 40px;
+                    background: linear-gradient(rgb(174, 241, 250) ,$primary-color-3) ;
+                    border: 0.5px solid $border-color-2;
+                    border-radius: 5px;
+                    text-align: center;
+                    align-content: center;
+                    @include text-properties-optional(white, 18px, roboto, 200);
+                    text-shadow: 0px 1px 1px $text-shadow-color-1;
+                    transition: 0.2s;
+                }
+            }
+        }
+
+        .usp-block{
+            
+            
+            .usp-section{
+                max-width: 350px;
+                
+                @include display-flex-direction-column(start, center);
+    
+                .usp-circle{
+                    width: 80px;
+                    height: 80px;
+                    margin-bottom: 20px;
+                    @include display-flex-all-center;
+                    border: 1px solid $primary-color-3;
+                    border-radius: 50%;
+    
+                    i{
+                        color: $primary-color-3;
+                    }
+                }
+    
+                h2{
+                    @include text-properties-optional($primary-color-1, 18px, roboto, 300);
+                    margin-bottom: 20px;
+                }
+    
+                p{
+                    @include text-properties-optional($primary-color-1, 14px, roboto, 100);
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+    
+                .usp-link{
+                    @include text-properties-optional($primary-color-3, 16px, roboto, 200);
+    
+                }
+            }
+        }
+
+        footer{
             width: 100%;
             height: 70px;
-            border: 1px solid $header-border-color;
-            box-shadow: 0px 2px 2px $header-border-color;
-            background-color: white;
-            display: flex;
 
-            .header-icon-property{
-                width: 75%;
-                height: 100%;
-                border-right: 1px solid $header-border-color;
+            .footer-text{
+                @include width-height-100;
+                @include display-flex-align-items(center);
+                background-color: black;
 
-                .header-icon-link{
-                    @include width-height-100;
-                    @include display-flex-all-optional(start, center);
-                    padding-left: 70px;
-
-                    .header-icon{
-                        overflow: hidden;
-    
-                        .header-icon-img{
-                            width: 40px;
-                            border-radius: 0px 0px 5px 5px;
-                        }
-                    }
+                p{
+                    width: auto;
+                    margin: 0px 40px;
+                    @include text-properties-optional($primary-color-1, 14px, roboto, 100);
                 }
             }
-
-            nav{
-                width: 25%;
-                height: 100%;
-
-                ul{
-                    display: none;
-                }
-            }
-
         }
 
-        .parent{
-            width: 100%;
 
-            .bg-img{
-                width: 100%;
-                height: 400px;
-                background-image: url(./imgs/home-bg.jpg);
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: left center;
-
-                .bg-overlay-text{
-                    padding: 60px 20px 0px;
-                    @include display-flex-all-center;
-                    
-                    .bg-overlay-text-position{
-                        display: inline-block;
-    
-                        .fice-stars-title, .stars-div, .five-stars-subtext, .five-stars-see-hotels{
-                            @include display-flex-all-center;
-                        }
-        
-                        .fice-stars-title{
-                            margin-bottom: 20px;
-        
-                            .stars-div i{
-                                display: none;
-                            }
-        
-                            .star-text{
-                                @include text-properties-optional(white, 40px, roboto, 300);
-                                margin: 0px 10px;
-                                text-shadow: 0px 3px 3px $text-shadow-color-1;
-                                text-align: center;
-                            }
-                        }
-        
-                        .five-stars-subtext{
-                            margin-bottom: 30px;
-        
-                            .star-subtext{
-                                @include text-properties-optional(white, 28px, roboto, 200);
-                                text-shadow: 0px 3px 3px $text-shadow-color-1;
-                                text-align: center;
-                            }
-                        }
-        
-                        .five-stars-see-hotels .five-stars-link{
-                            width: 115px;
-                            height: 40px;
-                            @include display-flex-all-center;
-                            background-color: rgb(228, 49, 193);
-                            border: 0.5px solid rgb(128, 43, 137);
-                            border-radius: 6px;
-                            transition: 0.3s;
-        
-                            span{
-                                @include text-properties-optional(white, 14px, roboto, 100);
-                                text-shadow: 0px 3px 3px $text-shadow-color-1;
-                            }
-        
-                            &:hover{
-                                background-color: rgb(254, 110, 242);
-                                border: 0.5px solid rgb(128, 43, 137);
-                                border-radius: 6px;
-                                transition: 0.3s;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .between-section-title{
-                width: 100%;
-                height: 70px;
-                display: grid;
-                grid-template-columns: auto 225px auto;
-    
-                .side-line-property{
-                    @include width-height-100;
-                    @include display-flex-all-center;
-                    padding: 0px 20px;
-    
-                    .side-line{
-                        width: 100%;
-                        height: 2px;
-                        
-                        border-top: 2px solid $primary-color-1;
-                    }
-                }
-    
-                .between-section-title-text{
-                    @include display-flex-all-center;
-    
-                    h2{
-                        width: auto;
-                        @include text-properties-optional($primary-color-1, 22px, roboto, 300);
-                        text-align: center;
-                    }
-                }
-            }
-
-            .guestrooms-browse{
-                width: 100%;
-                padding: 20px;
-                @include display-flex-direction-column(start, center);
-                row-gap: 30px;
-
-                // div{
-                //     max-width: 350px;
-                //     height: 300px;
-                //     background-color: red;
-
-                //     .test{
-                //         width: 100%;
-                //     }
-                // }
-            }
-
-            .usp-block{
-                width: 100%;
-                padding: 20px;
-                @include display-flex-direction-column(start, center);
-                row-gap: 30px;
-                
-                .usp-section{
-                    max-width: 350px;
-                    margin: 0px auto 80px;
-                    @include display-flex-direction-column(start, center);
-        
-                    .usp-circle{
-                        width: 80px;
-                        height: 80px;
-                        margin-bottom: 20px;
-                        @include display-flex-all-center;
-                        border: 1px solid $primary-color-3;
-                        border-radius: 50%;
-        
-                        i{
-                            color: $primary-color-3;
-                        }
-                    }
-        
-                    h2{
-                        @include text-properties-optional($primary-color-1, 18px, roboto, 300);
-                        margin-bottom: 20px;
-                    }
-        
-                    p{
-                        @include text-properties-optional($primary-color-1, 14px, roboto, 100);
-                        text-align: center;
-                        margin-bottom: 20px;
-                    }
-        
-                    .usp-link{
-                        @include text-properties-optional($primary-color-3, 16px, roboto, 200);
-        
-                    }
-                }
-            }
-
-            footer{
-                width: 100%;
-                height: 70px;
-    
-                .footer-text{
-                    @include width-height-100;
-                    @include display-flex-align-items(center);
-                    background-color: black;
-    
-                    p{
-                        width: auto;
-                        margin: 0px 40px;
-                        @include text-properties-optional($primary-color-1, 14px, roboto, 100);
-                    }
-                }
-            }
-
-
-        }
     }
-    
+
+
+    @media screen and (max-width: 767.9px){
+        
+        .bg-overlay-text{
+            padding: 60px 20px 0px;
+            @include display-flex-all-center;
+        }
+
+        .guest-favorite-rooms, .usp-block{
+            width: 100%;
+            padding: 20px;
+            @include display-flex-direction-column(start, center);
+            row-gap: 30px;
+        }
+
+        .usp-block .usp-section{
+            margin: 0px auto 80px;
+        }
+        
+    }
+
+
+
+    @media screen and (min-width: 768px){
+
+        .bg-overlay-text{
+            max-width: 700px;
+            margin: 0px auto;
+            padding: 60px 20px 0px;
+            @include display-flex-all-optional(end, center);
+        }
+
+        .guest-favorite-rooms, .usp-block{
+            width: 730px;
+            padding: 20px 0px;
+            margin: 0px auto;
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 50px 30px;
+        }
+
+        .usp-block{
+            padding: 30px 0px 80px;
+        }
+
+
+        @media screen and (min-width: 850px){
+
+            .bg-overlay-text{
+                max-width: 775px;
+                margin: 0px auto;
+            }
+
+        }
+    }   
 }

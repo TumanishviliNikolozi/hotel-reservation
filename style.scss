@@ -203,7 +203,7 @@ html, body, .parent{
             }
         }
 
-        .guest-favorite-rooms, .hotel-container, .room-container{
+        .hotel-container, .room-container{
             @include sides-free-space;
             margin-bottom: 50px;
             display: flex;
@@ -228,7 +228,7 @@ html, body, .parent{
                     }
                 }
 
-                .view-rooms-button-slide, .book-button-slide{
+                .view-rooms-button-slide{
                     height: 70px;
                     position: absolute;
                     bottom: 0px;
@@ -250,10 +250,11 @@ html, body, .parent{
                         }
                     }
 
-                    .view-rooms-link{
+                    .view-rooms-link, .book-now-link{
                         display: inline-block;
                         width: 100%;
                         height: 40px;
+                        margin-top: 2px;
                         background: linear-gradient(rgb(174, 241, 250) ,$primary-color-3) ;
                         border: 0.5px solid $border-color-2;
                         border-radius: 5px;
@@ -270,8 +271,48 @@ html, body, .parent{
                     }
                 }
 
+                .book-button-slide{
+                    @extend .view-rooms-button-slide;
+
+                    .title-price-container{
+                        width: 100%;
+                        height: 70px;
+                        @include display-flex-align-items(center);
+
+                        h2{
+                            width: 70%;
+                            height: 70px;
+                            @include display-flex-align-items(center);
+                            padding-left: 40px;
+    
+                            span{
+                                @include text-properties-optional($primary-color-1, 14px, roboto, 300);
+                                text-shadow: 0px 1px 1px $text-shadow-color-1;
+                            }
+                        }
+    
+                        p{
+                            width: 30%;
+                            height: 70px;
+                            @include display-flex-direction-column(center, center);
+                            background-color: $card-price-backcolor-1;
+                            border-left: 0.5px solid $border-color-1;
+    
+                            .price-holder{
+                                @include text-properties-optional($primary-color-3, 20px, roboto, 300);
+                                text-shadow: 0px 1px 1px $text-shadow-color-1;
+                            }
+
+                            .text-holder{
+                                @include text-properties-optional($primary-color-1, 14px, roboto, 300);
+                                text-shadow: 0px 1px 1px $text-shadow-color-1;
+                            }
+                        }
+                    }
+                }
+
                 &:hover{
-                    .book-button-slide{
+                    .view-rooms-button-slide, .book-button-slide{
                         height: 100%;
                         transition: 0.5s;
                     }

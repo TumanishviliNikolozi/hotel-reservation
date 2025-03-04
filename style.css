@@ -213,7 +213,7 @@ html, body, .parent {
     font-family: roboto;
     font-weight: 300;
   }
-  .parent .guest-favorite-rooms, .parent .hotel-container, .parent .room-container {
+  .parent .hotel-container, .parent .room-container {
     max-width: 1280px;
     margin: 0px auto;
     padding: 0px 20px;
@@ -223,22 +223,22 @@ html, body, .parent {
     justify-content: space-between;
     row-gap: 50px;
   }
-  .parent .guest-favorite-rooms .hotel-card, .parent .guest-favorite-rooms .room-card, .parent .hotel-container .hotel-card, .parent .hotel-container .room-card, .parent .room-container .hotel-card, .parent .room-container .room-card {
+  .parent .hotel-container .hotel-card, .parent .hotel-container .room-card, .parent .room-container .hotel-card, .parent .room-container .room-card {
     width: 390px;
     height: auto;
     position: relative;
     box-shadow: 0px 3px 3px rgba(117, 117, 117, 0.4);
     overflow: hidden;
   }
-  .parent .guest-favorite-rooms .hotel-card .hotel-card-img, .parent .guest-favorite-rooms .hotel-card .room-card-img, .parent .guest-favorite-rooms .room-card .hotel-card-img, .parent .guest-favorite-rooms .room-card .room-card-img, .parent .hotel-container .hotel-card .hotel-card-img, .parent .hotel-container .hotel-card .room-card-img, .parent .hotel-container .room-card .hotel-card-img, .parent .hotel-container .room-card .room-card-img, .parent .room-container .hotel-card .hotel-card-img, .parent .room-container .hotel-card .room-card-img, .parent .room-container .room-card .hotel-card-img, .parent .room-container .room-card .room-card-img {
+  .parent .hotel-container .hotel-card .hotel-card-img, .parent .hotel-container .hotel-card .room-card-img, .parent .hotel-container .room-card .hotel-card-img, .parent .hotel-container .room-card .room-card-img, .parent .room-container .hotel-card .hotel-card-img, .parent .room-container .hotel-card .room-card-img, .parent .room-container .room-card .hotel-card-img, .parent .room-container .room-card .room-card-img {
     width: 100%;
     height: 260px;
     margin-bottom: 70px;
   }
-  .parent .guest-favorite-rooms .hotel-card .hotel-card-img img, .parent .guest-favorite-rooms .hotel-card .room-card-img img, .parent .guest-favorite-rooms .room-card .hotel-card-img img, .parent .guest-favorite-rooms .room-card .room-card-img img, .parent .hotel-container .hotel-card .hotel-card-img img, .parent .hotel-container .hotel-card .room-card-img img, .parent .hotel-container .room-card .hotel-card-img img, .parent .hotel-container .room-card .room-card-img img, .parent .room-container .hotel-card .hotel-card-img img, .parent .room-container .hotel-card .room-card-img img, .parent .room-container .room-card .hotel-card-img img, .parent .room-container .room-card .room-card-img img {
+  .parent .hotel-container .hotel-card .hotel-card-img img, .parent .hotel-container .hotel-card .room-card-img img, .parent .hotel-container .room-card .hotel-card-img img, .parent .hotel-container .room-card .room-card-img img, .parent .room-container .hotel-card .hotel-card-img img, .parent .room-container .hotel-card .room-card-img img, .parent .room-container .room-card .hotel-card-img img, .parent .room-container .room-card .room-card-img img {
     width: 100%;
   }
-  .parent .guest-favorite-rooms .hotel-card .view-rooms-button-slide, .parent .guest-favorite-rooms .hotel-card .book-button-slide, .parent .guest-favorite-rooms .room-card .view-rooms-button-slide, .parent .guest-favorite-rooms .room-card .book-button-slide, .parent .hotel-container .hotel-card .view-rooms-button-slide, .parent .hotel-container .hotel-card .book-button-slide, .parent .hotel-container .room-card .view-rooms-button-slide, .parent .hotel-container .room-card .book-button-slide, .parent .room-container .hotel-card .view-rooms-button-slide, .parent .room-container .hotel-card .book-button-slide, .parent .room-container .room-card .view-rooms-button-slide, .parent .room-container .room-card .book-button-slide {
+  .parent .hotel-container .hotel-card .view-rooms-button-slide, .parent .hotel-container .hotel-card .book-button-slide, .parent .hotel-container .room-card .view-rooms-button-slide, .parent .hotel-container .room-card .book-button-slide, .parent .room-container .hotel-card .view-rooms-button-slide, .parent .room-container .hotel-card .book-button-slide, .parent .room-container .room-card .view-rooms-button-slide, .parent .room-container .room-card .book-button-slide {
     height: 70px;
     position: absolute;
     bottom: 0px;
@@ -248,24 +248,25 @@ html, body, .parent {
     border: 0.5px solid rgb(228, 228, 228);
     background-color: white;
   }
-  .parent .guest-favorite-rooms .hotel-card .view-rooms-button-slide h2, .parent .guest-favorite-rooms .hotel-card .book-button-slide h2, .parent .guest-favorite-rooms .room-card .view-rooms-button-slide h2, .parent .guest-favorite-rooms .room-card .book-button-slide h2, .parent .hotel-container .hotel-card .view-rooms-button-slide h2, .parent .hotel-container .hotel-card .book-button-slide h2, .parent .hotel-container .room-card .view-rooms-button-slide h2, .parent .hotel-container .room-card .book-button-slide h2, .parent .room-container .hotel-card .view-rooms-button-slide h2, .parent .room-container .hotel-card .book-button-slide h2, .parent .room-container .room-card .view-rooms-button-slide h2, .parent .room-container .room-card .book-button-slide h2 {
+  .parent .hotel-container .hotel-card .view-rooms-button-slide h2, .parent .hotel-container .hotel-card .book-button-slide h2, .parent .hotel-container .room-card .view-rooms-button-slide h2, .parent .hotel-container .room-card .book-button-slide h2, .parent .room-container .hotel-card .view-rooms-button-slide h2, .parent .room-container .hotel-card .book-button-slide h2, .parent .room-container .room-card .view-rooms-button-slide h2, .parent .room-container .room-card .book-button-slide h2 {
     width: 100%;
     height: 70px;
     display: flex;
     align-items: center;
     padding-left: 40px;
   }
-  .parent .guest-favorite-rooms .hotel-card .view-rooms-button-slide h2 span, .parent .guest-favorite-rooms .hotel-card .book-button-slide h2 span, .parent .guest-favorite-rooms .room-card .view-rooms-button-slide h2 span, .parent .guest-favorite-rooms .room-card .book-button-slide h2 span, .parent .hotel-container .hotel-card .view-rooms-button-slide h2 span, .parent .hotel-container .hotel-card .book-button-slide h2 span, .parent .hotel-container .room-card .view-rooms-button-slide h2 span, .parent .hotel-container .room-card .book-button-slide h2 span, .parent .room-container .hotel-card .view-rooms-button-slide h2 span, .parent .room-container .hotel-card .book-button-slide h2 span, .parent .room-container .room-card .view-rooms-button-slide h2 span, .parent .room-container .room-card .book-button-slide h2 span {
+  .parent .hotel-container .hotel-card .view-rooms-button-slide h2 span, .parent .hotel-container .hotel-card .book-button-slide h2 span, .parent .hotel-container .room-card .view-rooms-button-slide h2 span, .parent .hotel-container .room-card .book-button-slide h2 span, .parent .room-container .hotel-card .view-rooms-button-slide h2 span, .parent .room-container .hotel-card .book-button-slide h2 span, .parent .room-container .room-card .view-rooms-button-slide h2 span, .parent .room-container .room-card .book-button-slide h2 span {
     color: rgb(98, 98, 98);
     font-size: 14px;
     font-family: roboto;
     font-weight: 300;
     text-shadow: 0px 1px 1px rgba(59, 59, 59, 0.4);
   }
-  .parent .guest-favorite-rooms .hotel-card .view-rooms-button-slide .view-rooms-link, .parent .guest-favorite-rooms .hotel-card .book-button-slide .view-rooms-link, .parent .guest-favorite-rooms .room-card .view-rooms-button-slide .view-rooms-link, .parent .guest-favorite-rooms .room-card .book-button-slide .view-rooms-link, .parent .hotel-container .hotel-card .view-rooms-button-slide .view-rooms-link, .parent .hotel-container .hotel-card .book-button-slide .view-rooms-link, .parent .hotel-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .hotel-container .room-card .book-button-slide .view-rooms-link, .parent .room-container .hotel-card .view-rooms-button-slide .view-rooms-link, .parent .room-container .hotel-card .book-button-slide .view-rooms-link, .parent .room-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .room-container .room-card .book-button-slide .view-rooms-link {
+  .parent .hotel-container .hotel-card .view-rooms-button-slide .view-rooms-link, .parent .hotel-container .hotel-card .book-button-slide .view-rooms-link, .parent .hotel-container .hotel-card .view-rooms-button-slide .book-now-link, .parent .hotel-container .hotel-card .book-button-slide .book-now-link, .parent .hotel-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .hotel-container .room-card .book-button-slide .view-rooms-link, .parent .hotel-container .room-card .view-rooms-button-slide .book-now-link, .parent .hotel-container .room-card .book-button-slide .book-now-link, .parent .room-container .hotel-card .view-rooms-button-slide .view-rooms-link, .parent .room-container .hotel-card .book-button-slide .view-rooms-link, .parent .room-container .hotel-card .view-rooms-button-slide .book-now-link, .parent .room-container .hotel-card .book-button-slide .book-now-link, .parent .room-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .room-container .room-card .book-button-slide .view-rooms-link, .parent .room-container .room-card .view-rooms-button-slide .book-now-link, .parent .room-container .room-card .book-button-slide .book-now-link {
     display: inline-block;
     width: 100%;
     height: 40px;
+    margin-top: 2px;
     background: linear-gradient(rgb(174, 241, 250), rgb(94, 200, 212));
     border: 0.5px solid rgb(88, 153, 161);
     border-radius: 5px;
@@ -278,11 +279,55 @@ html, body, .parent {
     text-shadow: 0px 1px 1px rgba(59, 59, 59, 0.4);
     transition: 0.2s;
   }
-  .parent .guest-favorite-rooms .hotel-card .view-rooms-button-slide .view-rooms-link:hover, .parent .guest-favorite-rooms .hotel-card .book-button-slide .view-rooms-link:hover, .parent .guest-favorite-rooms .room-card .view-rooms-button-slide .view-rooms-link:hover, .parent .guest-favorite-rooms .room-card .book-button-slide .view-rooms-link:hover, .parent .hotel-container .hotel-card .view-rooms-button-slide .view-rooms-link:hover, .parent .hotel-container .hotel-card .book-button-slide .view-rooms-link:hover, .parent .hotel-container .room-card .view-rooms-button-slide .view-rooms-link:hover, .parent .hotel-container .room-card .book-button-slide .view-rooms-link:hover, .parent .room-container .hotel-card .view-rooms-button-slide .view-rooms-link:hover, .parent .room-container .hotel-card .book-button-slide .view-rooms-link:hover, .parent .room-container .room-card .view-rooms-button-slide .view-rooms-link:hover, .parent .room-container .room-card .book-button-slide .view-rooms-link:hover {
+  .parent .hotel-container .hotel-card .view-rooms-button-slide .view-rooms-link:hover, .parent .hotel-container .hotel-card .book-button-slide .view-rooms-link:hover, .parent .hotel-container .hotel-card .view-rooms-button-slide .book-now-link:hover, .parent .hotel-container .hotel-card .book-button-slide .book-now-link:hover, .parent .hotel-container .room-card .view-rooms-button-slide .view-rooms-link:hover, .parent .hotel-container .room-card .book-button-slide .view-rooms-link:hover, .parent .hotel-container .room-card .view-rooms-button-slide .book-now-link:hover, .parent .hotel-container .room-card .book-button-slide .book-now-link:hover, .parent .room-container .hotel-card .view-rooms-button-slide .view-rooms-link:hover, .parent .room-container .hotel-card .book-button-slide .view-rooms-link:hover, .parent .room-container .hotel-card .view-rooms-button-slide .book-now-link:hover, .parent .room-container .hotel-card .book-button-slide .book-now-link:hover, .parent .room-container .room-card .view-rooms-button-slide .view-rooms-link:hover, .parent .room-container .room-card .book-button-slide .view-rooms-link:hover, .parent .room-container .room-card .view-rooms-button-slide .book-now-link:hover, .parent .room-container .room-card .book-button-slide .book-now-link:hover {
     filter: brightness(1.08);
     transition: 0.2s;
   }
-  .parent .guest-favorite-rooms .hotel-card:hover .book-button-slide, .parent .guest-favorite-rooms .room-card:hover .book-button-slide, .parent .hotel-container .hotel-card:hover .book-button-slide, .parent .hotel-container .room-card:hover .book-button-slide, .parent .room-container .hotel-card:hover .book-button-slide, .parent .room-container .room-card:hover .book-button-slide {
+  .parent .hotel-container .hotel-card .book-button-slide .title-price-container, .parent .hotel-container .room-card .book-button-slide .title-price-container, .parent .room-container .hotel-card .book-button-slide .title-price-container, .parent .room-container .room-card .book-button-slide .title-price-container {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+  }
+  .parent .hotel-container .hotel-card .book-button-slide .title-price-container h2, .parent .hotel-container .room-card .book-button-slide .title-price-container h2, .parent .room-container .hotel-card .book-button-slide .title-price-container h2, .parent .room-container .room-card .book-button-slide .title-price-container h2 {
+    width: 70%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding-left: 40px;
+  }
+  .parent .hotel-container .hotel-card .book-button-slide .title-price-container h2 span, .parent .hotel-container .room-card .book-button-slide .title-price-container h2 span, .parent .room-container .hotel-card .book-button-slide .title-price-container h2 span, .parent .room-container .room-card .book-button-slide .title-price-container h2 span {
+    color: rgb(98, 98, 98);
+    font-size: 14px;
+    font-family: roboto;
+    font-weight: 300;
+    text-shadow: 0px 1px 1px rgba(59, 59, 59, 0.4);
+  }
+  .parent .hotel-container .hotel-card .book-button-slide .title-price-container p, .parent .hotel-container .room-card .book-button-slide .title-price-container p, .parent .room-container .hotel-card .book-button-slide .title-price-container p, .parent .room-container .room-card .book-button-slide .title-price-container p {
+    width: 30%;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(231, 248, 248);
+    border-left: 0.5px solid rgb(228, 228, 228);
+  }
+  .parent .hotel-container .hotel-card .book-button-slide .title-price-container p .price-holder, .parent .hotel-container .room-card .book-button-slide .title-price-container p .price-holder, .parent .room-container .hotel-card .book-button-slide .title-price-container p .price-holder, .parent .room-container .room-card .book-button-slide .title-price-container p .price-holder {
+    color: rgb(94, 200, 212);
+    font-size: 20px;
+    font-family: roboto;
+    font-weight: 300;
+    text-shadow: 0px 1px 1px rgba(59, 59, 59, 0.4);
+  }
+  .parent .hotel-container .hotel-card .book-button-slide .title-price-container p .text-holder, .parent .hotel-container .room-card .book-button-slide .title-price-container p .text-holder, .parent .room-container .hotel-card .book-button-slide .title-price-container p .text-holder, .parent .room-container .room-card .book-button-slide .title-price-container p .text-holder {
+    color: rgb(98, 98, 98);
+    font-size: 14px;
+    font-family: roboto;
+    font-weight: 300;
+    text-shadow: 0px 1px 1px rgba(59, 59, 59, 0.4);
+  }
+  .parent .hotel-container .hotel-card:hover .view-rooms-button-slide, .parent .hotel-container .hotel-card:hover .book-button-slide, .parent .hotel-container .room-card:hover .view-rooms-button-slide, .parent .hotel-container .room-card:hover .book-button-slide, .parent .room-container .hotel-card:hover .view-rooms-button-slide, .parent .room-container .hotel-card:hover .book-button-slide, .parent .room-container .room-card:hover .view-rooms-button-slide, .parent .room-container .room-card:hover .book-button-slide {
     height: 100%;
     transition: 0.5s;
   }

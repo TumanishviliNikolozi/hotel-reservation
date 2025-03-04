@@ -395,13 +395,13 @@ html, body, .parent{
                 padding: 0px 15px;
                 background-color: transparent;
                 border: none;
+                border-radius: 5px;
                 @include text-properties-optional($primary-color-1, 16px, roboto-lite, 200);
                 cursor: pointer;
                 transition: 0.2s;
 
-                &:hover{
+                &:hover, .active{
                     background-color: $button-backcolor-2;
-                    border-radius: 5px;
                     transition: 0.2s;
                 }
             }

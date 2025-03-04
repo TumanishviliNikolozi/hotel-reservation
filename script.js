@@ -98,15 +98,3 @@ async function roomsForDisplay(rooms) {
 }
 
 
-document.getElementById('button-for-all-rooms').addEventListener('click', () => {
-    fetchData().then(({roomData}) => {
-        roomsForDisplay(roomData);
-    })
-})
-
-document.getElementById('button-for-single-rooms').addEventListener('click', () => {
-    fetchData().then(({hotelData}) => {
-        hotelsForDisplay(hotelData);
-    })
-})
-

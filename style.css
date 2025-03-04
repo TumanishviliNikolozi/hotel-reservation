@@ -413,6 +413,7 @@ html, body, .parent {
     padding: 0px 15px;
     background-color: transparent;
     border: none;
+    border-radius: 5px;
     color: rgb(98, 98, 98);
     font-size: 16px;
     font-family: roboto-lite;
@@ -420,9 +421,8 @@ html, body, .parent {
     cursor: pointer;
     transition: 0.2s;
   }
-  .parent .sort-button-container .button-for-sort:hover {
+  .parent .sort-button-container .button-for-sort:hover, .parent .sort-button-container .button-for-sort .active {
     background-color: rgba(153, 153, 153, 0.4);
-    border-radius: 5px;
     transition: 0.2s;
   }
   footer {

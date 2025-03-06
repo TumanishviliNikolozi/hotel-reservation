@@ -408,7 +408,14 @@ html, body, .parent {
     filter: brightness(1.1);
     transition: 0.2s;
   }
-  .parent .sort-button-container .button-for-sort {
+  .parent .sort-button-container .container-for-sort-buttons {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    -moz-column-gap: 5px;
+         column-gap: 5px;
+  }
+  .parent .sort-button-container .container-for-sort-buttons .room-type-button, .parent .sort-button-container .container-for-sort-buttons .city-name-button {
     height: 50px;
     padding: 0px 15px;
     background-color: transparent;
@@ -421,7 +428,7 @@ html, body, .parent {
     cursor: pointer;
     transition: 0.2s;
   }
-  .parent .sort-button-container .button-for-sort:hover, .parent .sort-button-container .button-for-sort .active {
+  .parent .sort-button-container .container-for-sort-buttons .room-type-button:hover, .parent .sort-button-container .container-for-sort-buttons .room-type-button .active, .parent .sort-button-container .container-for-sort-buttons .city-name-button:hover, .parent .sort-button-container .container-for-sort-buttons .city-name-button .active {
     background-color: rgba(153, 153, 153, 0.4);
     transition: 0.2s;
   }

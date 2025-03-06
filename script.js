@@ -1,11 +1,32 @@
-document.addEventListener('DOMContentLoaded', () => {
-    fetchData().then(({hotelData, roomData}) => {
-        hotelsForDisplay(hotelData);
-        roomsForDisplay(roomData);
-    })
-})
+document.addEventListener('DOMContentLoaded', async() => {
+    try {
+        const hotelContainer = document.getElementById('hotel-container');
+        const roomContainer = document.getElementById('room-container');
+        const roomTypesContainer = document.getElementById('buttons-for-room-sorting');
+        const cityNamesContainer = document.getElementById('button-for-hotel-sorting')
 
+        const { hotelData, roomData, roomTypes, cityNames} = await fetchData();
 
+        if (hotelContainer) {
+            hotelsForDisplay(hotelData);
+        }
+
+        if (roomContainer) {
+            roomsForDisplay(roomData);
+        }
+
+        if (roomTypesContainer) {
+            roomSortByType(roomTypes);
+        }
+
+        if (cityNamesContainer) {
+            hotelSortBycity(cityNames);
+        }
+
+    } catch (error) {
+        console.error("Error in DOMContentLoaded:", error);
+    }
+});
 
 async function checkResponse(response) {
     if (!response.ok) {
@@ -16,25 +37,70 @@ async function checkResponse(response) {
 
 async function fetchData() {
     try {
-        let [hotelData, roomData] = await Promise.all([
+        let [hotelData, roomData, roomTypes, cityNames] = await Promise.all([
             fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetAll'),
-            fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetAll')
+            fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetAll'),
+            fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetRoomTypes'),
+            fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetCities')
         ]);
 
         hotelData = await checkResponse(hotelData);
         roomData = await checkResponse(roomData);
+        roomTypes = await checkResponse(roomTypes);
+        cityNames = await checkResponse(cityNames);
 
-        return {hotelData, roomData};
+        return {hotelData, roomData, roomTypes, cityNames};
 
     } catch (error) {
         console.error('error', error);
+        return {hotelData: [], roomData: [], roomTypes: [], cityNames: []};
     }
+}
+
+async function hotelSortBycity(citiesSort) {
+    try {
+        let cityNamesContainer = document.getElementById('button-for-hotel-sorting');
+        if(!cityNamesContainer) return;
+
+        citiesSort.forEach(citySort => {
+            let cityNameButton = document.createElement('button');
+            cityNameButton.classList.add('city-name-button');
+            cityNameButton.setAttribute('id', `${citiesSort.indexOf(citySort)+1}`)
+            cityNameButton.textContent = citySort;
+            console.log(cityNameButton.id)
+
+            cityNamesContainer.appendChild(cityNameButton);
+        });
+    } catch (error) {
+        console.error('In rooms types sorting:', error);
+    }
+    
+}
+
+
+async function roomSortByType(roomsSort) {
+    try {
+        let roomTypesContainer = document.getElementById('buttons-for-room-sorting'); 
+        if(!roomTypesContainer) return;
+
+        roomsSort.forEach(roomSort => {
+            let roomTypeButton = document.createElement('button');
+            roomTypeButton.classList.add('room-type-button');
+            roomTypeButton.textContent = roomSort.name;
+
+            roomTypesContainer.appendChild(roomTypeButton);
+        });
+    } catch (error) {
+        console.error('In rooms types sorting:', error);
+    }
+    
 }
 
 async function hotelsForDisplay(hotels) {
     try {
 
         let hotelContainer = document.getElementById('hotel-container');
+        if (!hotelContainer) return;
 
         hotels.forEach(hotel => {
             let hotelCard = document.createElement('div');
@@ -65,6 +131,7 @@ async function roomsForDisplay(rooms) {
     try {
 
         let roomContainer = document.getElementById('room-container');
+        if (!roomContainer) return;
 
         rooms.forEach(room => {
             let roomCard = document.createElement('div');
@@ -96,5 +163,6 @@ async function roomsForDisplay(rooms) {
         console.error('In roomsForDisplay function', error);
     }
 }
+
 
 

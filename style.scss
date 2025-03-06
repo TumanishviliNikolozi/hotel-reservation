@@ -390,20 +390,26 @@ html, body, .parent{
                 }
             }
 
-            .button-for-sort{
+            .container-for-sort-buttons{
                 height: 50px;
-                padding: 0px 15px;
-                background-color: transparent;
-                border: none;
-                border-radius: 5px;
-                @include text-properties-optional($primary-color-1, 16px, roboto-lite, 200);
-                cursor: pointer;
-                transition: 0.2s;
+                @include display-flex-align-items(center);
+                column-gap: 5px;
 
-                &:hover, .active{
-                    background-color: $button-backcolor-2;
+                .room-type-button, .city-name-button{
+                    height: 50px;
+                    padding: 0px 15px;
+                    background-color: transparent;
+                    border: none;
+                    border-radius: 5px;
+                    @include text-properties-optional($primary-color-1, 16px, roboto-lite, 200);
+                    cursor: pointer;
                     transition: 0.2s;
-                }
+
+                    &:hover, .active{
+                        background-color: $button-backcolor-2;
+                        transition: 0.2s;
+                    }
+                } 
             }
         }
 

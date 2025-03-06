@@ -70,10 +70,17 @@ async function hotelSortBycity(citiesSort) {
         citiesSort.forEach(citySort => {
             let cityNameButton = document.createElement('button');
             cityNameButton.classList.add('city-name-button');
+            cityNameButton.setAttribute('data-city-Name-id', (citiesSort.indexOf(citySort)+1));
+
             cityNameButton.textContent = citySort;
-            console.log(cityNameButton.id)
 
             cityNamesContainer.appendChild(cityNameButton);
+
+            cityNameButton.addEventListener('click', (event) => {
+                let filterbyCityButton = event.target.dataset.cityNameid;
+                // console.log(filterbyCityButton);
+                sortElementsByCityName(filterbyCityButton);
+            })
         });
     } catch (error) {
         console.error('In rooms types sorting:', error);
@@ -97,9 +104,9 @@ async function roomSortByType(roomsSort) {
             roomTypesContainer.appendChild(roomTypeButton);
 
             roomTypeButton.addEventListener('click', (event) => {
-                let filterButtonType = event.target.dataset.roomTypeId;
-                // console.log(filterButtonType);
-                sortElementsByType(filterButtonType);
+                let filterbyTypeButton = event.target.dataset.roomTypeId;
+                // console.log(filterbyTypeButton);
+                sortElementsByType(filterbyTypeButton);
             })
         });
     } catch (error) {
@@ -113,6 +120,8 @@ async function hotelsForDisplay(hotels) {
 
         let hotelContainer = document.getElementById('hotel-container');
         if (!hotelContainer) return;
+
+        hotelContainer.innerHTML = '';
 
         hotels.forEach(hotel => {
             let hotelCard = document.createElement('div');
@@ -180,10 +189,19 @@ async function roomsForDisplay(rooms, filterButtons) {
     }
 }
 
+if(document.getElementById('button-for-all-rooms')){
+    document.getElementById('button-for-all-rooms').addEventListener('click', () => {
+        roomsForDisplay(roomData);
+    });
+}
 
-document.getElementById('button-for-all-rooms').addEventListener('click', () => {
-    roomsForDisplay(roomData);
-});
+if(document.getElementById('button-for-all-hotels')){
+    document.getElementById('button-for-all-hotels').addEventListener('click', () => {
+        hotelsForDisplay(hotelData);
+    });
+}
+
+
 
 
 function sortElementsByType(filterButtonRoomType){
@@ -199,3 +217,15 @@ function sortElementsByType(filterButtonRoomType){
     })
 }
 
+function sortElementsByCityName(filterButtonCityName){
+    let elementForSortByCity = document.querySelectorAll('.hotel-card');
+
+    elementForSortByCity.forEach(card => {
+        const cityName = cityNames[card.dataset.cityNameid];
+        if(filterButtonCityName === cityName){
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    })
+}

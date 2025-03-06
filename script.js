@@ -1,3 +1,5 @@
+let hotelData, roomData, roomTypes, cityNames;
+
 document.addEventListener('DOMContentLoaded', async() => {
     try {
         const hotelContainer = document.getElementById('hotel-container');
@@ -6,6 +8,8 @@ document.addEventListener('DOMContentLoaded', async() => {
         const cityNamesContainer = document.getElementById('button-for-hotel-sorting')
 
         const { hotelData, roomData, roomTypes, cityNames} = await fetchData();
+
+        globalRoomData = roomData;
 
         if (hotelContainer) {
             hotelsForDisplay(hotelData);
@@ -28,6 +32,7 @@ document.addEventListener('DOMContentLoaded', async() => {
     }
 });
 
+
 async function checkResponse(response) {
     if (!response.ok) {
         throw new Error('Response is not ok');
@@ -37,7 +42,7 @@ async function checkResponse(response) {
 
 async function fetchData() {
     try {
-        let [hotelData, roomData, roomTypes, cityNames] = await Promise.all([
+        [hotelData, roomData, roomTypes, cityNames] = await Promise.all([
             fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetAll'),
             fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetAll'),
             fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetRoomTypes'),
@@ -65,7 +70,6 @@ async function hotelSortBycity(citiesSort) {
         citiesSort.forEach(citySort => {
             let cityNameButton = document.createElement('button');
             cityNameButton.classList.add('city-name-button');
-            cityNameButton.setAttribute('id', `${citiesSort.indexOf(citySort)+1}`)
             cityNameButton.textContent = citySort;
             console.log(cityNameButton.id)
 
@@ -86,9 +90,17 @@ async function roomSortByType(roomsSort) {
         roomsSort.forEach(roomSort => {
             let roomTypeButton = document.createElement('button');
             roomTypeButton.classList.add('room-type-button');
+            roomTypeButton.setAttribute(`data-room-Type-id`, `${roomSort.id}`);
+
             roomTypeButton.textContent = roomSort.name;
 
             roomTypesContainer.appendChild(roomTypeButton);
+
+            roomTypeButton.addEventListener('click', (event) => {
+                let filterButtonType = event.target.dataset.roomTypeId;
+                // console.log(filterButtonType);
+                sortElementsByType(filterButtonType);
+            })
         });
     } catch (error) {
         console.error('In rooms types sorting:', error);
@@ -127,15 +139,19 @@ async function hotelsForDisplay(hotels) {
     }
 }
 
-async function roomsForDisplay(rooms) {
+async function roomsForDisplay(rooms, filterButtons) {
     try {
 
         let roomContainer = document.getElementById('room-container');
         if (!roomContainer) return;
 
+        roomContainer.innerHTML = '';
+
         rooms.forEach(room => {
             let roomCard = document.createElement('div');
             roomCard.classList.add('room-card');
+            roomCard.setAttribute('data-room-id', `${room.roomTypeId}`)
+            // console.log(room.id)
 
             let roomCardImg = document.createElement('div');
             roomCardImg.classList.add('room-card-img');
@@ -165,4 +181,21 @@ async function roomsForDisplay(rooms) {
 }
 
 
+document.getElementById('button-for-all-rooms').addEventListener('click', () => {
+    roomsForDisplay(roomData);
+});
+
+
+function sortElementsByType(filterButtonRoomType){
+    let elementForSortByType = document.querySelectorAll('.room-card');
+
+    elementForSortByType.forEach(card => {
+        const roomId = card.dataset.roomId;
+        if(filterButtonRoomType === roomId){
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    })
+}
 

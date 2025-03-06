@@ -206,13 +206,12 @@ html, body, .parent{
         .hotel-container, .room-container{
             @include sides-free-space;
             margin-bottom: 50px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            row-gap: 50px;
+            display: grid;
+            grid-template-columns: calc(33.33% - 23px) calc(33.33% - 23px) calc(33.33% - 23px);
+            gap: 55px 35px;
 
             .hotel-card, .room-card{
-                width: 390px;
+                width: 100%;
                 height: auto;
                 position: relative;
                 box-shadow: 0px 3px 3px $shadow-color-1;
@@ -221,7 +220,7 @@ html, body, .parent{
                 .hotel-card-img, .room-card-img{
                     width: 100%;
                     height: 260px;
-                    margin-bottom: 70px;
+                    margin-bottom: 68px;
 
                     img{
                         width: 100%;

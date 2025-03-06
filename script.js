@@ -1,4 +1,37 @@
-let hotelData, roomData, roomTypes, cityNames;
+
+// ----------------------------- fetch and confirmation ------------------------------------
+
+
+async function fetchData() {
+    try {
+        [hotelData, roomData, roomTypes, cityNames] = await Promise.all([
+            fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetAll'),
+            fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetAll'),
+            fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetRoomTypes'),
+            fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetCities')
+        ]);
+
+        hotelData = await checkResponse(hotelData);
+        roomData = await checkResponse(roomData);
+        roomTypes = await checkResponse(roomTypes);
+        cityNames = await checkResponse(cityNames);
+
+        return {hotelData, roomData, roomTypes, cityNames};
+
+    } catch (error) {
+        console.error('error', error);
+        return {hotelData: [], roomData: [], roomTypes: [], cityNames: []};
+    }
+}
+
+
+async function checkResponse(response) {
+    if (!response.ok) {
+        throw new Error('Response is not ok');
+    }
+    return response.json();
+}
+
 
 document.addEventListener('DOMContentLoaded', async() => {
     try {
@@ -8,8 +41,6 @@ document.addEventListener('DOMContentLoaded', async() => {
         const cityNamesContainer = document.getElementById('button-for-hotel-sorting')
 
         const { hotelData, roomData, roomTypes, cityNames} = await fetchData();
-
-        globalRoomData = roomData;
 
         if (hotelContainer) {
             hotelsForDisplay(hotelData);
@@ -33,34 +64,14 @@ document.addEventListener('DOMContentLoaded', async() => {
 });
 
 
-async function checkResponse(response) {
-    if (!response.ok) {
-        throw new Error('Response is not ok');
-    }
-    return response.json();
-}
+// ----------------------------- fetch and confirmation end ------------------------------------
 
-async function fetchData() {
-    try {
-        [hotelData, roomData, roomTypes, cityNames] = await Promise.all([
-            fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetAll'),
-            fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetAll'),
-            fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetRoomTypes'),
-            fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetCities')
-        ]);
 
-        hotelData = await checkResponse(hotelData);
-        roomData = await checkResponse(roomData);
-        roomTypes = await checkResponse(roomTypes);
-        cityNames = await checkResponse(cityNames);
 
-        return {hotelData, roomData, roomTypes, cityNames};
+// ----------------------------- containters ---------------------------------------
 
-    } catch (error) {
-        console.error('error', error);
-        return {hotelData: [], roomData: [], roomTypes: [], cityNames: []};
-    }
-}
+
+// ----------------------------- hotels HTML ---------------------------------------
 
 async function hotelSortBycity(citiesSort) {
     try {
@@ -89,31 +100,26 @@ async function hotelSortBycity(citiesSort) {
 }
 
 
-async function roomSortByType(roomsSort) {
-    try {
-        let roomTypesContainer = document.getElementById('buttons-for-room-sorting'); 
-        if(!roomTypesContainer) return;
-
-        roomsSort.forEach(roomSort => {
-            let roomTypeButton = document.createElement('button');
-            roomTypeButton.classList.add('room-type-button');
-            roomTypeButton.setAttribute(`data-room-Type-id`, `${roomSort.id}`);
-
-            roomTypeButton.textContent = roomSort.name;
-
-            roomTypesContainer.appendChild(roomTypeButton);
-
-            roomTypeButton.addEventListener('click', (event) => {
-                let filterbyTypeButton = event.target.dataset.roomTypeId;
-                // console.log(filterbyTypeButton);
-                sortElementsByType(filterbyTypeButton);
-            })
-        });
-    } catch (error) {
-        console.error('In rooms types sorting:', error);
-    }
-    
+if(document.getElementById('button-for-all-hotels')){
+    document.getElementById('button-for-all-hotels').addEventListener('click', () => {
+        hotelsForDisplay(hotelData);
+    });
 }
+
+
+function sortElementsByCityName(filterButtonCityName){
+    let elementForSortByCity = document.querySelectorAll('.hotel-card');
+
+    elementForSortByCity.forEach(card => {
+        const cityName = cityNames[card.dataset.cityNameid];
+        if(filterButtonCityName === cityName){
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    })
+}
+
 
 async function hotelsForDisplay(hotels) {
     try {
@@ -148,7 +154,62 @@ async function hotelsForDisplay(hotels) {
     }
 }
 
-async function roomsForDisplay(rooms, filterButtons) {
+
+// ----------------------------- hotels HTML end ---------------------------------------
+
+
+// ----------------------------- rooms HTML ---------------------------------------
+
+
+async function roomSortByType(roomsSort) {
+    try {
+        let roomTypesContainer = document.getElementById('buttons-for-room-sorting'); 
+        if(!roomTypesContainer) return;
+
+        roomsSort.forEach(roomSort => {
+            let roomTypeButton = document.createElement('button');
+            roomTypeButton.classList.add('room-type-button');
+            roomTypeButton.setAttribute(`data-room-Type-id`, `${roomSort.id}`);
+
+            roomTypeButton.textContent = roomSort.name;
+
+            roomTypesContainer.appendChild(roomTypeButton);
+
+            roomTypeButton.addEventListener('click', (event) => {
+                let filterbyTypeButton = event.target.dataset.roomTypeId;
+                // console.log(filterbyTypeButton);
+                sortElementsByType(filterbyTypeButton);
+            })
+        });
+    } catch (error) {
+        console.error('In rooms types sorting:', error);
+    }
+    
+}
+
+
+if(document.getElementById('button-for-all-rooms')){
+    document.getElementById('button-for-all-rooms').addEventListener('click', () => {
+        roomsForDisplay(roomData);
+    });
+}
+
+
+function sortElementsByType(filterButtonRoomType){
+    let elementForSortByType = document.querySelectorAll('.room-card');
+
+    elementForSortByType.forEach(card => {
+        const roomId = card.dataset.roomId;
+        if(filterButtonRoomType === roomId){
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    })
+}
+
+
+async function roomsForDisplay(rooms) {
     try {
 
         let roomContainer = document.getElementById('room-container');
@@ -189,43 +250,15 @@ async function roomsForDisplay(rooms, filterButtons) {
     }
 }
 
-if(document.getElementById('button-for-all-rooms')){
-    document.getElementById('button-for-all-rooms').addEventListener('click', () => {
-        roomsForDisplay(roomData);
-    });
-}
 
-if(document.getElementById('button-for-all-hotels')){
-    document.getElementById('button-for-all-hotels').addEventListener('click', () => {
-        hotelsForDisplay(hotelData);
-    });
-}
+// ----------------------------- rooms HTML end ---------------------------------------
+
+
+// ----------------------------- containters end ---------------------------------------
 
 
 
 
-function sortElementsByType(filterButtonRoomType){
-    let elementForSortByType = document.querySelectorAll('.room-card');
 
-    elementForSortByType.forEach(card => {
-        const roomId = card.dataset.roomId;
-        if(filterButtonRoomType === roomId){
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    })
-}
 
-function sortElementsByCityName(filterButtonCityName){
-    let elementForSortByCity = document.querySelectorAll('.hotel-card');
 
-    elementForSortByCity.forEach(card => {
-        const cityName = cityNames[card.dataset.cityNameid];
-        if(filterButtonCityName === cityName){
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    })
-}

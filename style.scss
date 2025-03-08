@@ -207,7 +207,7 @@ html, body, .parent{
             @include sides-free-space;
             margin-bottom: 50px;
             display: grid;
-            grid-template-columns: calc(33.33% - 23px) calc(33.33% - 23px) calc(33.33% - 23px);
+            grid-template-columns: repeat(3, calc(33.33% - 23px));
             gap: 55px 35px;
 
             .hotel-card, .room-card{
@@ -409,6 +409,26 @@ html, body, .parent{
                         transition: 0.2s;
                     }
                 } 
+            }
+        }
+
+        .room-filter{
+            @include sides-free-space;
+            height: 300px;
+            margin-bottom: 40px;
+            background-color: white;
+            border: 1px solid $border-color-1;
+            border-radius: 5px;
+            box-shadow: 0px 4px 3px $shadow-color-1;
+            display: grid;
+            grid-template-columns: repeat(7, calc(100% / 7));
+            grid-template-rows: repeat(2, 50%);
+
+            .prise-per-night{
+                grid-column: 1/3;
+                grid-row: 1/3;
+                @include width-height-100;
+                
             }
         }
 

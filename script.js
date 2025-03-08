@@ -259,6 +259,52 @@ async function roomsForDisplay(rooms) {
 
 
 
+const rangeInput = document.querySelectorAll(".range-field-input");
 
+rangeInput.forEach(index => {
+    // console.log(index)
+})
+const priceInput = document.querySelectorAll(".number-field-input");
+const range = document.getElementById('slider-progress');
+// console.log(range)
 
+let priceGap = 50;
 
+priceInput.forEach((input) => {
+    input.addEventListener("change", (event) => {
+        let minPrice = parseInt(priceInput[0].value);
+        let maxPrice = parseInt(priceInput[1].value);
+
+        if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
+            if (event.target.className === "min-number-input") {
+                rangeInput[0].value = minPrice;
+                range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
+            } else {
+                rangeInput[1].value = maxPrice;
+                range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+            }
+        }
+    });
+});
+
+rangeInput.forEach(input => {
+    input.addEventListener("change", (event) => {
+        let minVal = parseInt(rangeInput[0].value);
+        console.log(minVal)
+        let maxVal = parseInt(rangeInput[1].value);
+
+        if (maxVal - minVal < priceGap) {
+            if (event.target.className === "min-range") {
+                rangeInput[0].value = maxVal - priceGap;
+            } else if(event.target.className === "max-range"){
+                rangeInput[1].value = minVal + priceGap;
+            }
+
+        } else {
+            priceInput[0].value = minVal;
+            priceInput[1].value = maxVal;
+            range.style.left = (minVal / rangeInput[0].max) * 100 + "%";
+            range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+        }
+    });
+});

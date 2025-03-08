@@ -414,7 +414,7 @@ html, body, .parent{
 
         .room-filter{
             @include sides-free-space;
-            height: 300px;
+            height: 220px;
             margin-bottom: 40px;
             background-color: white;
             border: 1px solid $border-color-1;
@@ -428,8 +428,72 @@ html, body, .parent{
                 grid-column: 1/3;
                 grid-row: 1/3;
                 @include width-height-100;
-                
-            }
+                @include display-flex-direction-column(start, center);
+
+                .prise-per-night-title{
+                    width: 100%;
+                    height: 40px;
+                    margin: 40px 0px 20px;
+                    @include display-flex-all-center;
+
+                    span{
+                        @include text-properties-optional($primary-color-1, 16px, roboto, 200);
+                    }
+                }
+
+                .prise-per-night-container{
+                    width: 100%;
+                    padding: 20px 40px;
+                    @include display-flex-direction-column(start, center);
+
+                    .slider{
+                        width: 100%;
+                        height: 7px;
+                        border-radius: 7px;
+                        background-color: $border-color-1;
+                        position: relative;
+
+                        .progress{
+                            height: 100%;
+                            position: absolute;
+                            top: 0px;
+                            left: 0%;
+                            right: 0%;
+                            border-radius: 7px;
+                            background-color: $primary-color-3;
+                        }
+                    }
+
+                    .range-input{
+                        width: 100%;
+                        height: 7px;
+                        border-radius: 7px;
+                        position: relative;
+
+                        input{
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            top: -7px;
+                            background: none;
+                            pointer-events: none;
+                            appearance: none;
+
+                        }
+
+                        input[type="range"]{
+                            width: 17px;
+                            height: 7px;
+                            border-radius: 50%;
+                            background: #17a2b8;
+                            pointer-events: auto;
+                            cursor:pointer;
+                            appearance: none;
+                        }
+                    }
+                }
+            }    
+            
         }
 
     }

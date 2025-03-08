@@ -435,7 +435,7 @@ html, body, .parent {
     max-width: 1280px;
     margin: 0px auto;
     padding: 0px 20px;
-    height: 300px;
+    height: 220px;
     margin-bottom: 40px;
     background-color: white;
     border: 1px solid rgb(228, 228, 228);
@@ -450,6 +450,76 @@ html, body, .parent {
     grid-row: 1/3;
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+  }
+  .parent .room-filter .prise-per-night .prise-per-night-title {
+    width: 100%;
+    height: 40px;
+    margin: 40px 0px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .parent .room-filter .prise-per-night .prise-per-night-title span {
+    color: rgb(98, 98, 98);
+    font-size: 16px;
+    font-family: roboto;
+    font-weight: 200;
+  }
+  .parent .room-filter .prise-per-night .prise-per-night-container {
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+  }
+  .parent .room-filter .prise-per-night .prise-per-night-container .slider {
+    width: 100%;
+    height: 7px;
+    border-radius: 7px;
+    background-color: rgb(228, 228, 228);
+    position: relative;
+  }
+  .parent .room-filter .prise-per-night .prise-per-night-container .slider .progress {
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0%;
+    right: 0%;
+    border-radius: 7px;
+    background-color: rgb(94, 200, 212);
+  }
+  .parent .room-filter .prise-per-night .prise-per-night-container .range-input {
+    width: 100%;
+    height: 7px;
+    border-radius: 7px;
+    position: relative;
+  }
+  .parent .room-filter .prise-per-night .prise-per-night-container .range-input input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -7px;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+  }
+  .parent .room-filter .prise-per-night .prise-per-night-container .range-input input[type=range] {
+    width: 17px;
+    height: 7px;
+    border-radius: 50%;
+    background: #17a2b8;
+    pointer-events: auto;
+    cursor: pointer;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
   }
   footer {
     width: 100%;

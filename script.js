@@ -38,27 +38,33 @@ document.addEventListener('DOMContentLoaded', async() => {
         const hotelContainer = document.getElementById('hotel-container');
         const roomContainer = document.getElementById('room-container');
         const roomTypesContainer = document.getElementById('buttons-for-room-sorting');
-        const cityNamesContainer = document.getElementById('button-for-hotel-sorting')
+        const searchBarContainer = document.getElementById('search-bar-container');
+        const cityNamesContainer = document.getElementById('button-for-hotel-sorting');
 
-        const { hotelData, roomData, roomTypes, cityNames} = await fetchData();
 
-        if (hotelContainer) {
+        const {hotelData, roomData, roomTypes, cityNames} = await fetchData();
+
+        if(hotelContainer){
             hotelsForDisplay(hotelData);
         }
 
-        if (roomContainer) {
+        if(roomContainer){
             roomsForDisplay(roomData);
         }
 
-        if (roomTypesContainer) {
+        if(roomTypesContainer){
             roomSortByType(roomTypes);
         }
 
-        if (cityNamesContainer) {
+        if(searchBarContainer){
+            searchBar(roomData);
+        }
+
+        if(cityNamesContainer){
             hotelSortBycity(cityNames);
         }
 
-    } catch (error) {
+    } catch(error){
         console.error("Error in DOMContentLoaded:", error);
     }
 });
@@ -195,6 +201,34 @@ if(document.getElementById('button-for-all-rooms')){
 }
 
 
+async function searchBar() {
+    try {
+        let searchBarInput = document.getElementById('search-bar-input').value.toLowerCase();
+        let roomCards = document.querySelectorAll('.room-card');
+
+        // console.log(searchBarInput);
+
+        roomCards.forEach(card => {
+            let cardName = card.dataset.cardName;
+
+            if(cardName.includes(searchBarInput)){
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        })
+
+        document.getElementById('search-bar-clear').addEventListener('click', () => {
+            document.getElementById('search-bar-input').value = '';
+            searchBar();
+        });
+        
+    } catch (error) {
+        console.error('Problem with search bar:', error)
+    }
+}
+
+
 function sortElementsByType(filterButtonRoomType){
     let elementForSortByType = document.querySelectorAll('.room-card');
 
@@ -206,26 +240,6 @@ function sortElementsByType(filterButtonRoomType){
             card.style.display = 'none';
         }
     });
-}
-
-
-function searchBar(searchedName, rooms){
-    let searchBarValue = searchedName;
-    console.log(searchBarValue)
-    // let cards = document.querySelectorAll('.room-card');
-
-    rooms.forEach(cardName => {
-        console.log(cardName)
-        const searchCardName = cardName.name;
-        // console.log(searchCardName)
-        
-            if(searchCardName.toLowerCase().includes(searchBarValue.toLowerCase())){
-                cardName.style.display = 'block';
-            } else {
-                cardName.style.display = 'none';
-            }
-        
-    })
 }
 
 
@@ -241,6 +255,7 @@ async function roomsForDisplay(rooms) {
             let roomCard = document.createElement('div');
             roomCard.classList.add('room-card');
             roomCard.setAttribute('data-room-id', `${room.roomTypeId}`)
+            roomCard.dataset.cardName = room.name.toLowerCase();
             // console.log(room.id)
 
             let roomCardImg = document.createElement('div');
@@ -263,11 +278,6 @@ async function roomsForDisplay(rooms) {
             roomContainer.appendChild(roomCard);
             roomCard.appendChild(roomCardImg);
             roomCard.appendChild(bookButtonSlide);
-        });
-
-        document.getElementById('search-bar-input').addEventListener('input', () => {
-            let getInput = document.getElementById('search-bar-input').value;
-            searchBar(getInput, rooms);
         });
 
     } catch (error) {

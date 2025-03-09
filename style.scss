@@ -411,11 +411,12 @@ html, body, .parent{
                 } 
             }
 
-            .search-bar{
+            .search-bar-container{
                 width: 30%;
                 height: 100%;
                 margin: 0px 0px 0px auto;
                 @include display-flex-align-items(center);
+                position: relative;
 
                 .search-bar-input{
                     width: 100%;
@@ -425,6 +426,22 @@ html, body, .parent{
                     border-radius: 8px;
                     outline: none;
                     @include text-properties-optional($primary-color-1, 16px, roboto-lite, 100)
+                }
+
+                .search-bar-clear{
+                    width: 30px;
+                    height: 30px;
+                    border: 1px solid $border-color-4;
+                    border-radius: 8px;
+                    position: absolute;
+                    right: 20px;
+                    @include display-flex-all-center;
+                    background-color: $primary-color-3;
+                    cursor: pointer;
+                    
+                    span{
+                        @include text-properties-optional(white, 20px, roboto, 200);
+                    }
                 }
             }
         }

@@ -478,19 +478,36 @@ html, body, .parent{
                             background: none;
                             pointer-events: none;
                             appearance: none;
-
+                            -webkit-appearance: none;
+                            -moz-appearance: none;
                         }
 
-                        input[type="range"]{
+                        input[type="range"]::-webkit-slider-thumb {
+                            height: 17px;
                             width: 17px;
-                            height: 7px;
                             border-radius: 50%;
                             background: #17a2b8;
                             pointer-events: auto;
-                            cursor:pointer;
-                            appearance: none;
+                            -webkit-appearance: none;
+                            box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+                        }
+
+                        input[type="range"]::-moz-range-thumb {
+                            height: 17px;
+                            width: 17px;
+                            border: none;
+                            border-radius: 50%;
+                            background: #17a2b8;
+                            pointer-events: auto;
+                            -moz-appearance: none;
+                            box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
                         }
                     }
+                }
+
+                input[type="number"]::-webkit-outer-spin-button,
+                input[type="number"]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
                 }
             }    
             

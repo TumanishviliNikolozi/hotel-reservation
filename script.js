@@ -276,10 +276,10 @@ priceInput.forEach((input) => {
         let maxPrice = parseInt(priceInput[1].value);
 
         if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
-            if (event.target.className === "min-number-input") {
+            if (event.target.classList.contains('min-number-input')) {
                 rangeInput[0].value = minPrice;
                 range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
-            } else {
+            } else if(event.target.classList.contains('max-number-input')){
                 rangeInput[1].value = maxPrice;
                 range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
             }
@@ -294,17 +294,20 @@ rangeInput.forEach(input => {
         let maxVal = parseInt(rangeInput[1].value);
 
         if (maxVal - minVal < priceGap) {
-            if (event.target.className === "min-range") {
-                rangeInput[0].value = maxVal - priceGap;
-            } else if(event.target.className === "max-range"){
-                rangeInput[1].value = minVal + priceGap;
+            if (event.target.classList.contains('min-range')) {
+                minVal = maxVal - priceGap
+                rangeInput[0].value = minVal
+                maxVal = minVal + priceGap;
+            } else if(event.target.classList.contains('max-range')){
+                rangeInput[1].value = maxVal;
             }
 
-        } else {
-            priceInput[0].value = minVal;
-            priceInput[1].value = maxVal;
-            range.style.left = (minVal / rangeInput[0].max) * 100 + "%";
-            range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
-        }
+        } 
+        
+        priceInput[0].value = minVal;
+        priceInput[1].value = maxVal;
+        range.style.left = (minVal / rangeInput[0].max) * 100 + "%";
+        range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+        
     });
 });

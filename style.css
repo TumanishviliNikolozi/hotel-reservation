@@ -506,20 +506,32 @@ html, body, .parent {
     top: -7px;
     background: none;
     pointer-events: none;
+    appearance: none;
     -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
+    -moz-appearance: none;
   }
-  .parent .room-filter .prise-per-night .prise-per-night-container .range-input input[type=range] {
+  .parent .room-filter .prise-per-night .prise-per-night-container .range-input input[type=range]::-webkit-slider-thumb {
+    height: 17px;
     width: 17px;
-    height: 7px;
     border-radius: 50%;
     background: #17a2b8;
     pointer-events: auto;
-    cursor: pointer;
     -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+  }
+  .parent .room-filter .prise-per-night .prise-per-night-container .range-input input[type=range]::-moz-range-thumb {
+    height: 17px;
+    width: 17px;
+    border: none;
+    border-radius: 50%;
+    background: #17a2b8;
+    pointer-events: auto;
+    -moz-appearance: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+  }
+  .parent .room-filter .prise-per-night input[type=number]::-webkit-outer-spin-button,
+  .parent .room-filter .prise-per-night input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
   }
   footer {
     width: 100%;

@@ -205,6 +205,26 @@ function sortElementsByType(filterButtonRoomType){
         } else {
             card.style.display = 'none';
         }
+    });
+}
+
+
+function searchBar(searchedName, rooms){
+    let searchBarValue = searchedName;
+    console.log(searchBarValue)
+    // let cards = document.querySelectorAll('.room-card');
+
+    rooms.forEach(cardName => {
+        console.log(cardName)
+        const searchCardName = cardName.name;
+        // console.log(searchCardName)
+        
+            if(searchCardName.toLowerCase().includes(searchBarValue.toLowerCase())){
+                cardName.style.display = 'block';
+            } else {
+                cardName.style.display = 'none';
+            }
+        
     })
 }
 
@@ -231,7 +251,7 @@ async function roomsForDisplay(rooms) {
             bookButtonSlide.classList.add('book-button-slide');
             bookButtonSlide.innerHTML = `
                 <div class="title-price-container">
-                    <h2><span>${room.name}</span></h2>
+                    <h2><span class="card-name-holder">${room.name}</span></h2>
                     <p>
                         <span class="price-holder">${room.pricePerNight} $</span>
                         <span class="text-holder">a night</span>
@@ -243,6 +263,11 @@ async function roomsForDisplay(rooms) {
             roomContainer.appendChild(roomCard);
             roomCard.appendChild(roomCardImg);
             roomCard.appendChild(bookButtonSlide);
+        });
+
+        document.getElementById('search-bar-input').addEventListener('input', () => {
+            let getInput = document.getElementById('search-bar-input').value;
+            searchBar(getInput, rooms);
         });
 
     } catch (error) {
@@ -257,21 +282,16 @@ async function roomsForDisplay(rooms) {
 // ----------------------------- containters end ---------------------------------------
 
 
-
+// ----------------------------- 
 
 const rangeInput = document.querySelectorAll(".range-field-input");
-
-rangeInput.forEach(index => {
-    // console.log(index)
-})
 const priceInput = document.querySelectorAll(".number-field-input");
 const range = document.getElementById('slider-progress');
-// console.log(range)
 
 let priceGap = 50;
 
 priceInput.forEach((input) => {
-    input.addEventListener("change", (event) => {
+    input.addEventListener("input", (event) => {
         let minPrice = parseInt(priceInput[0].value);
         let maxPrice = parseInt(priceInput[1].value);
 
@@ -288,7 +308,7 @@ priceInput.forEach((input) => {
 });
 
 rangeInput.forEach(input => {
-    input.addEventListener("change", (event) => {
+    input.addEventListener("input", (event) => {
         let minVal = parseInt(rangeInput[0].value);
         console.log(minVal)
         let maxVal = parseInt(rangeInput[1].value);
@@ -297,11 +317,10 @@ rangeInput.forEach(input => {
             if (event.target.classList.contains('min-range')) {
                 minVal = maxVal - priceGap
                 rangeInput[0].value = minVal
-                maxVal = minVal + priceGap;
             } else if(event.target.classList.contains('max-range')){
+                maxVal = minVal + priceGap;
                 rangeInput[1].value = maxVal;
             }
-
         } 
         
         priceInput[0].value = minVal;

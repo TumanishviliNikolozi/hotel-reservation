@@ -410,11 +410,28 @@ html, body, .parent{
                     }
                 } 
             }
+
+            .search-bar{
+                width: 30%;
+                height: 100%;
+                margin: 0px 0px 0px auto;
+                @include display-flex-align-items(center);
+
+                .search-bar-input{
+                    width: 100%;
+                    height: 50px;
+                    padding: 10px 15px;
+                    border: 1px solid $border-color-4;
+                    border-radius: 8px;
+                    outline: none;
+                    @include text-properties-optional($primary-color-1, 16px, roboto-lite, 100)
+                }
+            }
         }
 
         .room-filter{
             @include sides-free-space;
-            height: 220px;
+            height: 200px;
             margin-bottom: 40px;
             background-color: white;
             border: 1px solid $border-color-1;
@@ -422,7 +439,7 @@ html, body, .parent{
             box-shadow: 0px 4px 3px $shadow-color-1;
             display: grid;
             grid-template-columns: repeat(7, calc(100% / 7));
-            grid-template-rows: repeat(2, 50%);
+            grid-template-rows: 60% 40%;
 
             .prise-per-night{
                 grid-column: 1/3;
@@ -443,12 +460,12 @@ html, body, .parent{
 
                 .prise-per-night-container{
                     width: 100%;
-                    padding: 20px 40px;
+                    padding: 0px 40px 20px;
                     @include display-flex-direction-column(start, center);
 
                     .slider{
                         width: 100%;
-                        height: 7px;
+                        height: 5px;
                         border-radius: 7px;
                         background-color: $border-color-1;
                         position: relative;
@@ -466,7 +483,7 @@ html, body, .parent{
 
                     .range-input{
                         width: 100%;
-                        height: 7px;
+                        height: 5px;
                         border-radius: 7px;
                         position: relative;
 
@@ -474,7 +491,7 @@ html, body, .parent{
                             position: absolute;
                             width: 100%;
                             height: 100%;
-                            top: -7px;
+                            top: -5px;
                             background: none;
                             pointer-events: none;
                             appearance: none;
@@ -485,29 +502,63 @@ html, body, .parent{
                         input[type="range"]::-webkit-slider-thumb {
                             height: 17px;
                             width: 17px;
-                            border-radius: 50%;
-                            background: #17a2b8;
+                            border: 5px solid $slider-thumb-color-1;
+                            background: white;
                             pointer-events: auto;
+                            cursor: pointer;
                             -webkit-appearance: none;
-                            box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+                            box-shadow: 0 0 6px $slider-thumb-shadow-1;
+                            transition: 0.1s ease;
+
+                            &:hover{
+                                filter: brightness(1.3);
+                                transition: 0.1s ease;
+                            }
                         }
 
                         input[type="range"]::-moz-range-thumb {
                             height: 17px;
                             width: 17px;
-                            border: none;
-                            border-radius: 50%;
-                            background: #17a2b8;
+                            border: 5px solid $slider-thumb-color-1;
+                            background: white;
                             pointer-events: auto;
+                            cursor: pointer;
                             -moz-appearance: none;
-                            box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+                            box-shadow: 0 0 6px $slider-thumb-shadow-1;
+                            transition: 0.1s ease;
+
+                            &:hover{
+                                filter: brightness(1.3);
+                                transition: 0.1s ease;
+                            }
                         }
                     }
                 }
 
-                input[type="number"]::-webkit-outer-spin-button,
-                input[type="number"]::-webkit-inner-spin-button {
-                -webkit-appearance: none;
+                .number-field{
+                    width: 100%;
+                    height: 50px;
+                    margin-top: 15px;
+                    @include display-flex-all-center;
+                    gap: 10px;
+
+                    .number-holder{
+                        width: 100px;
+
+                        .number-field-input{
+                            width: 100%;
+                            height: 30px;
+                            border: 1px solid $border-color-3;
+                            border-radius: 5px;
+                            @include text-properties-optional($primary-color-1, 16px, roboto, 100);
+                            text-align: center;
+                        }
+                    }
+
+                    input[type="number"]::-webkit-outer-spin-button,
+                    input[type="number"]::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    }
                 }
             }    
             

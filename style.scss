@@ -436,11 +436,22 @@ html, body, .parent{
                     position: absolute;
                     right: 20px;
                     @include display-flex-all-center;
-                    background-color: $primary-color-3;
+                    background-color: white;
                     cursor: pointer;
+                    transition: 0.2s ease;
                     
-                    span{
-                        @include text-properties-optional(white, 20px, roboto, 200);
+                    .fa-xmark{
+                        color: $primary-color-1;
+                        font-size: 26px;
+                    }
+
+                    &:hover{
+                        transition: 0.2s ease;
+
+                        .fa-xmark{
+                            scale: 1.2;
+                            color: rgba(0, 0, 0, 0.5)
+                        }
                     }
                 }
             }
@@ -455,11 +466,10 @@ html, body, .parent{
             border-radius: 5px;
             box-shadow: 0px 4px 3px $shadow-color-1;
             display: grid;
-            grid-template-columns: repeat(7, calc(100% / 7));
+            grid-template-columns: 380px (repeat(3, calc((100% - 530px) / 3))) 150px;
             grid-template-rows: 60% 40%;
 
             .prise-per-night{
-                grid-column: 1/3;
                 grid-row: 1/3;
                 @include width-height-100;
                 @include display-flex-direction-column(start, center);
@@ -467,7 +477,7 @@ html, body, .parent{
                 .prise-per-night-title{
                     width: 100%;
                     height: 40px;
-                    margin: 40px 0px 20px;
+                    margin: 30px 0px 20px;
                     @include display-flex-all-center;
 
                     span{
@@ -477,7 +487,7 @@ html, body, .parent{
 
                 .prise-per-night-container{
                     width: 100%;
-                    padding: 0px 40px 20px;
+                    padding: 0px 20px 20px;
                     @include display-flex-direction-column(start, center);
 
                     .slider{
@@ -577,7 +587,63 @@ html, body, .parent{
                     -webkit-appearance: none;
                     }
                 }
-            }    
+            }
+            
+            .room-filter-by{
+                @include width-height-100;
+                @include display-flex-direction-column(start, center);
+
+                label{
+                    height: 40px;
+                    margin: 30px 0px 5px;
+                    @include display-flex-all-center;
+                    gap: 10px;
+
+                    span{
+                        @include text-properties-optional($primary-color-1, 16px, roboto, 200);
+                    }
+
+                    i{
+                        color: $primary-color-1;
+                    }
+                }
+
+                .room-filter-bars{
+                    width: 90%;
+                    height: 40px;
+                    padding: 0px 5px 0px 10px;
+                    border: 1px solid $border-color-3;
+                    border-radius: 5px;
+                    outline: none;
+                    @include text-properties-optional($primary-color-1, 16px, roboto, 100);
+                }
+            }
+
+            .apply-filters{
+                grid-column: 4/5;
+                grid-row: 2/3;
+                @include display-flex-all-center;
+            }
+
+            .clear-filters{
+                grid-column: 5/6;
+                grid-row: 2/3;
+                @include display-flex-all-center;
+            }
+
+            .apply-filters .filter-submit-button, .clear-filters .filter-reset-button{
+                padding: 0px;
+                background: linear-gradient($button-backcolor-3, $button-backcolor-1);
+                @include text-properties-optional($primary-color-4, 18px, roboto, 200);
+                text-shadow: 0px 2px 3px $text-shadow-color-1;
+                cursor: pointer;
+                transition: 0.2s ease;
+
+                &:hover{
+                    filter: brightness(1.1);
+                    transition: 0.2s ease;
+                }
+            }
             
         }
 

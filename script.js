@@ -206,8 +206,6 @@ async function searchBar() {
         let searchBarInput = document.getElementById('search-bar-input').value.toLowerCase();
         let roomCards = document.querySelectorAll('.room-card');
 
-        // console.log(searchBarInput);
-
         roomCards.forEach(card => {
             let cardName = card.dataset.cardName;
 
@@ -216,7 +214,7 @@ async function searchBar() {
             } else {
                 card.style.display = 'none';
             }
-        })
+        });
 
         document.getElementById('search-bar-clear').addEventListener('click', () => {
             document.getElementById('search-bar-input').value = '';
@@ -320,7 +318,6 @@ priceInput.forEach((input) => {
 rangeInput.forEach(input => {
     input.addEventListener("input", (event) => {
         let minVal = parseInt(rangeInput[0].value);
-        console.log(minVal)
         let maxVal = parseInt(rangeInput[1].value);
 
         if (maxVal - minVal < priceGap) {

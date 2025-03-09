@@ -42,12 +42,14 @@
             <div class="container-for-sort-buttons" id="buttons-for-room-sorting"></div>
             <div class="search-bar-container" id="search-bar-container">
                 <input type="text" class="search-bar-input" id="search-bar-input" placeholder="Search..." oninput="searchBar()">
-                <button class="search-bar-clear" id="search-bar-clear"><span>C</span></button>
+                <button class="search-bar-clear" id="search-bar-clear">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
         </div>
 
         <form class="room-filter" id="room-filter" action="">
-            <div class="room-filter-by prise-per-night">
+            <div class="prise-per-night">
                 <p class="prise-per-night-title"><span>Price Per Night</span></p>
                 <div class="prise-per-night-container">
                     <div class="slider">
@@ -70,24 +72,32 @@
                     </div>
                 </div>
             </div>
-            <div class="room-filter-by room-type">
-
+            <div class="room-filter-by">
+                <label for=""><span>Room Type</span><i class="fa-solid fa-circle-info"></i></label>
+                <select name="" id="" class="room-filter-bars">
+                    <option value="" disabled selected>Select a room</option>
+                </select>
             </div>
-            <div class="room-filter-by check-in">
-
+            <div class="room-filter-by">
+                <label for=""><span>Check-In</span><i class="fa-solid fa-circle-info"></i></label>
+                <input type="datetime-local" name="check-in" class="room-filter-bars check-in" id="check-in" placeholder="Check-In">
             </div>
-            <div class="room-filter-by check-out">
-
+            <div class="room-filter-by">
+                <label for=""><span>Check-Out</span><i class="fa-solid fa-circle-info"></i></label>
+                <input type="datetime-local" name="check-out" class="room-filter-bars check-out" id="check-out" placeholder="Check-Out">
             </div>
-            <div class="room-filter-by guest-number">
-
+            <div class="room-filter-by guest-number-container">
+                <label for="" ><span>Guests</span></label>
+                <input type="number" name="" class="room-filter-bars guest-number" id="" placeholder="0">
             </div>
             <div class="room-filter-by apply-filters">
-
+                <button type="submit" class="room-filter-bars filter-submit-button">APPLY FILTER</button>
             </div>
             <div class="room-filter-by clear-filters">
-
+                <button type="reset" class="room-filter-bars filter-reset-button">RESET</button>
             </div>
+
+
         </form>
 
         <div class="room-container" id="room-container">

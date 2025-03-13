@@ -270,12 +270,18 @@ async function roomsForDisplay(rooms) {
                         <span class="text-holder">a night</span>
                     </p>
                 </div>
-                <a class="book-now-link" href="/book/${room.id}">Book Now</a>
+                <a class="book-now-link" href="./room-details.html">Book Now</a>
             `
 
             roomContainer.appendChild(roomCard);
             roomCard.appendChild(roomCardImg);
             roomCard.appendChild(bookButtonSlide);
+
+            let BookNowbutton = document.querySelector('.book-now-link');
+            BookNowbutton.addEventListener('click', () => {
+                let roomInfo = room;
+
+            })
         });
 
     } catch (error) {
@@ -337,3 +343,20 @@ rangeInput.forEach(input => {
         
     });
 });
+
+
+// --------------------------------- filter -----------------------
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    let now = new Date();
+    
+    let localDatetime = now.getFullYear() + '-' + 
+                        String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                        String(now.getDate()).padStart(2, '0') + 'T' + 
+                        String(now.getHours()).padStart(2, '0') + ':' + 
+                        String(now.getMinutes()).padStart(2, '0');
+
+    document.getElementById('check-in').setAttribute('min', localDatetime);
+    document.getElementById('check-out').setAttribute('min', localDatetime);
+})

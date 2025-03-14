@@ -40,15 +40,46 @@
 
             <div class="room-carousel-holder" id="room-carousel-holder">
                 <div class="room-img-carousel" id="room-img-carousel">
-                    <button class="carousel-button" id="carousel-left">&#10092;</button>
-                    <img class="room-img" id="room-img" src="" alt="">
-                    <div class="room-img-bullets"></div>
-                    <button class="carousel-button" id="carousel-right">&#10093;</button>
+                    <button class="carousel-left" id="carousel-left">&#10092;</button>
+                    <div class="room-img-bullets" id="room-img-bullets"></div>
+                    <button class="carousel-right" id="carousel-right">&#10093;</button>
                 </div>
             </div>
 
             <div class="room-form-holder" id="room-form-holder">
-                <form class="room-form" id="room-form" action=""></form>
+                <form class="room-form" id="room-form" action="">
+                    <div class="room-reservation-title-holder">
+                        <div class="title-line"></div>
+                        <h2 class="room-reservation-title">Reservation</h2>
+                        <div class="title-line"></div>
+                    </div>
+
+                    <div class="room-name-price" id="room-name-price"></div>
+
+                    <div class="room-reserve">
+                        <label for=""><span>Check-In</span><i class="fa-solid fa-circle-info"></i></label>
+                        <input type="date" name="" class="check-in-reservation" id="check-in-reservation" min="" required>
+                    </div>
+                        
+                    <div class="room-reserve">
+                        <label for=""><span>Check-Out</span><i class="fa-solid fa-circle-info"></i></label>
+                        <input type="date" name="" class="check-out-reservation" id="check-out-reservation" min="" required>
+                    </div>
+
+                    <div class="room-reserve">
+                        <label for=""><span>Custumer Name</span></label>
+                        <input type="text" name="" class="customer-name" id="customer-name" required>
+                    </div>
+
+                    <div class="room-reserve">
+                        <label for=""><span>Customer Phone</span></label>
+                        <input type="number" name="" class="customer-phone" id="customer-phone" required>
+                    </div>
+
+                    <div class="room-reservation-title-holder" id="total-price"></div>
+
+                    <input type="submit" class="room-reservation-submit">
+                </form>
             </div>
 
             <div class="room-detail-holder" id="room-detail-holder">

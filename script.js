@@ -277,17 +277,88 @@ async function roomsForDisplay(rooms) {
             roomCard.appendChild(roomCardImg);
             roomCard.appendChild(bookButtonSlide);
 
-            let BookNowbutton = document.querySelector('.book-now-link');
-            BookNowbutton.addEventListener('click', () => {
-                let roomInfo = room;
 
-            })
+            let bookButton = bookButtonSlide.querySelector('.book-now-link');
+            bookButton.addEventListener('click', (event) => {
+                event.preventDefault(); 
+
+                localStorage.setItem('selectedRoom', JSON.stringify(room));
+
+                window.location.href = './room-details.html';
+            });
+
+            
         });
 
     } catch (error) {
         console.error('In roomsForDisplay function', error);
     }
 }
+
+let photoGallery = [];
+let updatedIndex = 0;
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    let roomImgCarousel = document.getElementById('room-img-carousel');
+    let roomBullets = document.getElementById('room-img-bullets');
+    let roomInfo = JSON.parse(localStorage.getItem('selectedRoom'));
+    
+
+    if (!roomInfo) {
+        document.getElementById('room-name-price').innerHTML = `<p>No room details available.</p>`;
+        return;
+    }
+
+    if (roomInfo) {
+        photoGallery = roomInfo.images.map(images => images.source);
+        
+        if(photoGallery.length>0){
+            slider(0)
+        }
+    }
+
+
+    roomBullets.innerHTML = photoGallery.map((_, index) => 
+        `<span class="bullet" onclick="slider(${index - updatedIndex}, true)"></span>`).join('');
+
+    function updateBullets() {
+        document.querySelectorAll('.bullet').forEach((bullet, index) => {
+            bullet.classList.toggle('active', index === updatedIndex);
+        });
+    }
+
+
+    function slider(index){
+        updatedIndex += index;
+
+        if(updatedIndex < 0){
+            updatedIndex = photoGallery.length - 1;
+        }else if(updatedIndex >= photoGallery.length){
+            updatedIndex = 0;
+        }
+        if(photoGallery.length > 0){
+            roomImgCarousel.style.backgroundImage = `url(${photoGallery[updatedIndex]})`;
+        }
+
+        updateBullets();
+    }
+
+    slider(0);
+
+    document.getElementById('carousel-left').addEventListener('click', () => slider(-1));
+    document.getElementById('carousel-right').addEventListener('click', () => slider(1));
+
+
+
+    document.getElementById('room-name-price').innerHTML = `
+        <h2>${roomInfo.name}: </h2>
+        <p><span>${roomInfo.pricePerNight}$</span> per night.</p>
+    `;
+
+});
+
+
 
 
 // ----------------------------- rooms HTML end ---------------------------------------
@@ -349,14 +420,21 @@ rangeInput.forEach(input => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    let now = new Date();
-    
-    let localDatetime = now.getFullYear() + '-' + 
-                        String(now.getMonth() + 1).padStart(2, '0') + '-' + 
-                        String(now.getDate()).padStart(2, '0') + 'T' + 
-                        String(now.getHours()).padStart(2, '0') + ':' + 
-                        String(now.getMinutes()).padStart(2, '0');
+    let today = new Date().toISOString().split('T')[0];
 
-    document.getElementById('check-in').setAttribute('min', localDatetime);
-    document.getElementById('check-out').setAttribute('min', localDatetime);
+    if(document.getElementById('check-in') && document.getElementById('check-out')){
+        document.getElementById('check-in').setAttribute('min', today);
+        document.getElementById('check-out').setAttribute('min', today);
+    }
+    if(document.getElementById('check-in-reservation') && document.getElementById('check-out-reservation')){
+        document.getElementById('check-in-reservation').setAttribute('min', today);
+        document.getElementById('check-out-reservation').setAttribute('min', today);
+    }
+    
 })
+
+
+// let startDay = document.getElementById('check-in').value;
+// let endDay = document.getElementById('check-out').value;
+
+// console.log()

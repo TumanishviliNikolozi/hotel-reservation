@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', async() => {
         const roomTypesContainer = document.getElementById('buttons-for-room-sorting');
         const searchBarContainer = document.getElementById('search-bar-container');
         const cityNamesContainer = document.getElementById('button-for-hotel-sorting');
+        const guestFavoriteRooms = document.getElementById('guest-favorite-rooms-container');
 
 
         const {hotelData, roomData, roomTypes, cityNames} = await fetchData();
@@ -62,6 +63,10 @@ document.addEventListener('DOMContentLoaded', async() => {
 
         if(cityNamesContainer){
             hotelSortBycity(cityNames);
+        }
+
+        if(guestFavoriteRooms){
+            favoriteRooms(roomData);
         }
 
     } catch(error){
@@ -295,68 +300,147 @@ async function roomsForDisplay(rooms) {
     }
 }
 
-let photoGallery = [];
-let updatedIndex = 0;
+async function favoriteRooms(rooms) {
+    try {
+        let allRoomsContainer = rooms;
+        let homeFavorites = [];
+        let lengthPlaceHolder;
+        let favoriteRoomsContainer = document.getElementById('guest-favorite-rooms-container');
 
-document.addEventListener('DOMContentLoaded', () => {
-    
-    let roomImgCarousel = document.getElementById('room-img-carousel');
-    let roomBullets = document.getElementById('room-img-bullets');
-    let roomInfo = JSON.parse(localStorage.getItem('selectedRoom'));
-    
 
-    if (!roomInfo) {
-        document.getElementById('room-name-price').innerHTML = `<p>No room details available.</p>`;
-        return;
-    }
-
-    if (roomInfo) {
-        photoGallery = roomInfo.images.map(images => images.source);
-        
-        if(photoGallery.length>0){
-            slider(0)
+        for(let i = 0; i < allRoomsContainer.length - 1; i++){
+            for(let j = 0; j < allRoomsContainer.length - 1 - i; j++){
+                if(allRoomsContainer[j].bookedDates.length < allRoomsContainer[j+1].bookedDates.length){
+                    lengthPlaceHolder = allRoomsContainer[j];
+                    allRoomsContainer[j] = allRoomsContainer[j+1];
+                    allRoomsContainer[j+1] = lengthPlaceHolder;
+                }
+            }
         }
-    }
+
+        homeFavorites = allRoomsContainer.slice(0, 6);
+
+        homeFavorites.forEach(room => {
+            let roomCard = document.createElement('div');
+            roomCard.classList.add('room-card');
+            roomCard.setAttribute('data-room-id', `${room.roomTypeId}`)
+            roomCard.dataset.cardName = room.name.toLowerCase();
+            // console.log(room.id)
+
+            let roomCardImg = document.createElement('div');
+            roomCardImg.classList.add('room-card-img');
+            roomCardImg.innerHTML = `<img src="${room.images[0]?.source}" alt="${room.name}">`;
+
+            let bookButtonSlide = document.createElement('div');
+            bookButtonSlide.classList.add('book-button-slide');
+            bookButtonSlide.innerHTML = `
+                <div class="title-price-container">
+                    <h2><span class="card-name-holder">${room.name}</span></h2>
+                    <p>
+                        <span class="price-holder">${room.pricePerNight} $</span>
+                        <span class="text-holder">a night</span>
+                    </p>
+                </div>
+                <a class="book-now-link" href="./room-details.html">Book Now</a>
+            `
+
+            favoriteRoomsContainer.appendChild(roomCard);
+            roomCard.appendChild(roomCardImg);
+            roomCard.appendChild(bookButtonSlide);
 
 
-    roomBullets.innerHTML = photoGallery.map((_, index) => 
-        `<span class="bullet" onclick="slider(${index - updatedIndex}, true)"></span>`).join('');
+            let bookButton = bookButtonSlide.querySelector('.book-now-link');
+            bookButton.addEventListener('click', (event) => {
+                event.preventDefault(); 
 
-    function updateBullets() {
-        document.querySelectorAll('.bullet').forEach((bullet, index) => {
-            bullet.classList.toggle('active', index === updatedIndex);
+                localStorage.setItem('selectedRoom', JSON.stringify(room));
+
+                window.location.href = './room-details.html';
+            });
         });
+
+    } catch (error) {
+        console.error('favorite rooms error:', error);
     }
+}
 
 
-    function slider(index){
-        updatedIndex += index;
+if(document.getElementById('room-details')){
+    let photoGallery = [];
+    let updatedIndex = 0;
 
-        if(updatedIndex < 0){
-            updatedIndex = photoGallery.length - 1;
-        }else if(updatedIndex >= photoGallery.length){
-            updatedIndex = 0;
+    document.addEventListener('DOMContentLoaded', () => {
+        let roomInfo = JSON.parse(localStorage.getItem('selectedRoom'));
+        let roomImgCarousel = document.getElementById('room-img-carousel');
+        let roomBullets = document.getElementById('room-img-bullets');
+
+        document.getElementById('carousel-left').addEventListener('click', () => slider(-1));
+        document.getElementById('carousel-right').addEventListener('click', () => slider(1));
+
+        window.slider = function (index){
+            updatedIndex += index;
+
+            if(updatedIndex < 0){
+                updatedIndex = photoGallery.length - 1;
+            }else if(updatedIndex >= photoGallery.length){
+                updatedIndex = 0;
+            }
+            if(photoGallery.length > 0 && roomImgCarousel){
+                roomImgCarousel.style.backgroundImage = `url(${photoGallery[updatedIndex]})`;
+            }
+
+
+            updateBullets();
         }
-        if(photoGallery.length > 0){
-            roomImgCarousel.style.backgroundImage = `url(${photoGallery[updatedIndex]})`;
+
+        if (!roomInfo) {
+            document.getElementById('room-name-price').innerHTML = `<p>No room details available.</p>`;
+            return;
         }
 
-        updateBullets();
-    }
+        if (roomInfo.images?.length) {
+            photoGallery = roomInfo.images.map(img => img.source);
 
-    slider(0);
+            for(let i=0; i<photoGallery.length; i++){
+                console.log(photoGallery[i])
+                if(!photoGallery[i] || photoGallery[i] === '' || photoGallery[i] === 0 || photoGallery[i] === null || photoGallery[i] === undefined){
+                    console.log(photoGallery[i])
+                    photoGallery.splice(i, 1);
+                    i--;
+                    console.log(photoGallery)
+                }
+            }
 
-    document.getElementById('carousel-left').addEventListener('click', () => slider(-1));
-    document.getElementById('carousel-right').addEventListener('click', () => slider(1));
+            slider(0);
+        }
+        
+        if(!photoGallery || photoGallery.length === 0){
+            // roomImgCarousel.innerHTML = `<p class="if-no-img"><span>No Imgs</span></p>`
+            document.getElementById('if-no-img').style.display = 'flex';
+            return
+        } 
+
+        roomBullets.innerHTML = photoGallery.map(() => `<span class="bullet"></span>`).join('');
+
+        function updateBullets() {
+            document.querySelectorAll('.bullet').forEach((bullet, index) => {
+                bullet.classList.toggle('active', index === updatedIndex);
+            });
+        }
+
+        document.querySelectorAll('.bullet').forEach((bullet, index) => {
+            bullet.addEventListener('click', () => slider(index - updatedIndex));
+            slider(0);
+        });
+
+        document.getElementById('room-name-price').innerHTML = `
+            <h2>${roomInfo.name}: </h2>
+            <p><span>${roomInfo.pricePerNight}$</span> per night.</p>
+        `;
+    });
+}
 
 
-
-    document.getElementById('room-name-price').innerHTML = `
-        <h2>${roomInfo.name}: </h2>
-        <p><span>${roomInfo.pricePerNight}$</span> per night.</p>
-    `;
-
-});
 
 
 

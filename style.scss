@@ -203,7 +203,7 @@ html, body, .parent{
             }
         }
 
-        .hotel-container, .room-container{
+        .guest-favorite-rooms-container, .hotel-container, .room-container{
             @include sides-free-space;
             margin-bottom: 50px;
             display: grid;
@@ -720,7 +720,14 @@ html, body, .parent{
                     }
                 }
                 
-                
+                .if-no-img{
+                    @include width-height-100;
+                    @include display-flex-all-center;
+                    display: none;
+                    span{
+                        @include text-properties-optional($primary-color-1, 40px, roboto, 200);
+                    }
+                }
             }
         }
 
@@ -971,7 +978,7 @@ html, body, .parent{
             }
         }
 
-        .guest-favorite-rooms .hotel-card{
+        .guest-favorite-rooms-container .hotel-card{
             width: 350px;
             height: auto;
             position: relative;
@@ -1095,7 +1102,7 @@ html, body, .parent{
             @include display-flex-all-center;
         }
 
-        .guest-favorite-rooms, .usp-block{
+        .guest-favorite-rooms-container, .usp-block{
             width: 100%;
             padding: 20px;
             @include display-flex-direction-column(start, center);
@@ -1119,7 +1126,7 @@ html, body, .parent{
             @include display-flex-all-optional(end, center);
         }
 
-        .guest-favorite-rooms, .usp-block{
+        .guest-favorite-rooms-container, .usp-block{
             width: 730px;
             padding: 20px 0px;
             margin: 0px auto;

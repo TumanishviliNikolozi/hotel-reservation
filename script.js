@@ -4,23 +4,25 @@
 
 async function fetchData() {
     try {
-        [hotelData, roomData, roomTypes, cityNames] = await Promise.all([
+        [hotelData, roomData, roomTypes, cityNames, bookedRooms] = await Promise.all([
             fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetAll'),
             fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetAll'),
             fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetRoomTypes'),
-            fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetCities')
+            fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetCities'),
+            fetch('https://hotelbooking.stepprojects.ge/api/Booking'),
         ]);
 
         hotelData = await checkResponse(hotelData);
         roomData = await checkResponse(roomData);
         roomTypes = await checkResponse(roomTypes);
         cityNames = await checkResponse(cityNames);
+        bookedRooms = await checkResponse(bookedRooms);
 
-        return {hotelData, roomData, roomTypes, cityNames};
+        return {hotelData, roomData, roomTypes, cityNames, bookedRooms};
 
     } catch (error) {
         console.error('error', error);
-        return {hotelData: [], roomData: [], roomTypes: [], cityNames: []};
+        return {hotelData: [], roomData: [], roomTypes: [], cityNames: [], bookedRooms: []};
     }
 }
 
@@ -82,6 +84,77 @@ document.addEventListener('DOMContentLoaded', async() => {
 // ----------------------------- containters ---------------------------------------
 
 
+// ------------------------------ home page html ------------------------------------
+
+
+async function favoriteRooms(rooms) {
+    try {
+        let allRoomsContainer = rooms;
+        let homeFavorites = [];
+        let lengthPlaceHolder;
+        let favoriteRoomsContainer = document.getElementById('guest-favorite-rooms-container');
+
+
+        for(let i = 0; i < allRoomsContainer.length - 1; i++){
+            for(let j = 0; j < allRoomsContainer.length - 1 - i; j++){
+                if(allRoomsContainer[j].bookedDates.length < allRoomsContainer[j+1].bookedDates.length){
+                    lengthPlaceHolder = allRoomsContainer[j];
+                    allRoomsContainer[j] = allRoomsContainer[j+1];
+                    allRoomsContainer[j+1] = lengthPlaceHolder;
+                }
+            }
+        }
+
+        homeFavorites = allRoomsContainer.slice(0, 6);
+
+        homeFavorites.forEach(room => {
+            let roomCard = document.createElement('div');
+            roomCard.classList.add('room-card');
+            roomCard.setAttribute('data-room-id', `${room.roomTypeId}`)
+            roomCard.dataset.cardName = room.name.toLowerCase();
+            // console.log(room.id)
+
+            let roomCardImg = document.createElement('div');
+            roomCardImg.classList.add('room-card-img');
+            roomCardImg.innerHTML = `<img src="${room.images[0]?.source}" alt="${room.name}">`;
+
+            let bookButtonSlide = document.createElement('div');
+            bookButtonSlide.classList.add('book-button-slide');
+            bookButtonSlide.innerHTML = `
+                <div class="title-price-container">
+                    <h2><span class="card-name-holder">${room.name}</span></h2>
+                    <p>
+                        <span class="price-holder">${room.pricePerNight} $</span>
+                        <span class="text-holder">a night</span>
+                    </p>
+                </div>
+                <a class="book-now-link" href="./room-details.html">Book Now</a>
+            `
+
+            favoriteRoomsContainer.appendChild(roomCard);
+            roomCard.appendChild(roomCardImg);
+            roomCard.appendChild(bookButtonSlide);
+
+
+            let bookButton = bookButtonSlide.querySelector('.book-now-link');
+            bookButton.addEventListener('click', (event) => {
+                event.preventDefault(); 
+
+                localStorage.setItem('selectedRoom', JSON.stringify(room));
+
+                window.location.href = './room-details.html';
+            });
+        });
+
+    } catch (error) {
+        console.error('favorite rooms error:', error);
+    }
+}
+
+
+// ------------------------------ home html end --------------------------------------
+
+
 // ----------------------------- hotels HTML ---------------------------------------
 
 async function hotelSortBycity(citiesSort) {
@@ -137,8 +210,6 @@ async function hotelsForDisplay(hotels) {
 
         let hotelContainer = document.getElementById('hotel-container');
         if (!hotelContainer) return;
-
-        hotelContainer.innerHTML = '';
 
         hotels.forEach(hotel => {
             let hotelCard = document.createElement('div');
@@ -300,69 +371,9 @@ async function roomsForDisplay(rooms) {
     }
 }
 
-async function favoriteRooms(rooms) {
-    try {
-        let allRoomsContainer = rooms;
-        let homeFavorites = [];
-        let lengthPlaceHolder;
-        let favoriteRoomsContainer = document.getElementById('guest-favorite-rooms-container');
+// --------------------------------- rooms html end -------------------------------------
 
 
-        for(let i = 0; i < allRoomsContainer.length - 1; i++){
-            for(let j = 0; j < allRoomsContainer.length - 1 - i; j++){
-                if(allRoomsContainer[j].bookedDates.length < allRoomsContainer[j+1].bookedDates.length){
-                    lengthPlaceHolder = allRoomsContainer[j];
-                    allRoomsContainer[j] = allRoomsContainer[j+1];
-                    allRoomsContainer[j+1] = lengthPlaceHolder;
-                }
-            }
-        }
-
-        homeFavorites = allRoomsContainer.slice(0, 6);
-
-        homeFavorites.forEach(room => {
-            let roomCard = document.createElement('div');
-            roomCard.classList.add('room-card');
-            roomCard.setAttribute('data-room-id', `${room.roomTypeId}`)
-            roomCard.dataset.cardName = room.name.toLowerCase();
-            // console.log(room.id)
-
-            let roomCardImg = document.createElement('div');
-            roomCardImg.classList.add('room-card-img');
-            roomCardImg.innerHTML = `<img src="${room.images[0]?.source}" alt="${room.name}">`;
-
-            let bookButtonSlide = document.createElement('div');
-            bookButtonSlide.classList.add('book-button-slide');
-            bookButtonSlide.innerHTML = `
-                <div class="title-price-container">
-                    <h2><span class="card-name-holder">${room.name}</span></h2>
-                    <p>
-                        <span class="price-holder">${room.pricePerNight} $</span>
-                        <span class="text-holder">a night</span>
-                    </p>
-                </div>
-                <a class="book-now-link" href="./room-details.html">Book Now</a>
-            `
-
-            favoriteRoomsContainer.appendChild(roomCard);
-            roomCard.appendChild(roomCardImg);
-            roomCard.appendChild(bookButtonSlide);
-
-
-            let bookButton = bookButtonSlide.querySelector('.book-now-link');
-            bookButton.addEventListener('click', (event) => {
-                event.preventDefault(); 
-
-                localStorage.setItem('selectedRoom', JSON.stringify(room));
-
-                window.location.href = './room-details.html';
-            });
-        });
-
-    } catch (error) {
-        console.error('favorite rooms error:', error);
-    }
-}
 
 
 if(document.getElementById('room-details')){
@@ -371,8 +382,17 @@ if(document.getElementById('room-details')){
 
     document.addEventListener('DOMContentLoaded', () => {
         let roomInfo = JSON.parse(localStorage.getItem('selectedRoom'));
+
+
+        // ------------------ carousel start----------------------
+        
         let roomImgCarousel = document.getElementById('room-img-carousel');
         let roomBullets = document.getElementById('room-img-bullets');
+
+        if (!roomInfo) {
+            document.getElementById('room-name-price').innerHTML = `<p>No room details available.</p>`;
+            return;
+        }
 
         document.getElementById('carousel-left').addEventListener('click', () => slider(-1));
         document.getElementById('carousel-right').addEventListener('click', () => slider(1));
@@ -388,29 +408,18 @@ if(document.getElementById('room-details')){
             if(photoGallery.length > 0 && roomImgCarousel){
                 roomImgCarousel.style.backgroundImage = `url(${photoGallery[updatedIndex]})`;
             }
-
-
             updateBullets();
-        }
-
-        if (!roomInfo) {
-            document.getElementById('room-name-price').innerHTML = `<p>No room details available.</p>`;
-            return;
         }
 
         if (roomInfo.images?.length) {
             photoGallery = roomInfo.images.map(img => img.source);
 
             for(let i=0; i<photoGallery.length; i++){
-                console.log(photoGallery[i])
                 if(!photoGallery[i] || photoGallery[i] === '' || photoGallery[i] === 0 || photoGallery[i] === null || photoGallery[i] === undefined){
-                    console.log(photoGallery[i])
                     photoGallery.splice(i, 1);
                     i--;
-                    console.log(photoGallery)
                 }
             }
-
             slider(0);
         }
         
@@ -433,19 +442,104 @@ if(document.getElementById('room-details')){
             slider(0);
         });
 
+        // ---------------- carousel end ------------------
+
         document.getElementById('room-name-price').innerHTML = `
             <h2>${roomInfo.name}: </h2>
             <p><span>${roomInfo.pricePerNight}$</span> per night.</p>
         `;
+
+        console.log(roomInfo)
+
+        let oneNightPrice = roomInfo.pricePerNight;
+
+        document.getElementById('check-in-reservation').addEventListener('change', () => {
+            totalPriceCalculator(oneNightPrice);
+        });
+        document.getElementById('check-out-reservation').addEventListener('change', () => {
+            totalPriceCalculator(oneNightPrice);
+        });
+
+        console.log(totalPriceCalculator())
     });
 }
 
 
 
 
+function totalPriceCalculator(price){
+    let checkInDate = document.getElementById('check-in-reservation').value;
+    console.log(checkInDate)
+    let checkOutDate = document.getElementById('check-out-reservation').value;
+    console.log(checkOutDate)
+    let pricePerNight = price;
+    let fullPrice = 0;
+
+    // if(!checkInDate || !checkOutDate || !pricePerNight){
+    //     return `$0`;
+    // }
+
+    let checkIn = new Date(checkInDate);
+    let checkOut = new Date(checkOutDate);
+
+    // if (isNaN(checkIn.getTime()) || isNaN(checkOut.getTime())) {
+    //     document.getElementById('total-price').innerText = "Invalid date selection!";
+    //     return;
+    // }
+
+    if(checkIn > checkOut){
+        checkIn = checkOut;
+    }
+    if(checkOut < checkIn){
+        checkOut = checkIn;
+    }
+
+    if(document.getElementById('check-in') && document.getElementById('check-out')){
+        checkIn.setAttribute('max', checkOut);
+        checkOut.setAttribute('min', checkIn);
+    }
+
+    let numberOfNights = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
+
+    if(checkIn - checkOut === 0){
+        numberOfNights = 1;
+    }
+
+    if (numberOfNights <= 0) {
+        document.getElementById('total-price').innerText = "Invalid dates! Check-out must be after check-in.";
+        return;
+    }
+
+    if(numberOfNights && pricePerNight){
+        fullPrice = numberOfNights * pricePerNight;
+    }
+    
+    document.getElementById('total-price').innerHTML = `Total price:<span> $${fullPrice}</span>.`
+
+    return numberOfNights * pricePerNight;
+}
+
+// function checkBookedRooms(bookedRooms, Id){
+//     let allRoomBooking = bookedRooms;
+//     let roomId = Id
+// }
+
+document.getElementById('room-filter').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    
+})
 
 
-// ----------------------------- rooms HTML end ---------------------------------------
+
+
+
+// document.getElementById('filter-submit-button').addEventListener('click',() => {
+//     let postFilter = {
+//         roomTypeId: document.getElementById('room-type-select').
+//     }
+// })
+
 
 
 // ----------------------------- containters end ---------------------------------------
@@ -504,21 +598,63 @@ rangeInput.forEach(input => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+
     let today = new Date().toISOString().split('T')[0];
 
     if(document.getElementById('check-in') && document.getElementById('check-out')){
-        document.getElementById('check-in').setAttribute('min', today);
-        document.getElementById('check-out').setAttribute('min', today);
+        let checkInInput = document.getElementById('check-in');
+        let checkOutInput = document.getElementById('check-out');
+
+        checkInInput.setAttribute('min', today);
+        checkOutInput.setAttribute('min', today);
+
+        checkInInput.addEventListener('change', () => {
+            let checkInDate = new Date(checkInInput.value);
+            let checkOutDate = new Date(checkOutInput.value);
+    
+            if (checkOutDate <= checkInDate) {
+                checkOutInput.value = "";
+                checkOutInput.setAttribute("min", checkInInput.value);
+            }
+        });
+    
+        checkOutInput.addEventListener('change', () => {
+            let checkInDate = new Date(checkInInput.value);
+            let checkOutDate = new Date(checkOutInput.value);
+    
+            if (checkInDate >= checkOutDate) {
+                alert("Check-out date must be after check-in date.");
+                checkOutInput.value = "";
+            }
+        });
     }
     if(document.getElementById('check-in-reservation') && document.getElementById('check-out-reservation')){
-        document.getElementById('check-in-reservation').setAttribute('min', today);
-        document.getElementById('check-out-reservation').setAttribute('min', today);
+
+        let checkInInput = document.getElementById('check-in-reservation');
+        let checkOutInput = document.getElementById('check-out-reservation');
+
+        checkInInput.setAttribute('min', today);
+        checkOutInput.setAttribute('min', today);
+
+        checkInInput.addEventListener('change', () => {
+            let checkInDate = new Date(checkInInput.value);
+            let checkOutDate = new Date(checkOutInput.value);
+    
+            if (checkOutDate < checkInDate) {
+                checkOutInput.value = "";
+                checkOutInput.setAttribute("min", checkInInput.value);
+            }
+        });
+    
+        checkOutInput.addEventListener('change', () => {
+            let checkInDate = new Date(checkInInput.value);
+            let checkOutDate = new Date(checkOutInput.value);
+    
+            if (checkInDate > checkOutDate) {
+                alert("Check-out date must be after check-in date.");
+                checkOutInput.value = "";
+            }
+        });
     }
     
 })
-
-
-// let startDay = document.getElementById('check-in').value;
-// let endDay = document.getElementById('check-out').value;
-
-// console.log()

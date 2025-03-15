@@ -6,6 +6,7 @@
     <title>Rooms</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
     <header>
@@ -76,6 +77,9 @@
                 <label for="room-type-select"><span>Room Type</span><i class="fa-solid fa-circle-info"></i></label>
                 <select name="" id="room-type-select" class="room-filter-bars">
                     <option value="" disabled selected>Select a room</option>
+                    <option value="1">Single Rooms</option>
+                    <option value="2">Double Rooms</option>
+                    <option value="3">Deluxe Rooms</option>
                 </select>
             </div>
             <div class="room-filter-by">
@@ -91,10 +95,10 @@
                 <input type="number" name="" class="room-filter-bars guest-number" id="guest-number" placeholder="0">
             </div>
             <div class="room-filter-by apply-filters">
-                <button type="submit" class="room-filter-bars filter-submit-button">APPLY FILTER</button>
+                <button type="submit" class="room-filter-bars filter-submit-button" id="filter-submit-button">APPLY FILTER</button>
             </div>
             <div class="room-filter-by clear-filters">
-                <button type="reset" class="room-filter-bars filter-reset-button">RESET</button>
+                <button type="reset" class="room-filter-bars filter-reset-button" id="filter-reset-button">RESET</button>
             </div>
 
 
@@ -115,5 +119,6 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
 </html>

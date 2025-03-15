@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
     <header>
@@ -77,9 +79,9 @@
                         <input type="number" name="" class="customer-phone" id="customer-phone" required>
                     </div>
 
-                    <div class="room-reservation-title-holder" id="total-price"></div>
+                    <div class="room-reservation-total-price" id="total-price"></div>
 
-                    <input type="submit" class="room-reservation-submit">
+                    <input type="submit" class="room-reservation-submit" id="room-reservation-submit">
                 </form>
             </div>
 
@@ -104,5 +106,6 @@
 
 
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
 </html>

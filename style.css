@@ -827,6 +827,7 @@ html, body, .parent {
     font-weight: 200;
   }
   .room-details .room-form-holder .room-reservation-total-price span {
+    margin-left: 5px;
     color: rgb(94, 200, 212);
   }
   .room-details .room-form-holder .room-name-price {
@@ -883,6 +884,9 @@ html, body, .parent {
     font-size: 20px;
     font-family: roboto-lite;
     font-weight: 200;
+  }
+  .room-details .room-form-holder .room-reserve small {
+    color: red;
   }
   .room-details .room-form-holder .room-reservation-submit {
     width: 100%;

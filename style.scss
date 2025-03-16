@@ -788,6 +788,7 @@ html, body, .parent{
                 @include text-properties-optional($primary-color-1, 25px, roboto, 200);
 
                 span{
+                    margin-left: 5px;
                     color: $primary-color-3;
                 }
             }
@@ -836,6 +837,10 @@ html, body, .parent{
                     border-radius: 8px;
                     padding: 0px 15px;
                     @include text-properties-optional($primary-color-1, 20px, roboto-lite, 200);
+                }
+
+                small{
+                    color: red;
                 }
             }
 

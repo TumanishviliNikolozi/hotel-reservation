@@ -12,6 +12,9 @@ closeBurger.addEventListener('click', () => {
     headerNavUl.classList.remove('active');
 })
 
+// ------------------------------ burger menu end ----------------------------------
+
+
 
 // ----------------------------- fetch and confirmation ------------------------------------
 
@@ -57,6 +60,7 @@ document.addEventListener('DOMContentLoaded', async() => {
         const searchBarContainer = document.getElementById('search-bar-container');
         const cityNamesContainer = document.getElementById('button-for-hotel-sorting');
         const guestFavoriteRooms = document.getElementById('guest-favorite-rooms-container');
+        const roomFilter = document.getElementById('room-filter');
 
 
         const {hotelData, roomData, roomTypes, cityNames} = await fetchData();
@@ -71,6 +75,10 @@ document.addEventListener('DOMContentLoaded', async() => {
 
         if(roomTypesContainer){
             roomSortByType(roomTypes);
+        }
+
+        if(roomFilter){
+            roomFilterForm(roomData);
         }
 
         if(searchBarContainer){
@@ -291,6 +299,94 @@ if(document.getElementById('button-for-all-rooms')){
 }
 
 
+async function roomFilterForm(roomData) {
+    try {
+
+        let roomsToFilter = roomData;
+        let roomType;
+        let minPrice;
+        let maxPrice;
+
+        
+        document.getElementById('room-type-select').addEventListener('input', function(){
+            roomType = document.getElementById('room-type-select').value;
+            console.log(roomType);
+        });
+
+
+        document.getElementById('min-range').addEventListener('input', function(){
+            minPrice = document.getElementById('min-range').value;
+            document.getElementById('min-number-input').value = minPrice;
+        });
+
+        document.getElementById('min-number-input').addEventListener('input', function(){
+            minPrice = document.getElementById('min-number-input').value;
+            document.getElementById('min-range').value = minPrice;
+        });
+
+        document.getElementById('max-range').addEventListener('input', function(){
+            maxPrice = document.getElementById('max-range').value;
+            document.getElementById('max-number-input').value = maxPrice;
+        });
+
+        document.getElementById('max-number-input').addEventListener('input', function(){
+            maxPrice = document.getElementById('max-number-input').value;
+            document.getElementById('max-range').value = maxPrice;
+        });
+
+        document.getElementById('guest-number').addEventListener('input', function(){
+            let guests = document.getElementById('guest-number').value;
+            if(guests < 1){
+                document.getElementById('guest-number').value = 1;
+                guests = 1;
+            }
+            console.log(guests)
+        })
+
+        document.getElementById('check-in').addEventListener('input', function(){
+            let checkIn = document.getElementById('check-in').value;
+            console.log(checkIn)
+        })
+
+        document.getElementById('check-out').addEventListener('input', function(){
+            let checkIn = document.getElementById('check-out').value;
+            console.log(checkIn)
+        })
+
+
+                
+        document.getElementById('filter-submit-button').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            let filterRequest = {
+                roomTypeId: document.getElementById('room-type-select').value,
+                priceFrom: parseInt(document.getElementById('min-number-input').value),
+                priceTo: parseInt(document.getElementById('max-number-input').value),
+                maximumGuests: parseInt(document.getElementById('guest-number').value),
+                checkIn: document.getElementById('check-in').value,
+                checkOut: document.getElementById('check-out').value
+            }
+
+            // fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetFiltered', {
+            //     method: 'POST',
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify(filterRequest)
+            // })
+
+            // .then(response => response.json())
+            // .then(data => console.log('api response:', data))
+            // .catch(error => console.error('Error:', error))
+        })
+
+        
+        
+    } catch (error) {
+        console.error('filter form:', error);
+    }
+}
+
+
+
 async function searchBar() {
     try {
         let searchBarInput = document.getElementById('search-bar-input').value.toLowerCase();
@@ -396,7 +492,8 @@ if(document.getElementById('room-details')){
 
     document.addEventListener('DOMContentLoaded', () => {
         let roomInfo = JSON.parse(localStorage.getItem('selectedRoom'));
-
+        console.log(roomInfo)
+        let oneNightPrice = roomInfo.pricePerNight;
 
         // ------------------ carousel start----------------------
         
@@ -462,76 +559,152 @@ if(document.getElementById('room-details')){
             <h2>${roomInfo.name}: </h2>
             <p><span>${roomInfo.pricePerNight}$</span> per night.</p>
         `;
+        // console.log(roomInfo)
 
-        console.log(roomInfo)
+        console.log(oneNightPrice)
 
-        let oneNightPrice = roomInfo.pricePerNight;
-
-        document.getElementById('check-in-reservation').addEventListener('change', () => {
-            totalPriceCalculator(oneNightPrice);
-        });
-        document.getElementById('check-out-reservation').addEventListener('change', () => {
-            totalPriceCalculator(oneNightPrice);
+        document.getElementById('check-in-reservation').addEventListener('input', function(){
+            validateCheckIn();
+            calculateTotalPrice();
         });
 
-        console.log(totalPriceCalculator())
+        document.getElementById('check-out-reservation').addEventListener('input', function(){
+            validateCheckOut();
+            calculateTotalPrice();
+        });
+
+        document.getElementById('customer-name').addEventListener('input', function(){
+            validateName();
+        });
+
+        document.getElementById('customer-phone').addEventListener('input', function(){
+            validatePhone();
+        });
+
+
+        function validateCheckIn(){
+            let checkIn = new Date(document.getElementById('check-in-reservation').value);
+            let today = new Date();
+            today.setHours(0, 0, 0, 0);
+            let errorMessage = document.getElementById('check-in-error');
+
+            if (!checkIn.getTime()) {
+                errorMessage.textContent = "Please select a check-in date.";
+            } else if (checkIn < today) {
+                errorMessage.textContent = "Check-in date cannot be in the past.";
+            } else {
+                errorMessage.textContent = "";
+            }
+        }
+
+        function validateCheckOut() {
+            let checkIn = new Date(document.getElementById("check-in-reservation").value);
+            let checkOut = new Date(document.getElementById("check-out-reservation").value);
+            let errorMessage = document.getElementById("check-out-error");
+        
+            if (!checkOut.getTime()) {
+                errorMessage.textContent = "Please select a check-out date.";
+            } else if (checkOut <= checkIn) {
+                errorMessage.textContent = "Check-out must be after check-in.";
+            } else {
+                errorMessage.textContent = "";
+            }
+        }
+
+        function validateName() {
+            let name = document.getElementById("customer-name").value.trim();
+            let errorMessage = document.getElementById("name-error");
+        
+            if (name.length < 3) {
+                errorMessage.textContent = "Name must be at least 3 characters long.";
+            } else {
+                errorMessage.textContent = "";
+            }
+        }
+
+        function validatePhone() {
+            let phone = document.getElementById("customer-phone").value.trim();
+            let phonePattern = /^[0-9]{10}$/;
+            let errorMessage = document.getElementById("number-error");
+        
+            if (!phonePattern.test(phone)) {
+                errorMessage.textContent = "Enter a valid 10-digit phone number.";
+            } else {
+                errorMessage.textContent = "";
+            }
+        }
+
+        function calculateTotalPrice() {
+            let checkIn = new Date(document.getElementById("check-in-reservation").value);
+            let checkOut = new Date(document.getElementById("check-out-reservation").value);
+            let totalPriceElement = document.getElementById("total-price");
+        
+            if (checkIn.getTime() && checkOut.getTime() && checkOut > checkIn) {
+                let nights = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
+                
+                totalPriceElement.innerHTML = `Total Price: <span>${nights * oneNightPrice}$</span>.`;
+            } else {
+                totalPriceElement.innerHTML = `Total Price: <span>${0}$</span>.`;
+            }
+        }
+
     });
 }
 
+// console.log(document.getElementById('total-price').textContent)
 
 
+// function totalPriceCalculator(price){
+//     let checkInDate = document.getElementById('check-in-reservation').value;
+//     console.log(checkInDate)
+//     let checkOutDate = document.getElementById('check-out-reservation').value;
+//     console.log(checkOutDate)
+//     let pricePerNight = price;
+//     let fullPrice = 0;
 
-function totalPriceCalculator(price){
-    let checkInDate = document.getElementById('check-in-reservation').value;
-    console.log(checkInDate)
-    let checkOutDate = document.getElementById('check-out-reservation').value;
-    console.log(checkOutDate)
-    let pricePerNight = price;
-    let fullPrice = 0;
+//     // if(!checkInDate || !checkOutDate || !pricePerNight){
+//     //     return `$0`;
+//     // }
 
-    // if(!checkInDate || !checkOutDate || !pricePerNight){
-    //     return `$0`;
-    // }
+//     let checkIn = new Date(checkInDate);
+//     let checkOut = new Date(checkOutDate);
 
-    let checkIn = new Date(checkInDate);
-    let checkOut = new Date(checkOutDate);
+//     // if (isNaN(checkIn.getTime()) || isNaN(checkOut.getTime())) {
+//     //     document.getElementById('total-price').innerText = "Invalid date selection!";
+//     //     return;
+//     // }
 
-    // if (isNaN(checkIn.getTime()) || isNaN(checkOut.getTime())) {
-    //     document.getElementById('total-price').innerText = "Invalid date selection!";
-    //     return;
-    // }
+//     if(checkIn > checkOut){
+//         checkIn = checkOut;
+//     }
+//     if(checkOut < checkIn){
+//         checkOut = checkIn;
+//     }
 
-    if(checkIn > checkOut){
-        checkIn = checkOut;
-    }
-    if(checkOut < checkIn){
-        checkOut = checkIn;
-    }
+//     if(document.getElementById('check-in') && document.getElementById('check-out')){
+//         checkIn.setAttribute('max', checkOut);
+//         checkOut.setAttribute('min', checkIn);
+//     }
 
-    if(document.getElementById('check-in') && document.getElementById('check-out')){
-        checkIn.setAttribute('max', checkOut);
-        checkOut.setAttribute('min', checkIn);
-    }
+//     let numberOfNights = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
 
-    let numberOfNights = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
+//     if(checkIn - checkOut === 0){
+//         numberOfNights = 1;
+//     }
 
-    if(checkIn - checkOut === 0){
-        numberOfNights = 1;
-    }
+//     if (numberOfNights <= 0) {
+//         document.getElementById('total-price').innerText = "Invalid dates! Check-out must be after check-in.";
+//         return;
+//     }
 
-    if (numberOfNights <= 0) {
-        document.getElementById('total-price').innerText = "Invalid dates! Check-out must be after check-in.";
-        return;
-    }
-
-    if(numberOfNights && pricePerNight){
-        fullPrice = numberOfNights * pricePerNight;
-    }
+//     if(numberOfNights && pricePerNight){
+//         fullPrice = numberOfNights * pricePerNight;
+//     }
     
-    document.getElementById('total-price').innerHTML = `Total price:<span> $${fullPrice}</span>.`
+//     document.getElementById('total-price').innerHTML = `Total price:<span> $${fullPrice}</span>.`
 
-    return numberOfNights * pricePerNight;
-}
+//     return numberOfNights * pricePerNight;
+// }
 
 // function checkBookedRooms(bookedRooms, Id){
 //     let allRoomBooking = bookedRooms;

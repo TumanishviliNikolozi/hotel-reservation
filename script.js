@@ -1,3 +1,17 @@
+// ------------------------------ burger menu ----------------------------------
+
+let headerNavUl = document.getElementById('header-nav-ul');
+let burgerButton = document.getElementById('burger-button');
+let closeBurger = document.getElementById('close-burger');
+
+burgerButton.addEventListener('click', () => {
+    headerNavUl.classList.add('active');
+});
+
+closeBurger.addEventListener('click', () => {
+    headerNavUl.classList.remove('active');
+})
+
 
 // ----------------------------- fetch and confirmation ------------------------------------
 
@@ -524,11 +538,11 @@ function totalPriceCalculator(price){
 //     let roomId = Id
 // }
 
-document.getElementById('room-filter').addEventListener('submit', (event) => {
-    event.preventDefault();
+// document.getElementById('room-filter').addEventListener('submit', (event) => {
+//     event.preventDefault();
 
     
-})
+// })
 
 
 

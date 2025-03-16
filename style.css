@@ -99,6 +99,9 @@ html, body, .parent {
     font-family: roboto;
     font-weight: 300;
   }
+  header nav .burger-button, header nav .close-burger {
+    display: none;
+  }
   .parent {
     padding: 90px 0px 150px;
     animation-name: page-to-page;
@@ -966,8 +969,69 @@ html, body, .parent {
     width: 25%;
     height: 100%;
   }
-  header nav ul {
+  header nav .close-burger {
     display: none;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+  }
+  header nav .close-burger i {
+    font-size: 40px;
+    color: rgb(98, 98, 98);
+  }
+  header nav .header-nav-ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0px;
+    right: 0px;
+    height: 0px;
+    background-color: rgba(0, 0, 0, 0.85);
+    transition: 0.3s;
+  }
+  header nav .header-nav-ul li {
+    list-style-type: none;
+    margin-bottom: 30px;
+  }
+  header nav .header-nav-ul li a span {
+    color: white;
+    font-size: 40px;
+    font-family: roboto;
+    font-weight: 200;
+    transition: 0.2s;
+  }
+  header nav .header-nav-ul li a .header-nav-home-span, header nav .header-nav-ul li a .header-nav-hotels-span, header nav .header-nav-ul li a .header-nav-rooms-span, header nav .header-nav-ul li a .header-nav-booked-rooms-span {
+    color: rgb(94, 200, 212);
+    font-size: 40px;
+    font-family: roboto;
+    font-weight: 300;
+  }
+  header nav .header-nav-ul.active {
+    display: flex;
+    height: calc(100vh - 70px);
+    transition: 0.3s;
+    z-index: 1000;
+  }
+  header nav .burger-button {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+  }
+  header nav .burger-button i {
+    color: rgb(98, 98, 98);
+    font-size: 30px;
+  }
+  header nav .header-nav-ul.active + .burger-button {
+    display: none;
+  }
+  header nav .header-nav-ul.active + .burger-button + .close-burger {
+    display: block;
   }
   .parent {
     width: 100%;

@@ -95,7 +95,11 @@
             </div>
             <div class="room-filter-by guest-number-container">
                 <label for="guest-number" ><span>Guests</span></label>
-                <input type="number" name="" class="room-filter-bars guest-number" id="guest-number" value="1" placeholder="1">
+                <div class="increment-decrement">
+                    <button class="decrease-button" id="decrease-button">&#10092;</button>
+                    <input type="number" name="" class="guest-number" id="guest-number" value="1" placeholder="1">
+                    <button class="increase-button" id="increase-button">&#10093;</button>
+                </div>
             </div>
             <div class="room-filter-by apply-filters">
                 <button type="submit" class="room-filter-bars filter-submit-button" id="filter-submit-button">APPLY FILTER</button>

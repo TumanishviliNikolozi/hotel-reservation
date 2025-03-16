@@ -307,7 +307,24 @@ async function roomFilterForm(roomData) {
         let minPrice;
         let maxPrice;
 
-        
+        let decreaseButton = document.getElementById('decrease-button');
+        let GuestNumberCount = document.getElementById('guest-number');
+        let increaseButton = document.getElementById('increase-button');
+        let quantity = 1;
+
+        decreaseButton.addEventListener('click', () => {
+            if(quantity > 1){
+                quantity--;
+                GuestNumberCount.value = quantity;
+            }
+        });
+
+        increaseButton.addEventListener('click', () => {
+            quantity++;
+            GuestNumberCount.value = quantity;
+        });
+
+
         document.getElementById('room-type-select').addEventListener('input', function(){
             roomType = document.getElementById('room-type-select').value;
             console.log(roomType);
@@ -355,16 +372,16 @@ async function roomFilterForm(roomData) {
 
 
                 
-        document.getElementById('filter-submit-button').addEventListener('submit', (event) => {
+        document.getElementById('room-filter').addEventListener('submit', (event) => {
             event.preventDefault();
 
             let filterRequest = {
-                roomTypeId: document.getElementById('room-type-select').value,
-                priceFrom: parseInt(document.getElementById('min-number-input').value),
-                priceTo: parseInt(document.getElementById('max-number-input').value),
-                maximumGuests: parseInt(document.getElementById('guest-number').value),
-                checkIn: document.getElementById('check-in').value,
-                checkOut: document.getElementById('check-out').value
+                roomTypeId: document.getElementById('room-type-select').value || null,
+                priceFrom: parseInt(document.getElementById('min-number-input').value) || 0,
+                priceTo: parseInt(document.getElementById('max-number-input').value) || 0,
+                maximumGuests: parseInt(document.getElementById('guest-number').value) || 0,
+                checkIn: document.getElementById('check-in').value || null,
+                checkOut: document.getElementById('check-out').value || null
             }
 
             // fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetFiltered', {
@@ -493,6 +510,7 @@ if(document.getElementById('room-details')){
     document.addEventListener('DOMContentLoaded', () => {
         let roomInfo = JSON.parse(localStorage.getItem('selectedRoom'));
         console.log(roomInfo)
+        document.getElementById('how-many-persons').innerHTML = `${roomInfo.maximumGuests} Persons`
         let oneNightPrice = roomInfo.pricePerNight;
 
         // ------------------ carousel start----------------------

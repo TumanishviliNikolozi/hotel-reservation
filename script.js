@@ -21,7 +21,7 @@ closeBurger.addEventListener('click', () => {
 
 async function fetchData() {
     try {
-        [hotelData, roomData, roomTypes, cityNames, bookedRooms] = await Promise.all([
+        [hotelData, roomData, roomTypes, cityNames, bookedRoomsdata] = await Promise.all([
             fetch('https://hotelbooking.stepprojects.ge/api/Hotels/GetAll'),
             fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetAll'),
             fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetRoomTypes'),
@@ -33,13 +33,13 @@ async function fetchData() {
         roomData = await checkResponse(roomData);
         roomTypes = await checkResponse(roomTypes);
         cityNames = await checkResponse(cityNames);
-        bookedRooms = await checkResponse(bookedRooms);
+        bookedRoomsdata = await checkResponse(bookedRoomsdata);
 
-        return {hotelData, roomData, roomTypes, cityNames, bookedRooms};
+        return {hotelData, roomData, roomTypes, cityNames, bookedRoomsdata};
 
     } catch (error) {
         console.error('error', error);
-        return {hotelData: [], roomData: [], roomTypes: [], cityNames: [], bookedRooms: []};
+        return {hotelData: [], roomData: [], roomTypes: [], cityNames: [], bookedRoomsdata: []};
     }
 }
 
@@ -61,9 +61,10 @@ document.addEventListener('DOMContentLoaded', async() => {
         const cityNamesContainer = document.getElementById('button-for-hotel-sorting');
         const guestFavoriteRooms = document.getElementById('guest-favorite-rooms-container');
         const roomFilter = document.getElementById('room-filter');
+        const bookedRoomsContainer = document.getElementById('booked-rooms-container');
 
 
-        const {hotelData, roomData, roomTypes, cityNames} = await fetchData();
+        const {hotelData, roomData, roomTypes, cityNames, bookedRoomsdata} = await fetchData();
 
         if(hotelContainer){
             hotelsForDisplay(hotelData);
@@ -91,6 +92,10 @@ document.addEventListener('DOMContentLoaded', async() => {
 
         if(guestFavoriteRooms){
             favoriteRooms(roomData);
+        }
+
+        if(bookedRoomsContainer){
+            getbookedRooms(hotelData, bookedRoomsdata);
         }
 
     } catch(error){
@@ -232,6 +237,8 @@ async function hotelsForDisplay(hotels) {
 
         let hotelContainer = document.getElementById('hotel-container');
         if (!hotelContainer) return;
+
+        hotelContainer.innerHTML = '';
 
         hotels.forEach(hotel => {
             let hotelCard = document.createElement('div');
@@ -384,6 +391,19 @@ async function roomFilterForm(roomData) {
                 checkOut: document.getElementById('check-out').value || null
             }
 
+            document.querySelectorAll('.room-card').forEach(card => {
+                // Assume each card has data attributes that match the filter criteria
+                const roomPrice = parseInt(card.pricePerNight);
+                const roomGuest = parseInt(card.maximumGuests);
+                // Add your filtering logic here based on filterRequest properties
+                if (roomPrice >= filterRequest.priceFrom && roomPrice <= filterRequest.priceTo &&
+                    roomGuest >= filterRequest.maximumGuests) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
             // fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetFiltered', {
             //     method: 'POST',
             //     headers: { "Content-Type": "application/json" },
@@ -510,6 +530,7 @@ if(document.getElementById('room-details')){
     document.addEventListener('DOMContentLoaded', () => {
         let roomInfo = JSON.parse(localStorage.getItem('selectedRoom'));
         console.log(roomInfo)
+
         document.getElementById('how-many-persons').innerHTML = `${roomInfo.maximumGuests} Persons`
         let oneNightPrice = roomInfo.pricePerNight;
 
@@ -553,7 +574,7 @@ if(document.getElementById('room-details')){
         }
         
         if(!photoGallery || photoGallery.length === 0){
-            // roomImgCarousel.innerHTML = `<p class="if-no-img"><span>No Imgs</span></p>`
+            roomImgCarousel.innerHTML = `<p class="if-no-img"><span>No Imgs</span></p>`
             document.getElementById('if-no-img').style.display = 'flex';
             return
         } 
@@ -577,9 +598,6 @@ if(document.getElementById('room-details')){
             <h2>${roomInfo.name}: </h2>
             <p><span>${roomInfo.pricePerNight}$</span> per night.</p>
         `;
-        // console.log(roomInfo)
-
-        console.log(oneNightPrice)
 
         document.getElementById('check-in-reservation').addEventListener('input', function(){
             validateCheckIn();
@@ -612,6 +630,19 @@ if(document.getElementById('room-details')){
                 errorMessage.textContent = "Check-in date cannot be in the past.";
             } else {
                 errorMessage.textContent = "";
+                return checkIn;
+            }
+        }
+
+        function takeCheckInTime(){
+            let checkInExtraction = validateCheckIn();
+
+            if(checkInExtraction){
+                let newDate = new Date(checkInExtraction);
+                let formattedDate = newDate.toISOString().split('.')[0];
+                return formattedDate;
+            } else {
+                return null
             }
         }
 
@@ -626,6 +657,19 @@ if(document.getElementById('room-details')){
                 errorMessage.textContent = "Check-out must be after check-in.";
             } else {
                 errorMessage.textContent = "";
+                return checkOut;
+            }
+        }
+
+        function takeCheckOutTime(){
+            let checkOutExtraction = validateCheckOut();
+
+            if(checkOutExtraction){
+                let newDate = new Date(checkOutExtraction);
+                let formattedDate = newDate.toISOString().split('.')[0];
+                return formattedDate;
+            } else {
+                return null
             }
         }
 
@@ -637,6 +681,7 @@ if(document.getElementById('room-details')){
                 errorMessage.textContent = "Name must be at least 3 characters long.";
             } else {
                 errorMessage.textContent = "";
+                return name;
             }
         }
 
@@ -649,6 +694,7 @@ if(document.getElementById('room-details')){
                 errorMessage.textContent = "Enter a valid 10-digit phone number.";
             } else {
                 errorMessage.textContent = "";
+                return phone;
             }
         }
 
@@ -656,17 +702,72 @@ if(document.getElementById('room-details')){
             let checkIn = new Date(document.getElementById("check-in-reservation").value);
             let checkOut = new Date(document.getElementById("check-out-reservation").value);
             let totalPriceElement = document.getElementById("total-price");
-        
+            let totalBookinPrice;
             if (checkIn.getTime() && checkOut.getTime() && checkOut > checkIn) {
                 let nights = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
-                
-                totalPriceElement.innerHTML = `Total Price: <span>${nights * oneNightPrice}$</span>.`;
+                totalBookinPrice = nights * oneNightPrice;
+                totalPriceElement.innerHTML = `Total Price: <span>${totalBookinPrice}$</span>.`;
+                return totalBookinPrice;
             } else {
                 totalPriceElement.innerHTML = `Total Price: <span>${0}$</span>.`;
             }
         }
 
+        console.log(roomInfo.id)
+
+        document.getElementById('room-form').addEventListener('submit', function(event){
+            event.preventDefault();
+
+            // console.log(validateCheckIn())
+            // console.log(validateCheckOut())
+            // console.log(validateName())
+            // console.log(validatePhone())
+            // console.log(calculateTotalPrice())
+            // console.log(takeCheckInTime())
+
+            let roomPoster = {
+                roomID: roomInfo.id || 0,
+                checkInDate: `${takeCheckInTime()}` || null,
+                checkOutDate: `${takeCheckOutTime()}` || null,
+                totalPrice: calculateTotalPrice() || 0,
+                isConfirmed: roomInfo.available || null,
+                customerName: `${validateName()}` || null,
+                customerId: `` || null,
+                customerPhone: validatePhone() || 0
+            }
+
+            // console.log(roomPoster)
+
+            // fetch('https://hotelbooking.stepprojects.ge/api/Booking', {         <---------------------- booking POST
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(roomPoster)
+            // })
+
+            // .then(response => response.json())
+            // .then(data => console.log('API response', data))
+            // .catch(error => console.log('API error', error))
+        })
+
     });
+}
+
+
+async function getbookedRooms(hotelData, bookedRoomsdata) {
+    try {
+        let bookingHotels = hotelData;
+        let bookingRooms = bookedRoomsdata;
+
+        bookingHotels.forEach(hotel => {
+            console.log(hotel)
+        })
+        
+        
+    } catch (error) {
+        console.error('room booking:', error);
+    }
 }
 
 // console.log(document.getElementById('total-price').textContent)

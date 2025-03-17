@@ -305,15 +305,18 @@ if(document.getElementById('button-for-all-rooms')){
     });
 }
 
+// if(document.getElementById('filter-reset-button')){
+//     document.getElementById('filter-reset-button').addEventListener('reset', () => {
+//         roomsForDisplay(roomData);
+//     })
+// }
+
 
 async function roomFilterForm(roomData) {
     try {
 
         let roomsToFilter = roomData;
-        let roomType;
-        let minPrice;
-        let maxPrice;
-
+        
         let decreaseButton = document.getElementById('decrease-button');
         let GuestNumberCount = document.getElementById('guest-number');
         let increaseButton = document.getElementById('increase-button');
@@ -332,90 +335,75 @@ async function roomFilterForm(roomData) {
         });
 
 
-        document.getElementById('room-type-select').addEventListener('input', function(){
-            roomType = document.getElementById('room-type-select').value;
-            console.log(roomType);
-        });
+        // document.getElementById('room-type-select').addEventListener('input', function(){
+        //     roomType = document.getElementById('room-type-select').value;
+        //     console.log(roomType);
+        // });
 
 
-        document.getElementById('min-range').addEventListener('input', function(){
-            minPrice = document.getElementById('min-range').value;
-            document.getElementById('min-number-input').value = minPrice;
-        });
+        // document.getElementById('min-range').addEventListener('input', function(){
+        //     minPrice = document.getElementById('min-range').value;
+        //     document.getElementById('min-number-input').value = minPrice;
+        // });
 
-        document.getElementById('min-number-input').addEventListener('input', function(){
-            minPrice = document.getElementById('min-number-input').value;
-            document.getElementById('min-range').value = minPrice;
-        });
+        // document.getElementById('min-number-input').addEventListener('input', function(){
+        //     minPrice = document.getElementById('min-number-input').value;
+        //     document.getElementById('min-range').value = minPrice;
+        // });
 
-        document.getElementById('max-range').addEventListener('input', function(){
-            maxPrice = document.getElementById('max-range').value;
-            document.getElementById('max-number-input').value = maxPrice;
-        });
+        // document.getElementById('max-range').addEventListener('input', function(){
+        //     maxPrice = document.getElementById('max-range').value;
+        //     document.getElementById('max-number-input').value = maxPrice;
+        // });
 
-        document.getElementById('max-number-input').addEventListener('input', function(){
-            maxPrice = document.getElementById('max-number-input').value;
-            document.getElementById('max-range').value = maxPrice;
-        });
+        // document.getElementById('max-number-input').addEventListener('input', function(){
+        //     maxPrice = document.getElementById('max-number-input').value;
+        //     document.getElementById('max-range').value = maxPrice;
+        // });
 
-        document.getElementById('guest-number').addEventListener('input', function(){
-            let guests = document.getElementById('guest-number').value;
-            if(guests < 1){
-                document.getElementById('guest-number').value = 1;
-                guests = 1;
-            }
-            console.log(guests)
-        })
+        // document.getElementById('guest-number').addEventListener('input', function(){
+        //     let guests = document.getElementById('guest-number').value;
+        //     if(guests < 1){
+        //         document.getElementById('guest-number').value = 1;
+        //         guests = 1;
+        //     }
+        //     console.log(guests)
+        // })
 
-        document.getElementById('check-in').addEventListener('input', function(){
-            let checkIn = document.getElementById('check-in').value;
-            console.log(checkIn)
-        })
+        // document.getElementById('check-in').addEventListener('input', function(){
+        //     let checkIn = document.getElementById('check-in').value;
+        //     console.log(checkIn)
+        // })
 
-        document.getElementById('check-out').addEventListener('input', function(){
-            let checkIn = document.getElementById('check-out').value;
-            console.log(checkIn)
-        })
+        // document.getElementById('check-out').addEventListener('input', function(){
+        //     let checkIn = document.getElementById('check-out').value;
+        //     console.log(checkIn)
+        // })
 
 
                 
         document.getElementById('room-filter').addEventListener('submit', (event) => {
             event.preventDefault();
 
-            let filterRequest = {
-                roomTypeId: document.getElementById('room-type-select').value || null,
-                priceFrom: parseInt(document.getElementById('min-number-input').value) || 0,
-                priceTo: parseInt(document.getElementById('max-number-input').value) || 0,
-                maximumGuests: parseInt(document.getElementById('guest-number').value) || 0,
-                checkIn: document.getElementById('check-in').value || null,
-                checkOut: document.getElementById('check-out').value || null
-            }
+            let formData = new FormData(event.target);
+            let filterInfo = Object.fromEntries(formData);
 
-            document.querySelectorAll('.room-card').forEach(card => {
-                // Assume each card has data attributes that match the filter criteria
-                const roomPrice = parseInt(card.pricePerNight);
-                const roomGuest = parseInt(card.maximumGuests);
-                // Add your filtering logic here based on filterRequest properties
-                if (roomPrice >= filterRequest.priceFrom && roomPrice <= filterRequest.priceTo &&
-                    roomGuest >= filterRequest.maximumGuests) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetFiltered', {
+                method: 'POST',
+                headers: {
+                    accept: 'text/plain',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(filterInfo)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                roomsForDisplay(data);
+            })
 
-            // fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetFiltered', {
-            //     method: 'POST',
-            //     headers: { "Content-Type": "application/json" },
-            //     body: JSON.stringify(filterRequest)
-            // })
-
-            // .then(response => response.json())
-            // .then(data => console.log('api response:', data))
-            // .catch(error => console.error('Error:', error))
+            
         })
-
-        
         
     } catch (error) {
         console.error('filter form:', error);
@@ -468,7 +456,7 @@ async function roomsForDisplay(rooms) {
     try {
 
         let roomContainer = document.getElementById('room-container');
-        if (!roomContainer) return;
+        // if (!roomContainer) return;
 
         roomContainer.innerHTML = '';
 

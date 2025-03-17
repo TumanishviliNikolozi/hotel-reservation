@@ -699,6 +699,12 @@ html, body, .parent {
     background-color: transparent;
     border: 1px solid rgb(46, 42, 42);
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .parent .room-filter .room-filter-by .increment-decrement .decrease-button span, .parent .room-filter .room-filter-by .increment-decrement .increase-button span {
     font-size: 20px;
     color: rgb(94, 200, 212);
   }

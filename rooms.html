@@ -67,18 +67,18 @@
 
                     <div class="number-field">
                         <div class="number-holder">
-                            <input type="number" class="min-number-input number-field-input" id="min-number-input" value="0">
+                            <input type="number" class="min-number-input number-field-input" id="min-number-input" name="priceFrom" value="0" required>
                         </div>
 
                         <div class="number-holder">
-                            <input type="number" class="max-number-input number-field-input" id="max-number-input" value="1000">
+                            <input type="number" class="max-number-input number-field-input" id="max-number-input" name="priceTo" value="1000" required>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="room-filter-by">
                 <label for="room-type-select"><span>Room Type</span><i class="fa-solid fa-circle-info"></i></label>
-                <select name="" id="room-type-select" class="room-filter-bars">
+                <select name="roomTypeId" id="room-type-select" class="room-filter-bars" required>
                     <option value="" disabled selected>Select a room</option>
                     <option value="1">Single Rooms</option>
                     <option value="2">Double Rooms</option>
@@ -87,25 +87,25 @@
             </div>
             <div class="room-filter-by">
                 <label for="check-in"><span>Check-In</span><i class="fa-solid fa-circle-info"></i></label>
-                <input type="date" name="check-in" class="room-filter-bars check-in" id="check-in" min="">
+                <input type="date" name="checkIn" class="room-filter-bars check-in" id="check-in" min="" required>
             </div>
             <div class="room-filter-by">
                 <label for="check-out"><span>Check-Out</span><i class="fa-solid fa-circle-info"></i></label>
-                <input type="date" name="check-out" class="room-filter-bars check-out" id="check-out" min="">
+                <input type="date" name="checkOut" class="room-filter-bars check-out" id="check-out" min="" required>
             </div>
             <div class="room-filter-by guest-number-container">
                 <label for="guest-number" ><span>Guests</span></label>
                 <div class="increment-decrement">
-                    <button class="decrease-button" id="decrease-button">&#10092;</button>
-                    <input type="number" name="" class="guest-number" id="guest-number" value="1" placeholder="1">
-                    <button class="increase-button" id="increase-button">&#10093;</button>
+                    <div class="decrease-button" id="decrease-button"><span>&#10092;</span></div>
+                    <input type="number" name="" class="guest-number" id="guest-number" name="maximumGuests" value="1" placeholder="1" required>
+                    <div class="increase-button" id="increase-button"><span>&#10093;</span></div>
                 </div>
             </div>
             <div class="room-filter-by apply-filters">
                 <button type="submit" class="room-filter-bars filter-submit-button" id="filter-submit-button">APPLY FILTER</button>
             </div>
             <div class="room-filter-by clear-filters">
-                <button type="reset" class="room-filter-bars filter-reset-button" id="filter-reset-button">RESET</button>
+                <button type="reset" class="room-filter-bars filter-reset-button" id="filter-reset-button" onclick="roomsForDisplay(roomData)">RESET</button>
             </div>
 
 

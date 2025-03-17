@@ -661,8 +661,13 @@ html, body, .parent{
                         background-color: transparent;
                         border: 1px solid $border-color-3;
                         border-radius: 5px;
-                        font-size: 20px;
-                        color: $primary-color-3;
+                        @include display-flex-all-center;
+                        cursor: pointer;
+                        
+                        span{
+                            font-size: 20px;
+                            color: $primary-color-3;
+                        }
                     }
 
                     .guest-number{

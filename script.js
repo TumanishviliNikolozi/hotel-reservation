@@ -683,9 +683,9 @@ async function getbookedRooms(hotelData, bookedRoomsdata, roomdata) {
         let bookingHotels = hotelData;
         let bookingRooms = bookedRoomsdata;
 
-        console.log(bookingHotels)
-        console.log(bookingRooms)
-        console.log(checkRoomData)
+        // console.log(bookingHotels)
+        // console.log(bookingRooms)
+        // console.log(checkRoomData)
 
         let reversedBookingRooms = [...bookedRoomsdata].reverse();
 
@@ -812,7 +812,6 @@ async function deleteReservation(deleteId) {
         }
 
         console.log(`Booking with ID ${deleteId} deleted successfully.`);
-        // ✅ Remove the deleted booking from the UI
         document.querySelector(`button[data-id="${deleteId}"]`).closest('.each-booked-room').remove();
 
     } catch (error) {

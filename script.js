@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', async() => {
         const cityNamesContainer = document.getElementById('button-for-hotel-sorting');
         const guestFavoriteRooms = document.getElementById('guest-favorite-rooms-container');
         const roomFilter = document.getElementById('room-filter');
-        const bookedRoomsContainer = document.getElementById('booked-rooms-container');
+        const reservedRoomsContainer = document.getElementById('booked-rooms-container');
 
 
         const {hotelData, roomData, roomTypes, cityNames, bookedRoomsdata} = await fetchData();
@@ -90,8 +90,8 @@ document.addEventListener('DOMContentLoaded', async() => {
             favoriteRooms(roomData);
         }
 
-        if(bookedRoomsContainer){
-            getbookedRooms(hotelData, bookedRoomsdata);
+        if(reservedRoomsContainer){
+            getbookedRooms(hotelData, bookedRoomsdata, roomData);
         }
 
     } catch(error){
@@ -320,29 +320,29 @@ function guestNumberDecreament(){
     console.log(document.getElementById('guest-number').value) 
 }
 
-
-document.getElementById('room-filter').addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    let formData = new FormData(event.target);
-    let filterInfo = Object.fromEntries(formData);
-
-    fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetFiltered', {
-        method: 'POST',
-        headers: {
-            accept: 'text/plain',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(filterInfo)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        roomsForDisplay(data);
-    })
-
+if(document.getElementById('room-filter')){
+    document.getElementById('room-filter').addEventListener('submit', (event) => {
+        event.preventDefault();
     
-})
+        let formData = new FormData(event.target);
+        let filterInfo = Object.fromEntries(formData);
+    
+        fetch('https://hotelbooking.stepprojects.ge/api/Rooms/GetFiltered', {
+            method: 'POST',
+            headers: {
+                accept: 'text/plain',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(filterInfo)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            roomsForDisplay(data);
+        })
+    })
+}
+
 
 
 
@@ -660,30 +660,135 @@ if(document.getElementById('room-details')){
 
             // console.log(roomPoster)
 
-            // fetch('https://hotelbooking.stepprojects.ge/api/Booking', {         <---------------------- booking POST
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify(roomPoster)
-            // })
+            fetch('https://hotelbooking.stepprojects.ge/api/Booking', {        // <---------------------- booking POST
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(roomPoster)
+            })
 
-            // .then(response => response.json())
-            // .then(data => console.log('API response', data))
-            // .catch(error => console.log('API error', error))
+            .then(response => response.json())
+            .then(data => console.log('API response', data))
+            .catch(error => console.log('API error', error))
         })
 
     });
 }
 
 
-async function getbookedRooms(hotelData, bookedRoomsdata) {
+async function getbookedRooms(hotelData, bookedRoomsdata, roomdata) {
     try {
+        let checkRoomData = roomdata;
         let bookingHotels = hotelData;
         let bookingRooms = bookedRoomsdata;
 
-        bookingHotels.forEach(hotel => {
-            console.log(hotel)
+        console.log(bookingHotels)
+        console.log(bookingRooms)
+        console.log(checkRoomData)
+
+        let reversedBookingRooms = [...bookedRoomsdata].reverse();
+
+        let bookedRoomsContainer = document.getElementById('booked-rooms-container');
+        bookedRoomsContainer.innerHTML = '';
+
+        reversedBookingRooms.forEach(roomReserve => {
+            let hotelImg;
+            let hotelName;
+            let hotelTown;
+            let roomImg;
+            let roomName;
+            let roomPricePerNight;
+
+            if(roomReserve.isConfirmed === true){
+
+                checkRoomData.forEach(getId => {
+                    if(roomReserve.roomID === getId.id){
+                        bookingHotels.forEach(getHotelId => {
+                            if(getId.hotelId === getHotelId.id){
+                                hotelImg = getHotelId.featuredImage;
+                                hotelName = getHotelId.name;
+                                hotelTown = getHotelId.city;
+                            }
+                        })
+    
+                        roomImg = getId.images[0].source;
+                        roomName = getId.name;
+                        roomPricePerNight = getId.pricePerNight;
+                    }
+                })
+                
+                // console.log(hotelImg)
+                // console.log(hotelName)
+                // console.log(hotelTown)
+                // console.log(roomImg)
+                // console.log(roomName)
+                // console.log(roomPricePerNight)
+
+                let fullCheckinTime = new Date(roomReserve.checkInDate);
+                let onlyCheckInDate = fullCheckinTime.toISOString().split('T')[0];
+
+                let fullCheckoutTime = new Date(roomReserve.checkOutDate);
+                let onlyCheckOutDate = fullCheckoutTime.toISOString().split('T')[0];
+    
+                let eachBookedRoom = document.createElement('div');
+                eachBookedRoom.classList.add('each-booked-room');
+    
+                eachBookedRoom.innerHTML = `
+                    <div class="booked-hotel-img">
+                        <img src="${hotelImg}" alt="${hotelName}">
+                    </div>
+                    <div class="booked-hotel-name-and-city">
+                        <h2><span>${hotelName}</span></h2>
+                        <p><span>${hotelTown}</span></p>
+                    </div>
+                    <div class="booked-room-img">
+                        <img src="${roomImg}" alt="${roomName}">
+                    </div>
+                    <div class="booked-room-name-and-price">
+                        <h2><span>${roomName}</span></h2>
+                        <p><span>${roomPricePerNight}$</span></p>
+                    </div>
+                    <div class="customer-name-and-phone">
+                        <h2><span>${roomReserve.customerName}</span></h2>
+                        <p><span>${roomReserve.customerPhone}</span></p>
+                    </div>
+                    <div class="booking-status">
+                        <p><span>Booked</span></p>
+                    </div>
+                    <div class="check-in-date">
+                        <p><span>${onlyCheckInDate}</span></p>
+                    </div>
+                    <div class="check-out-date">
+                        <p><span>${onlyCheckOutDate}</span></p>
+                    </div>
+                    <div class="rooms-total-price">
+                        <p><span>${roomReserve.totalPrice}$</span></p>
+                    </div>
+                    <div class="cencel-button-ontainer">
+                        <button class="cencel-booking" data-id="${roomReserve.id}">Cencel</button>
+                    </div>
+                `
+
+                bookedRoomsContainer.appendChild(eachBookedRoom);
+                // console.log(roomReserve.id)
+                // console.log(eachBookedRoom)
+            }
+
+            // console.log(bookedRoomsContainer)
+        });
+
+        document.querySelectorAll('.cencel-booking').forEach(button => {
+            button.addEventListener('click', (event) => {
+                let tellMe = confirm('Do you really want cencel reservation?')
+
+                if(tellMe){
+                    let boolingId = event.target.getAttribute('data-id');
+                    deleteReservation(boolingId);
+                } else {
+                    return
+                }
+            })
         })
         
         
@@ -691,6 +796,30 @@ async function getbookedRooms(hotelData, bookedRoomsdata) {
         console.error('room booking:', error);
     }
 }
+
+async function deleteReservation(deleteId) {
+    try {
+        const response = await fetch(`https://hotelbooking.stepprojects.ge/api/Booking/${deleteId}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to delete booking with ID: ${deleteId}`);
+        }
+
+        console.log(`Booking with ID ${deleteId} deleted successfully.`);
+        // ✅ Remove the deleted booking from the UI
+        document.querySelector(`button[data-id="${deleteId}"]`).closest('.each-booked-room').remove();
+
+    } catch (error) {
+        console.error('Delete error:', error);
+    }
+}
+
 
 // console.log(document.getElementById('total-price').textContent)
 

@@ -652,25 +652,22 @@ html, body, .parent{
                 .increment-decrement{
                     width: 90%;
                     height: 40px;
-                    display: grid;
-                    grid-template-columns: calc(25% - 5px) 50% calc(25% - 5px);
-                    grid-template-rows: auto;
-                    column-gap: 5px;
 
-                    .decrease-button, .increase-button{
-                        background-color: transparent;
-                        border: 1px solid $border-color-3;
-                        border-radius: 5px;
-                        @include display-flex-all-center;
-                        cursor: pointer;
+                    // .decrease-button, .increase-button{
+                    //     background-color: transparent;
+                    //     border: 1px solid $border-color-3;
+                    //     border-radius: 5px;
+                    //     @include display-flex-all-center;
+                    //     cursor: pointer;
                         
-                        span{
-                            font-size: 20px;
-                            color: $primary-color-3;
-                        }
-                    }
+                    //     span{
+                    //         font-size: 20px;
+                    //         color: $primary-color-3;
+                    //     }
+                    // }
 
                     .guest-number{
+                        @include width-height-100;
                         background-color: transparent;
                         border: 1px solid $border-color-3;
                         border-radius: 5px;

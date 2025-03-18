@@ -689,26 +689,10 @@ html, body, .parent {
   .parent .room-filter .room-filter-by .increment-decrement {
     width: 90%;
     height: 40px;
-    display: grid;
-    grid-template-columns: calc(25% - 5px) 50% calc(25% - 5px);
-    grid-template-rows: auto;
-    -moz-column-gap: 5px;
-         column-gap: 5px;
-  }
-  .parent .room-filter .room-filter-by .increment-decrement .decrease-button, .parent .room-filter .room-filter-by .increment-decrement .increase-button {
-    background-color: transparent;
-    border: 1px solid rgb(46, 42, 42);
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-  .parent .room-filter .room-filter-by .increment-decrement .decrease-button span, .parent .room-filter .room-filter-by .increment-decrement .increase-button span {
-    font-size: 20px;
-    color: rgb(94, 200, 212);
   }
   .parent .room-filter .room-filter-by .increment-decrement .guest-number {
+    width: 100%;
+    height: 100%;
     background-color: transparent;
     border: 1px solid rgb(46, 42, 42);
     border-radius: 5px;

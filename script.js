@@ -15,6 +15,21 @@ closeBurger.addEventListener('click', () => {
 // ------------------------------ burger menu end ----------------------------------
 
 
+// ------------------------------ flatpickr calendar ---------------------------------
+
+let filterCheckIn = flatpickr('#check-in', {
+    minDate: 'today',
+    onChange: function(selectedDates) {
+        let minCheckoutDate = selectedDates[0] ? selectedDates[0].fp_incr(1) : null;
+        filterCheckOut.set("minDate", minCheckoutDate);
+    }
+})
+
+let filterCheckOut = flatpickr('#check-out', {
+    minDate: new Date()
+})
+
+
 
 // ----------------------------- fetch and confirmation ------------------------------------
 
@@ -286,8 +301,17 @@ async function roomSortByType(roomsSort) {
                 let filterbyTypeButton = event.target.dataset.roomTypeId;
                 // console.log(filterbyTypeButton);
                 sortElementsByType(filterbyTypeButton);
+
+                document.querySelectorAll('.room-type-button').forEach(button => {
+                    button.classList.remove('active-room-type-button');
+                });
+                
+                event.target.classList.add('active-room-type-button');
             })
+
+
         });
+
     } catch (error) {
         console.error('In rooms types sorting:', error);
     }
@@ -298,6 +322,10 @@ async function roomSortByType(roomsSort) {
 if(document.getElementById('button-for-all-rooms')){
     document.getElementById('button-for-all-rooms').addEventListener('click', () => {
         roomsForDisplay(roomData);
+
+        document.querySelectorAll('.room-type-button').forEach(button => {
+            button.classList.remove('active-room-type-button');
+        });
     });
 }
 
@@ -323,6 +351,15 @@ function guestNumberDecreament(){
 if(document.getElementById('room-filter')){
     document.getElementById('room-filter').addEventListener('submit', (event) => {
         event.preventDefault();
+
+        let flatCheckin = document.getElementById('check-in').value;
+        let flatCheckout = document.getElementById('check-out').value;
+
+        if(!flatCheckin || !flatCheckout){
+            alert("Please select both check-in and check-out dates.");
+            // event.preventDefault();
+            return;
+        }
     
         let formData = new FormData(event.target);
         let filterInfo = Object.fromEntries(formData);
@@ -343,7 +380,11 @@ if(document.getElementById('room-filter')){
     })
 }
 
-
+function filterReset(){
+    roomsForDisplay(roomData);
+    document.getElementById('slider-progress').style.right = '0%';
+    document.getElementById('slider-progress').style.left = '0%';
+}
 
 
 async function searchBar() {
@@ -953,64 +994,67 @@ rangeInput.forEach(input => {
 // --------------------------------- filter -----------------------
 
 
-document.addEventListener('DOMContentLoaded', () => {
 
-    let today = new Date().toISOString().split('T')[0];
 
-    if(document.getElementById('check-in') && document.getElementById('check-out')){
-        let checkInInput = document.getElementById('check-in');
-        let checkOutInput = document.getElementById('check-out');
 
-        checkInInput.setAttribute('min', today);
-        checkOutInput.setAttribute('min', today);
+// document.addEventListener('DOMContentLoaded', () => {
 
-        checkInInput.addEventListener('change', () => {
-            let checkInDate = new Date(checkInInput.value);
-            let checkOutDate = new Date(checkOutInput.value);
-    
-            if (checkOutDate <= checkInDate) {
-                checkOutInput.value = "";
-                checkOutInput.setAttribute("min", checkInInput.value);
-            }
-        });
-    
-        checkOutInput.addEventListener('change', () => {
-            let checkInDate = new Date(checkInInput.value);
-            let checkOutDate = new Date(checkOutInput.value);
-    
-            if (checkInDate >= checkOutDate) {
-                alert("Check-out date must be after check-in date.");
-                checkOutInput.value = "";
-            }
-        });
-    }
-    if(document.getElementById('check-in-reservation') && document.getElementById('check-out-reservation')){
+//     let today = new Date().toISOString().split('T')[0];
 
-        let checkInInput = document.getElementById('check-in-reservation');
-        let checkOutInput = document.getElementById('check-out-reservation');
+//     if(document.getElementById('check-in') && document.getElementById('check-out')){
+//         let checkInInput = document.getElementById('check-in');
+//         let checkOutInput = document.getElementById('check-out');
 
-        checkInInput.setAttribute('min', today);
-        checkOutInput.setAttribute('min', today);
+//         checkInInput.setAttribute('min', today);
+//         checkOutInput.setAttribute('min', today);
 
-        checkInInput.addEventListener('change', () => {
-            let checkInDate = new Date(checkInInput.value);
-            let checkOutDate = new Date(checkOutInput.value);
+//         checkInInput.addEventListener('change', () => {
+//             let checkInDate = new Date(checkInInput.value);
+//             let checkOutDate = new Date(checkOutInput.value);
     
-            if (checkOutDate < checkInDate) {
-                checkOutInput.value = "";
-                checkOutInput.setAttribute("min", checkInInput.value);
-            }
-        });
+//             if (checkOutDate <= checkInDate) {
+//                 checkOutInput.value = "";
+//                 checkOutInput.setAttribute("min", checkInInput.value);
+//             }
+//         });
     
-        checkOutInput.addEventListener('change', () => {
-            let checkInDate = new Date(checkInInput.value);
-            let checkOutDate = new Date(checkOutInput.value);
+//         checkOutInput.addEventListener('change', () => {
+//             let checkInDate = new Date(checkInInput.value);
+//             let checkOutDate = new Date(checkOutInput.value);
     
-            if (checkInDate > checkOutDate) {
-                alert("Check-out date must be after check-in date.");
-                checkOutInput.value = "";
-            }
-        });
-    }
+//             if (checkInDate >= checkOutDate) {
+//                 alert("Check-out date must be after check-in date.");
+//                 checkOutInput.value = "";
+//             }
+//         });
+//     }
+//     if(document.getElementById('check-in-reservation') && document.getElementById('check-out-reservation')){
+
+//         let checkInInput = document.getElementById('check-in-reservation');
+//         let checkOutInput = document.getElementById('check-out-reservation');
+
+//         checkInInput.setAttribute('min', today);
+//         checkOutInput.setAttribute('min', today);
+
+//         checkInInput.addEventListener('change', () => {
+//             let checkInDate = new Date(checkInInput.value);
+//             let checkOutDate = new Date(checkOutInput.value);
     
-})
+//             if (checkOutDate < checkInDate) {
+//                 checkOutInput.value = "";
+//                 checkOutInput.setAttribute("min", checkInInput.value);
+//             }
+//         });
+    
+//         checkOutInput.addEventListener('change', () => {
+//             let checkInDate = new Date(checkInInput.value);
+//             let checkOutDate = new Date(checkOutInput.value);
+    
+//             if (checkInDate > checkOutDate) {
+//                 alert("Check-out date must be after check-in date.");
+//                 checkOutInput.value = "";
+//             }
+//         });
+//     }
+    
+// })

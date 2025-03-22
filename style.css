@@ -29,6 +29,18 @@ html, body, .parent {
   text-decoration: none;
 }
 
+.flatpickr-calendar .flatpickr-disabled {
+  background-color: rgb(255, 203, 203);
+  color: rgb(98, 98, 98);
+}
+.flatpickr-calendar .today {
+  background-color: rgb(94, 200, 212);
+}
+.flatpickr-calendar .selected {
+  background-color: rgb(34, 199, 34);
+  border-color: rgb(46, 42, 42);
+}
+
 @media screen and (min-width: 1280px) {
   header {
     display: flex;
@@ -704,7 +716,7 @@ html, body, .parent {
   .parent .room-filter .room-filter-by .room-type-select-replacement.active .select-dropdown, .parent .room-filter .room-filter-by .room-type-select-replacement.active .guest-number-dropdown, .parent .room-filter .room-filter-by .guest-number-replacement.active .select-dropdown, .parent .room-filter .room-filter-by .guest-number-replacement.active .guest-number-dropdown {
     display: block;
   }
-  .parent .room-filter .room-filter-by .room-type-select-replacement.active .select-dropdown-arrow, .parent .room-filter .room-filter-by .room-type-select-replacement.active .guest-number-dropdown-arrow, .parent .room-filter .room-filter-by .guest-number-replacement.active .select-dropdown-arrow, .parent .room-filter .room-filter-by .guest-number-replacement.active .guest-number-dropdown-arrow {
+  .parent .room-filter .room-filter-by .room-type-select-replacement.active .select-dropdown-arrow, .parent .room-filter .room-filter-by .guest-number-replacement.active .select-dropdown-arrow {
     rotate: 180deg;
   }
   .parent .room-filter .room-filter-by .room-type-select-replacement .room-type-select-replacement-toggle, .parent .room-filter .room-filter-by .room-type-select-replacement .guest-number-replacement-toggle, .parent .room-filter .room-filter-by .guest-number-replacement .room-type-select-replacement-toggle, .parent .room-filter .room-filter-by .guest-number-replacement .guest-number-replacement-toggle {
@@ -724,6 +736,11 @@ html, body, .parent {
     cursor: pointer;
     color: rgb(94, 200, 212);
     font-size: 20px;
+  }
+  .parent .room-filter .room-filter-by .room-type-select-replacement .guest-number-dropdown-arrow, .parent .room-filter .room-filter-by .guest-number-replacement .guest-number-dropdown-arrow {
+    top: 10px;
+    right: 8px;
+    font-size: 18px;
   }
   .parent .room-filter .room-filter-by .room-type-select-replacement .select-dropdown, .parent .room-filter .room-filter-by .room-type-select-replacement .guest-number-dropdown, .parent .room-filter .room-filter-by .guest-number-replacement .select-dropdown, .parent .room-filter .room-filter-by .guest-number-replacement .guest-number-dropdown {
     display: none;
@@ -945,9 +962,13 @@ html, body, .parent {
     flex-direction: column;
     justify-content: start;
     align-items: start;
+    position: relative;
   }
   .room-details .room-form-holder .room-reserve label {
+    display: flex;
+    align-items: center;
     margin-bottom: 10px;
+    gap: 8px;
   }
   .room-details .room-form-holder .room-reserve label span {
     color: rgb(98, 98, 98);
@@ -957,6 +978,19 @@ html, body, .parent {
   }
   .room-details .room-form-holder .room-reserve label i {
     color: rgb(98, 98, 98);
+  }
+  .room-details .room-form-holder .room-reserve .reservation-calendar {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    margin: 0;
+    cursor: pointer;
+  }
+  .room-details .room-form-holder .room-reserve .reservation-calendar i {
+    color: rgb(94, 200, 212);
+    font-size: 20px;
   }
   .room-details .room-form-holder .room-reserve input {
     width: 100%;
@@ -1671,6 +1705,7 @@ html, body, .parent {
     font-size: 16px;
     font-family: roboto;
     font-weight: 100;
+    cursor: pointer;
   }
   .parent .room-filter .room-filter-by .room-type-select-replacement, .parent .room-filter .room-filter-by .guest-number-replacement {
     padding: 0px;
@@ -1679,7 +1714,7 @@ html, body, .parent {
   .parent .room-filter .room-filter-by .room-type-select-replacement.active .select-dropdown, .parent .room-filter .room-filter-by .room-type-select-replacement.active .guest-number-dropdown, .parent .room-filter .room-filter-by .guest-number-replacement.active .select-dropdown, .parent .room-filter .room-filter-by .guest-number-replacement.active .guest-number-dropdown {
     display: block;
   }
-  .parent .room-filter .room-filter-by .room-type-select-replacement.active .select-dropdown-arrow, .parent .room-filter .room-filter-by .room-type-select-replacement.active .guest-number-dropdown-arrow, .parent .room-filter .room-filter-by .guest-number-replacement.active .select-dropdown-arrow, .parent .room-filter .room-filter-by .guest-number-replacement.active .guest-number-dropdown-arrow {
+  .parent .room-filter .room-filter-by .room-type-select-replacement.active .select-dropdown-arrow, .parent .room-filter .room-filter-by .guest-number-replacement.active .select-dropdown-arrow {
     rotate: 180deg;
   }
   .parent .room-filter .room-filter-by .room-type-select-replacement .room-type-select-replacement-toggle, .parent .room-filter .room-filter-by .room-type-select-replacement .guest-number-replacement-toggle, .parent .room-filter .room-filter-by .guest-number-replacement .room-type-select-replacement-toggle, .parent .room-filter .room-filter-by .guest-number-replacement .guest-number-replacement-toggle {
@@ -1699,6 +1734,10 @@ html, body, .parent {
     cursor: pointer;
     color: rgb(94, 200, 212);
     font-size: 20px;
+  }
+  .parent .room-filter .room-filter-by .room-type-select-replacement .guest-number-dropdown-arrow, .parent .room-filter .room-filter-by .guest-number-replacement .guest-number-dropdown-arrow {
+    right: 6px;
+    font-size: 18px;
   }
   .parent .room-filter .room-filter-by .room-type-select-replacement .select-dropdown, .parent .room-filter .room-filter-by .room-type-select-replacement .guest-number-dropdown, .parent .room-filter .room-filter-by .guest-number-replacement .select-dropdown, .parent .room-filter .room-filter-by .guest-number-replacement .guest-number-dropdown {
     display: none;

@@ -18,12 +18,12 @@ closeBurger.addEventListener('click', () => {
 // ------------------------------ flatpickr calendar ---------------------------------
 
 
-if(document.getElementById('room-filter') || document.getElementById('room-form')){
+if(document.getElementById('room-filter')){
     let filterCheckIn = flatpickr('#check-in', {
         minDate: 'today',
         onChange: function(selectedDates) {
             let minCheckoutDate = selectedDates[0] ? selectedDates[0].fp_incr(1) : null;
-            filterCheckOut.set("minDate", minCheckoutDate);
+            filterCheckOut.set('minDate', minCheckoutDate);
         }
     })
     
@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', async() => {
         const guestFavoriteRooms = document.getElementById('guest-favorite-rooms-container');
         const roomFilter = document.getElementById('room-filter');
         const reservedRoomsContainer = document.getElementById('booked-rooms-container');
+        const roomReservationForm = document.getElementById('room-form');
 
 
         const {hotelData, roomData, roomTypes, cityNames, bookedRoomsdata} = await fetchData();
@@ -108,6 +109,10 @@ document.addEventListener('DOMContentLoaded', async() => {
 
         if(reservedRoomsContainer){
             getbookedRooms(hotelData, bookedRoomsdata, roomData);
+        }
+
+        if(roomReservationForm){
+            checkReservedDays(bookedRoomsdata);
         }
 
     } catch(error){
@@ -607,18 +612,45 @@ if(document.getElementById('room-details')){
 
         // ---------------- carousel end ------------------
 
+        async function checkReservedDays(bookedRoomsdata) {
+            try {
+                let bookedRoomsDates = bookedRoomsdata;
+                
+            } catch (error) {
+                console.error('Check Reserved Days:', error)
+            }
+        }
+
+        // --------------------------- calendar days -------------------
+
+        if(document.getElementById('room-form')){
+            let reserveCheckIn = flatpickr('#check-in-reservation', {
+                minDate: 'today',
+                onChange: function(selectedDates){
+                    let minReserveCheckoutDate = selectedDates[0] ? selectedDates[0].fp_incr(1) : null;
+                    reserveCheckOut.set('minDate', minReserveCheckoutDate)
+                }
+            })
+        
+            let reserveCheckOut = flatpickr('#check-out-reservation', {
+                minDate: new Date()
+            })
+        }
+
+
+        // --------------------------- calendar days end -------------------
+
+
         document.getElementById('room-name-price').innerHTML = `
             <h2>${roomInfo.name}: </h2>
             <p><span>${roomInfo.pricePerNight}$</span> per night.</p>
         `;
 
         document.getElementById('check-in-reservation').addEventListener('input', function(){
-            validateCheckIn();
             calculateTotalPrice();
         });
 
         document.getElementById('check-out-reservation').addEventListener('input', function(){
-            validateCheckOut();
             calculateTotalPrice();
         });
 
@@ -630,61 +662,6 @@ if(document.getElementById('room-details')){
             validatePhone();
         });
 
-
-        function validateCheckIn(){
-            let checkIn = new Date(document.getElementById('check-in-reservation').value);
-            let today = new Date();
-            today.setHours(0, 0, 0, 0);
-            let errorMessage = document.getElementById('check-in-error');
-
-            if (!checkIn.getTime()) {
-                errorMessage.textContent = "Please select a check-in date.";
-            } else if (checkIn < today) {
-                errorMessage.textContent = "Check-in date cannot be in the past.";
-            } else {
-                errorMessage.textContent = "";
-                return checkIn;
-            }
-        }
-
-        function takeCheckInTime(){
-            let checkInExtraction = validateCheckIn();
-
-            if(checkInExtraction){
-                let newDate = new Date(checkInExtraction);
-                let formattedDate = newDate.toISOString().split('.')[0];
-                return formattedDate;
-            } else {
-                return null
-            }
-        }
-
-        function validateCheckOut() {
-            let checkIn = new Date(document.getElementById("check-in-reservation").value);
-            let checkOut = new Date(document.getElementById("check-out-reservation").value);
-            let errorMessage = document.getElementById("check-out-error");
-        
-            if (!checkOut.getTime()) {
-                errorMessage.textContent = "Please select a check-out date.";
-            } else if (checkOut <= checkIn) {
-                errorMessage.textContent = "Check-out must be after check-in.";
-            } else {
-                errorMessage.textContent = "";
-                return checkOut;
-            }
-        }
-
-        function takeCheckOutTime(){
-            let checkOutExtraction = validateCheckOut();
-
-            if(checkOutExtraction){
-                let newDate = new Date(checkOutExtraction);
-                let formattedDate = newDate.toISOString().split('.')[0];
-                return formattedDate;
-            } else {
-                return null
-            }
-        }
 
         function validateName() {
             let name = document.getElementById("customer-name").value.trim();
@@ -731,17 +708,27 @@ if(document.getElementById('room-details')){
         document.getElementById('room-form').addEventListener('submit', function(event){
             event.preventDefault();
 
+            let resCheckIn = document.getElementById('check-in-reservation').value;
+            let resCheckOut = document.getElementById('check-out-reservation').value;
+
+            if(!resCheckIn || !resCheckOut){
+                alert("Please select both check-in and check-out dates.");
+                return;
+            }
+
             // console.log(validateCheckIn())
             // console.log(validateCheckOut())
-            // console.log(validateName())
-            // console.log(validatePhone())
-            // console.log(calculateTotalPrice())
+            console.log(validateName())
+            console.log(validatePhone())
+            console.log(calculateTotalPrice())
             // console.log(takeCheckInTime())
+            // console.log(takeCheckOutTime())
+
 
             let roomPoster = {
                 roomID: roomInfo.id || 0,
-                checkInDate: `${takeCheckInTime()}` || null,
-                checkOutDate: `${takeCheckOutTime()}` || null,
+                checkInDate: `${resCheckIn}` || null,
+                checkOutDate: `${resCheckOut}` || null,
                 totalPrice: calculateTotalPrice() || 0,
                 isConfirmed: roomInfo.available || null,
                 customerName: `${validateName()}` || null,
@@ -749,7 +736,7 @@ if(document.getElementById('room-details')){
                 customerPhone: validatePhone() || 0
             }
 
-            // console.log(roomPoster)
+            console.log(roomPoster)
 
             fetch('https://hotelbooking.stepprojects.ge/api/Booking', {        // <---------------------- booking POST
                 method: 'POST',
@@ -759,8 +746,22 @@ if(document.getElementById('room-details')){
                 body: JSON.stringify(roomPoster)
             })
 
-            .then(response => response.json())
-            .then(data => console.log('API response', data))
+            .then(response => {
+                if(!response.ok){
+                    alert("nooooooooooooooo")
+                    return
+                }
+                if (response.ok && response.headers.get('Content-Type').includes('application/json')) {
+                    return response.json();  // Parse as JSON
+                } else {
+                    return response.text();  // If not JSON, return text to inspect the response
+                }
+            })
+            .then(data => {
+                if(data){
+                    alert('aaaaaaaaaaa')
+                }
+            })
             .catch(error => console.log('API error', error))
         })
 
@@ -1051,33 +1052,34 @@ rangeInput.forEach(input => {
 
 //     let today = new Date().toISOString().split('T')[0];
 
-//     if(document.getElementById('check-in') && document.getElementById('check-out')){
-//         let checkInInput = document.getElementById('check-in');
-//         let checkOutInput = document.getElementById('check-out');
+    // if(document.getElementById('check-in') && document.getElementById('check-out')){
+    //     let checkInInput = document.getElementById('check-in');
+    //     let checkOutInput = document.getElementById('check-out');
 
-//         checkInInput.setAttribute('min', today);
-//         checkOutInput.setAttribute('min', today);
+    //     checkInInput.setAttribute('min', today);
+    //     checkOutInput.setAttribute('min', today);
 
-//         checkInInput.addEventListener('change', () => {
-//             let checkInDate = new Date(checkInInput.value);
-//             let checkOutDate = new Date(checkOutInput.value);
+    //     checkInInput.addEventListener('change', () => {
+    //         let checkInDate = new Date(checkInInput.value);
+    //         let checkOutDate = new Date(checkOutInput.value);
     
-//             if (checkOutDate <= checkInDate) {
-//                 checkOutInput.value = "";
-//                 checkOutInput.setAttribute("min", checkInInput.value);
-//             }
-//         });
+    //         if (checkOutDate <= checkInDate) {
+    //             checkOutInput.value = "";
+    //             checkOutInput.setAttribute("min", checkInInput.value);
+    //         }
+    //     });
     
-//         checkOutInput.addEventListener('change', () => {
-//             let checkInDate = new Date(checkInInput.value);
-//             let checkOutDate = new Date(checkOutInput.value);
+    //     checkOutInput.addEventListener('change', () => {
+    //         let checkInDate = new Date(checkInInput.value);
+    //         let checkOutDate = new Date(checkOutInput.value);
     
-//             if (checkInDate >= checkOutDate) {
-//                 alert("Check-out date must be after check-in date.");
-//                 checkOutInput.value = "";
-//             }
-//         });
-//     }
+    //         if (checkInDate >= checkOutDate) {
+    //             alert("Check-out date must be after check-in date.");
+    //             checkOutInput.value = "";
+    //         }
+    //     });
+    // }
+
 //     if(document.getElementById('check-in-reservation') && document.getElementById('check-out-reservation')){
 
 //         let checkInInput = document.getElementById('check-in-reservation');

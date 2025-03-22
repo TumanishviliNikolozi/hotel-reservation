@@ -1000,9 +1000,7 @@ html, body, .parent{
             }
         }
 
-        .room-detail-holder{
-            grid-column: 1/7;
-            grid-row: 2/3;
+        .room-detail-holder, .room-overview-holder, .room-other-rooms-holder{
 
             .room-reservation-title-holder{
                 width: 100%;
@@ -1023,6 +1021,11 @@ html, body, .parent{
                     @include text-properties-optional($primary-color-1, 35px, roboto, 300);
                 }
             }
+        }
+
+        .room-detail-holder{
+            grid-column: 1/7;
+            grid-row: 2/3;
 
             .room-features-container{
                 width: 100%;
@@ -1061,11 +1064,16 @@ html, body, .parent{
         .room-overview-holder{
             grid-column: 7/11;
             grid-row: 2/3;
+            padding: 0px 20px 0px 40px;
         }
 
         .room-other-rooms-holder{
             grid-column: 1/11;
             grid-row: 3/4;
+
+            .room-reservation-title-holder .room-reservation-title{
+                min-width: 30%
+            }
         }
     }
 

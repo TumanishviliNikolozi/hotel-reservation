@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', async() => {
         const roomFilter = document.getElementById('room-filter');
         const reservedRoomsContainer = document.getElementById('booked-rooms-container');
         const roomReservationForm = document.getElementById('room-form');
+        const otherRooms = document.getElementById('other-room-container');
 
 
         const {hotelData, roomData, roomTypes, cityNames, bookedRoomsdata} = await fetchData();
@@ -111,8 +112,12 @@ document.addEventListener('DOMContentLoaded', async() => {
             getbookedRooms(hotelData, bookedRoomsdata, roomData);
         }
 
-        if(roomReservationForm){
-            checkReservedDays(bookedRoomsdata);
+        // if(roomReservationForm){
+        //     checkReservedDays(bookedRoomsdata);
+        // }
+
+        if(otherRooms){
+            checkOtherRooms(roomData);
         }
 
     } catch(error){
@@ -549,6 +554,11 @@ if(document.getElementById('room-details')){
         let roomInfo = JSON.parse(localStorage.getItem('selectedRoom'));
         console.log(roomInfo)
 
+        function sendRoomTypeId(){
+            let roomTypeIdForOthers = roomInfo.roomTypeId;
+            return roomTypeIdForOthers;
+        }
+
         document.getElementById('how-many-persons').innerHTML = `${roomInfo.maximumGuests} Persons`
         let oneNightPrice = roomInfo.pricePerNight;
 
@@ -767,6 +777,20 @@ if(document.getElementById('room-details')){
 
     });
 }
+
+
+async function checkOtherRooms(roomData){
+    let pickOtherRooms = roomData;
+    let getRoomTypeId = sendRoomTypeId();
+    let otherRooms;
+
+    pickOtherRooms.forEach(room => {
+        // if()
+    })
+}
+
+
+// ---------------------------------------------
 
 
 async function getbookedRooms(hotelData, bookedRoomsdata, roomdata) {

@@ -76,67 +76,60 @@
                     </div>
                 </div>
             </div>
+
             <div class="room-filter-by">
-                <label for="room-type-select"><span>Room Type</span><i class="fa-solid fa-circle-info"></i></label>
-                <div class="room-filter-bars room-type-select-replacement">
-                    <span>Select Room Type</span>
-                    <div class="select-dropdown">
-                        <div class="option" data-value="1">Single Rooms</div>
-                        <div class="option" data-value="2">Double Rooms</div>
-                        <div class="option" data-value="3">Deluxe Rooms</div>
-                    </div>
+                <p class="room-type-select-title"><span>Room Type</span><i class="fa-solid fa-circle-info"></i></p>
+                <div class="room-filter-bars room-type-select-replacement" id="room-type-select-replacement">
+                    <span class="room-type-select-replacement-toggle" id="room-type-select-replacement-toggle">Select</span>
+                    <ul class="select-dropdown">
+                        <li class="option" data-value="1">Single</li>
+                        <li class="option" data-value="2">Double</li>
+                        <li class="option" data-value="3">Deluxe</li>
+                    </ul>
+                    <i class="fa-solid fa-square-caret-down select-dropdown-arrow" id="select-dropdown-arrow"></i>
                 </div>
-                <input type="hidden" id="" name="roomTypeId" required>
-                <!-- <select name="roomTypeId" class="room-filter-bars" id="room-type-select" required>
-                    <option value="" disabled selected>Select a room</option>
-                    <option value="1">Single Rooms</option>
-                    <option value="2">Double Rooms</option>
-                    <option value="3">Deluxe Rooms</option>
-                </select> -->
+                <input type="text" class="room-type-select-replacement-input" id="room-type-select-replacement-input" name="roomTypeId" value="" required>
             </div>
-            <!-- <div class="room-filter-by">
-                <label for="check-in"><span>Check-In</span><i class="fa-solid fa-circle-info"></i></label>
-                <input type="date" name="checkIn" class="room-filter-bars check-in" id="check-in" min="" required>
-            </div>
-            <div class="room-filter-by">
-                <label for="check-out"><span>Check-Out</span><i class="fa-solid fa-circle-info"></i></label>
-                <input type="date" name="checkOut" class="room-filter-bars check-out" id="check-out" min="" required>
-            </div> -->
+
             <div class="room-filter-by room-filter-icon-position">
                 <label for="check-in"><span>Check-In</span><i class="fa-solid fa-circle-info"></i></label>
                 <input type="text" name="checkIn" class="room-filter-bars check-in" id="check-in" placeholder="Check-in" min="" required>
                 <label class="filter-attach-calendar" for="check-in"><i class="fa-solid fa-calendar-days"></i></label>
             </div>
+
             <div class="room-filter-by room-filter-icon-position">
                 <label for="check-out"><span>Check-Out</span><i class="fa-solid fa-circle-info"></i></label>
                 <input type="text" name="checkOut" class="room-filter-bars check-out" id="check-out" placeholder="Check-out" min="" required>
                 <label class="filter-attach-calendar" for="check-out"><i class="fa-solid fa-calendar-days"></i></label>
             </div>
+
             <div class="room-filter-by guest-number-container">
-                <label for="guest-number" ><span>Guests</span></label>
-                <div class="increment-decrement">
-                    <!-- <div class="decrease-button" id="decrease-button" onclick="guestNumberDecreament()"><span>&#10092;</span></div> -->
-                    <select  name="maximumGuests" class="guest-number" id="guest-number" required>
-                        <option value="1" selected>1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="8">9</option>
-                    </select>
-                    <!-- <div class="increase-button" id="increase-button" onclick="guestNumberIncreament()"><span>&#10093;</span></div> -->
+                <p class="guest-number-title" for="guest-number" ><span>Guests Number</span></p>
+                <div class="room-filter-bars guest-number-replacement" id="guest-number-replacement">
+                    <span class="guest-number-replacement-toggle" id="guest-number-replacement-toggle">Available</span>
+                    <ul class="guest-number-dropdown">
+                        <li class="option" data-value="1">1</li>
+                        <li class="option" data-value="2">2</li>
+                        <li class="option" data-value="3">3</li>
+                        <li class="option" data-value="4">4</li>
+                        <li class="option" data-value="5">5</li>
+                        <li class="option" data-value="6">6</li>
+                        <li class="option" data-value="7">7</li>
+                        <li class="option" data-value="8">8</li>
+                        <li class="option" data-value="9">9</li>
+                    </ul>
+                    <i class="fa-solid fa-square-caret-down guest-number-dropdown-arrow" id="guest-number-dropdown-arrow"></i>
                 </div>
+                <input type="text" class="guest-number-replacement-input" id="guest-number-replacement-input" name="maximumGuests" value="" required>
             </div>
+
             <div class="room-filter-by apply-filters">
                 <button type="submit" class="room-filter-bars filter-submit-button" id="filter-submit-button">APPLY FILTER</button>
             </div>
+
             <div class="room-filter-by clear-filters">
                 <button type="reset" class="room-filter-bars filter-reset-button" id="filter-reset-button" onclick="filterReset()">RESET</button>
             </div>
-
 
         </form>
 

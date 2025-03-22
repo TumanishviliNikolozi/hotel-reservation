@@ -17,19 +17,20 @@ closeBurger.addEventListener('click', () => {
 
 // ------------------------------ flatpickr calendar ---------------------------------
 
-let filterCheckIn = flatpickr('#check-in', {
-    minDate: 'today',
-    onChange: function(selectedDates) {
-        let minCheckoutDate = selectedDates[0] ? selectedDates[0].fp_incr(1) : null;
-        filterCheckOut.set("minDate", minCheckoutDate);
-    }
-})
 
-let filterCheckOut = flatpickr('#check-out', {
-    minDate: new Date()
-})
-
-
+if(document.getElementById('room-filter') || document.getElementById('room-form')){
+    let filterCheckIn = flatpickr('#check-in', {
+        minDate: 'today',
+        onChange: function(selectedDates) {
+            let minCheckoutDate = selectedDates[0] ? selectedDates[0].fp_incr(1) : null;
+            filterCheckOut.set("minDate", minCheckoutDate);
+        }
+    })
+    
+    let filterCheckOut = flatpickr('#check-out', {
+        minDate: new Date()
+    })
+}
 
 // ----------------------------- fetch and confirmation ------------------------------------
 
@@ -329,26 +330,8 @@ if(document.getElementById('button-for-all-rooms')){
     });
 }
 
-
-function guestNumberIncreament(){
-    let quantity = document.getElementById('guest-number').value;
-    console.log(document.getElementById('guest-number').value)
-    quantity++;
-    document.getElementById('guest-number').value = quantity;
-    console.log(document.getElementById('guest-number').value)
-}
-
-function guestNumberDecreament(){
-    let quantity = document.getElementById('guest-number').value;
-    console.log(document.getElementById('guest-number').value)
-    if(quantity > 1){
-        quantity--;
-    }
-    document.getElementById('guest-number').value = quantity;
-    console.log(document.getElementById('guest-number').value) 
-}
-
 if(document.getElementById('room-filter')){
+
     document.getElementById('room-filter').addEventListener('submit', (event) => {
         event.preventDefault();
 
@@ -378,12 +361,79 @@ if(document.getElementById('room-filter')){
             roomsForDisplay(data);
         })
     })
+
+
+    document.addEventListener('DOMContentLoaded', function(){
+        let dropdown = document.getElementById('room-type-select-replacement');
+        let toggle = dropdown.querySelector('.room-type-select-replacement-toggle');
+        let menu = dropdown.querySelector('.select-dropdown');
+        let options = menu.querySelectorAll('.option');
+
+        toggle.addEventListener('click', () => {
+            dropdown.classList.toggle('active');
+        })
+
+        document.getElementById('select-dropdown-arrow').addEventListener('click', () => {
+            dropdown.classList.toggle('active');
+        })
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                toggle.textContent = option.textContent;
+                document.getElementById('room-type-select-replacement-input').value = option.dataset.value;
+                dropdown.classList.remove('active');
+            })
+        })
+
+        document.addEventListener('click', (event) => {
+            if(!dropdown.contains(event.target)){
+                dropdown.classList.remove('active');
+            }
+        })
+    })
+
+    document.addEventListener('DOMContentLoaded', function(){
+        let guestDropdown = document.getElementById('guest-number-replacement');
+        let guestToggle = guestDropdown.querySelector('.guest-number-replacement-toggle');
+        let guestMenu = guestDropdown.querySelector('.guest-number-dropdown');
+        let guestOptions = guestMenu.querySelectorAll('.option');
+
+        guestToggle.addEventListener('click', () => {
+            guestDropdown.classList.toggle('active');
+        })
+
+        document.getElementById('guest-number-dropdown-arrow').addEventListener('click', () => {
+            guestDropdown.classList.toggle('active');
+        })
+
+        guestOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                guestToggle.textContent = option.textContent;
+                console.log(document.getElementById('guest-number-replacement-input').value)
+                document.getElementById('guest-number-replacement-input').value = option.dataset.value;
+                console.log(document.getElementById('guest-number-replacement-input').value)
+                guestDropdown.classList.remove('active');
+            })
+        })
+
+        document.addEventListener('click', (event) => {
+            if(!guestDropdown.contains(event.target)){
+                guestDropdown.classList.remove('active');
+            }
+        })
+    })
 }
 
 function filterReset(){
     roomsForDisplay(roomData);
     document.getElementById('slider-progress').style.right = '0%';
     document.getElementById('slider-progress').style.left = '0%';
+    // -----------------
+    document.getElementById('room-type-select-replacement-toggle').textContent = 'Select';
+    document.getElementById('room-type-select-replacement-input').value = '';
+    // -----------------
+    document.getElementById('guest-number-replacement-toggle').textContent = 'Available';
+    document.getElementById('guest-number-replacement-input').value = '';
 }
 
 

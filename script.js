@@ -15,23 +15,6 @@ closeBurger.addEventListener('click', () => {
 // ------------------------------ burger menu end ----------------------------------
 
 
-// ------------------------------ flatpickr calendar ---------------------------------
-
-
-if(document.getElementById('room-filter')){
-    let filterCheckIn = flatpickr('#check-in', {
-        minDate: 'today',
-        onChange: function(selectedDates) {
-            let minCheckoutDate = selectedDates[0] ? selectedDates[0].fp_incr(1) : null;
-            filterCheckOut.set('minDate', minCheckoutDate);
-        }
-    })
-    
-    let filterCheckOut = flatpickr('#check-out', {
-        minDate: new Date()
-    })
-}
-
 // ----------------------------- fetch and confirmation ------------------------------------
 
 
@@ -1002,13 +985,13 @@ async function tryDates(bookedRoomsdata, roomData) {
             })
         })
 
-        console.log(tryDisabledDates)
+        // console.log(tryDisabledDates)
         let validDisabledDates = tryDisabledDates.filter(date => date !== "0000-12-31").map(date => {
             let dateObj = new Date(date);
             return dateObj.toISOString().split('T')[0];
         }); 
 
-        console.log(validDisabledDates)
+        // console.log(validDisabledDates)
 
         let checkInPicker = flatpickr('#check-in', {
             minDate: new Date(),
@@ -1290,67 +1273,3 @@ rangeInput.forEach(input => {
 
 
 
-
-
-// document.addEventListener('DOMContentLoaded', () => {
-
-//     let today = new Date().toISOString().split('T')[0];
-
-    // if(document.getElementById('check-in') && document.getElementById('check-out')){
-    //     let checkInInput = document.getElementById('check-in');
-    //     let checkOutInput = document.getElementById('check-out');
-
-    //     checkInInput.setAttribute('min', today);
-    //     checkOutInput.setAttribute('min', today);
-
-    //     checkInInput.addEventListener('change', () => {
-    //         let checkInDate = new Date(checkInInput.value);
-    //         let checkOutDate = new Date(checkOutInput.value);
-    
-    //         if (checkOutDate <= checkInDate) {
-    //             checkOutInput.value = "";
-    //             checkOutInput.setAttribute("min", checkInInput.value);
-    //         }
-    //     });
-    
-    //     checkOutInput.addEventListener('change', () => {
-    //         let checkInDate = new Date(checkInInput.value);
-    //         let checkOutDate = new Date(checkOutInput.value);
-    
-    //         if (checkInDate >= checkOutDate) {
-    //             alert("Check-out date must be after check-in date.");
-    //             checkOutInput.value = "";
-    //         }
-    //     });
-    // }
-
-//     if(document.getElementById('check-in-reservation') && document.getElementById('check-out-reservation')){
-
-//         let checkInInput = document.getElementById('check-in-reservation');
-//         let checkOutInput = document.getElementById('check-out-reservation');
-
-//         checkInInput.setAttribute('min', today);
-//         checkOutInput.setAttribute('min', today);
-
-//         checkInInput.addEventListener('change', () => {
-//             let checkInDate = new Date(checkInInput.value);
-//             let checkOutDate = new Date(checkOutInput.value);
-    
-//             if (checkOutDate < checkInDate) {
-//                 checkOutInput.value = "";
-//                 checkOutInput.setAttribute("min", checkInInput.value);
-//             }
-//         });
-    
-//         checkOutInput.addEventListener('change', () => {
-//             let checkInDate = new Date(checkInInput.value);
-//             let checkOutDate = new Date(checkOutInput.value);
-    
-//             if (checkInDate > checkOutDate) {
-//                 alert("Check-out date must be after check-in date.");
-//                 checkOutInput.value = "";
-//             }
-//         });
-//     }
-    
-// })

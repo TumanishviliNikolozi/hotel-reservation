@@ -1291,9 +1291,6 @@ html, body, .parent{
     }
 
 
-    
-
-
     footer{
         width: 100%;
         height: 70px;
@@ -2840,7 +2837,91 @@ html, body, .parent{
             }
         }
     }
-    
+}
 
+.popup{
+    @include display-flex-all-center;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
 
+    .popap-card{
+        width: 300px;
+        min-height: 500px;
+        background-color: white;
+        @include display-flex-direction-column(start, center);
+        position: relative;
+        border: 10px solid $border-color-2;
+
+        .close-popup{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background-color: $button-backcolor-2;
+            border: 1px solid $border-color-2;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s ease;
+
+            i{
+                font-size: 24px;
+                color: $primary-color-3;
+            }
+
+            &:hover{
+                background-color: $border-color-4;
+                border: none;
+                transition: 0.3s ease;
+
+                i{
+                    color: $primary-color-4;
+                }
+            }
+        }
+
+        .popup-confirm{
+            font-size: 120px;
+            color: rgb(0, 170, 0);
+            margin-top: 40px;
+        }
+
+        .popup-confirm-text-h2{
+            @include text-properties-optional($primary-color-1, 30px, roboto, 300);
+            margin-top: 25px;
+        }
+
+        .popup-confirm-text-p{
+            @include text-properties-optional($primary-color-1, 25px, roboto-lite, 300);
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .popup-go-back{
+            width: 80%;
+            height: 50px;
+            margin: auto 0px 60px;
+            @include display-flex-all-center;
+            text-decoration: none;
+            background: linear-gradient(rgb(199, 249, 255), $primary-color-3);
+            border: 1px solid $border-color-3;
+            border-radius: 25px;
+            transition: 0.1s ease;
+
+            span{
+                @include text-properties-optional($primary-color-4, 20px, roboto, 200);
+            }
+
+            &:hover{
+                filter: brightness(1.05);
+                transition: 0.1s ease;
+            }
+        }
+    }
 }

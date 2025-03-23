@@ -2826,4 +2826,95 @@ html, body, .parent {
   .parent .booked-rooms-container .each-booked-room {
     grid-template-columns: 75px repeat(3, auto);
   }
+}
+.popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+.popup .popap-card {
+  width: 300px;
+  min-height: 500px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  position: relative;
+  border: 10px solid rgb(88, 153, 161);
+}
+.popup .popap-card .close-popup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(153, 153, 153, 0.4);
+  border: 1px solid rgb(88, 153, 161);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.popup .popap-card .close-popup i {
+  font-size: 24px;
+  color: rgb(94, 200, 212);
+}
+.popup .popap-card .close-popup:hover {
+  background-color: rgb(98, 98, 98);
+  border: none;
+  transition: 0.3s ease;
+}
+.popup .popap-card .close-popup:hover i {
+  color: white;
+}
+.popup .popap-card .popup-confirm {
+  font-size: 120px;
+  color: rgb(0, 170, 0);
+  margin-top: 40px;
+}
+.popup .popap-card .popup-confirm-text-h2 {
+  color: rgb(98, 98, 98);
+  font-size: 30px;
+  font-family: roboto;
+  font-weight: 300;
+  margin-top: 25px;
+}
+.popup .popap-card .popup-confirm-text-p {
+  color: rgb(98, 98, 98);
+  font-size: 25px;
+  font-family: roboto-lite;
+  font-weight: 300;
+  margin-top: 25px;
+  text-align: center;
+}
+.popup .popap-card .popup-go-back {
+  width: 80%;
+  height: 50px;
+  margin: auto 0px 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background: linear-gradient(rgb(199, 249, 255), rgb(94, 200, 212));
+  border: 1px solid rgb(46, 42, 42);
+  border-radius: 25px;
+  transition: 0.1s ease;
+}
+.popup .popap-card .popup-go-back span {
+  color: white;
+  font-size: 20px;
+  font-family: roboto;
+  font-weight: 200;
+}
+.popup .popap-card .popup-go-back:hover {
+  filter: brightness(1.05);
+  transition: 0.1s ease;
 }/*# sourceMappingURL=style.css.map */

@@ -833,7 +833,7 @@ if(document.getElementById('room-details')){
                 totalPrice: calculateTotalPrice() || 0,
                 isConfirmed: roomInfo.available || null,
                 customerName: `${validateName()}` || null,
-                customerId: `` || null,
+                customerId: `100` || null,
                 customerPhone: validatePhone() || 0
             }
 
@@ -866,8 +866,12 @@ if(document.getElementById('room-details')){
             .catch(error => console.log('API error', error))
         })
 
+        
+
     });
 }
+
+
 
 
 async function checkOtherRooms(roomData){
@@ -907,6 +911,8 @@ async function getbookedRooms(hotelData, bookedRoomsdata, roomdata) {
             let roomName;
             let roomPricePerNight;
 
+            // console.log(roomReserve)
+
             if(roomReserve.isConfirmed === true){
 
                 checkRoomData.forEach(getId => {
@@ -940,6 +946,7 @@ async function getbookedRooms(hotelData, bookedRoomsdata, roomdata) {
     
                 let eachBookedRoom = document.createElement('div');
                 eachBookedRoom.classList.add('each-booked-room');
+                eachBookedRoom.dataset.customerId = `${roomReserve.customerId}`
     
                 eachBookedRoom.innerHTML = `
                     <div class="booked-hotel-img">
@@ -996,6 +1003,16 @@ async function getbookedRooms(hotelData, bookedRoomsdata, roomdata) {
                     return
                 }
             })
+        })
+
+        document.getElementById('check-my-cards-checkbox').addEventListener('toggle', () => {
+            document.getElementById('checkbox-heart').style.display = 'block';
+            let allreserve = document.querySelectorAll('.each-booked-room');
+
+            allreserve.forEach(booking => {
+                let customerId = parseInt(booking.dataset.customerId, 10); 
+                booking.style.display = (customerId === 100) ? 'grid' : 'none';
+            });
         })
         
         

@@ -528,6 +528,33 @@ html, body, .parent {
     scale: 1.2;
     color: rgba(0, 0, 0, 0.5);
   }
+  .parent .sort-button-container .check-my-cards {
+    height: 100%;
+    margin: 0px 0px 0px auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .parent .sort-button-container .check-my-cards .check-my-cards-checkbox {
+    width: 25px;
+    height: 25px;
+    border: 6px solid rgb(98, 98, 98);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .parent .sort-button-container .check-my-cards .check-my-cards-checkbox .checkbox-heart {
+    display: none;
+    width: 14px;
+    height: 14px;
+    background-color: rgb(94, 200, 212);
+  }
+  .parent .sort-button-container .check-my-cards .my-checkbox-name {
+    color: rgb(94, 200, 212);
+    font-size: 20px;
+    font-family: roboto;
+    font-weight: 300;
+  }
   .parent .room-filter {
     max-width: 1280px;
     margin: 0px auto;

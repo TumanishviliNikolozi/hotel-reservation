@@ -110,6 +110,7 @@ html, body, .parent {
     font-size: 18px;
     font-family: roboto;
     font-weight: 300;
+    text-align: center;
   }
   header nav .burger-button, header nav .close-burger {
     display: none;
@@ -535,7 +536,7 @@ html, body, .parent {
     align-items: center;
     gap: 10px;
   }
-  .parent .sort-button-container .check-my-cards .check-my-cards-checkbox {
+  .parent .sort-button-container .check-my-cards .check-all-cards-checkbox, .parent .sort-button-container .check-my-cards .check-my-cards-checkbox {
     width: 25px;
     height: 25px;
     border: 6px solid rgb(98, 98, 98);
@@ -543,17 +544,23 @@ html, body, .parent {
     justify-content: center;
     align-items: center;
   }
-  .parent .sort-button-container .check-my-cards .check-my-cards-checkbox .checkbox-heart {
+  .parent .sort-button-container .check-my-cards .check-all-cards-checkbox .all-checkbox-heart, .parent .sort-button-container .check-my-cards .check-all-cards-checkbox .my-checkbox-heart, .parent .sort-button-container .check-my-cards .check-my-cards-checkbox .all-checkbox-heart, .parent .sort-button-container .check-my-cards .check-my-cards-checkbox .my-checkbox-heart {
     display: none;
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
     background-color: rgb(94, 200, 212);
   }
-  .parent .sort-button-container .check-my-cards .my-checkbox-name {
+  .parent .sort-button-container .check-my-cards .check-all-cards-checkbox .active-checkbox, .parent .sort-button-container .check-my-cards .check-my-cards-checkbox .active-checkbox {
+    display: block;
+  }
+  .parent .sort-button-container .check-my-cards .all-checkbox-name, .parent .sort-button-container .check-my-cards .my-checkbox-name {
     color: rgb(94, 200, 212);
     font-size: 20px;
     font-family: roboto;
     font-weight: 300;
+  }
+  .parent .sort-button-container .check-my-cards .all-checkbox-name {
+    margin-right: 20px;
   }
   .parent .room-filter {
     max-width: 1280px;
@@ -1153,7 +1160,6 @@ html, body, .parent {
   }
   .room-details .room-overview-holder .room-overview-container .overview-info-container .span-for-overview, .room-details .room-overview-holder .room-overview-container .overview-info-container .span-for-facilities, .room-details .room-overview-holder .room-overview-container .overview-info-container .span-for-extra {
     display: block;
-    width: 100%;
     height: auto;
     position: absolute;
     top: 20px;
@@ -1303,6 +1309,7 @@ html, body, .parent {
     color: white;
     font-size: 20px;
     font-family: roboto;
+    cursor: pointer;
   }
   footer {
     width: 100%;
@@ -1399,6 +1406,7 @@ html, body, .parent {
     font-size: 40px;
     font-family: roboto;
     font-weight: 300;
+    text-align: center;
   }
   header nav .header-nav-ul.active {
     display: flex;
@@ -1424,6 +1432,8 @@ html, body, .parent {
   }
   .parent {
     width: 100%;
+    position: relative;
+    padding: 0px 0px 150px;
   }
   .parent .bg-img {
     width: 100%;
@@ -1902,24 +1912,38 @@ html, body, .parent {
     font-weight: 200;
     text-shadow: 0px 2px 3px rgba(59, 59, 59, 0.4);
   }
-  .parent footer {
-    width: 100%;
-    height: 70px;
-  }
-  .parent footer .footer-text {
-    width: 100%;
+  .parent .check-my-cards {
     height: 100%;
+    margin: 20px 0px 0px 0px;
     display: flex;
     align-items: center;
-    background-color: black;
+    gap: 10px;
   }
-  .parent footer .footer-text p {
-    width: auto;
-    margin: 0px 40px;
-    color: rgb(98, 98, 98);
-    font-size: 14px;
+  .parent .check-my-cards .check-all-cards-checkbox, .parent .check-my-cards .check-my-cards-checkbox {
+    width: 25px;
+    height: 25px;
+    border: 6px solid rgb(98, 98, 98);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .parent .check-my-cards .check-all-cards-checkbox .all-checkbox-heart, .parent .check-my-cards .check-all-cards-checkbox .my-checkbox-heart, .parent .check-my-cards .check-my-cards-checkbox .all-checkbox-heart, .parent .check-my-cards .check-my-cards-checkbox .my-checkbox-heart {
+    display: none;
+    width: 13px;
+    height: 13px;
+    background-color: rgb(94, 200, 212);
+  }
+  .parent .check-my-cards .check-all-cards-checkbox .active-checkbox, .parent .check-my-cards .check-my-cards-checkbox .active-checkbox {
+    display: block;
+  }
+  .parent .check-my-cards .all-checkbox-name, .parent .check-my-cards .my-checkbox-name {
+    color: rgb(94, 200, 212);
+    font-size: 20px;
     font-family: roboto;
-    font-weight: 100;
+    font-weight: 300;
+  }
+  .parent .check-my-cards .all-checkbox-name {
+    margin-right: 20px;
   }
   .parent .room-details {
     max-width: 1280px;
@@ -2444,6 +2468,27 @@ html, body, .parent {
     border: 1px solid rgb(98, 98, 98);
     border-radius: 25px;
   }
+  .parent footer {
+    width: 100%;
+    height: 70px;
+    position: absolute;
+    bottom: 0px;
+  }
+  .parent footer .footer-text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: black;
+  }
+  .parent footer .footer-text p {
+    width: auto;
+    margin: 0px 40px;
+    color: rgb(98, 98, 98);
+    font-size: 14px;
+    font-family: roboto;
+    font-weight: 100;
+  }
 }
 @media screen and (max-width: 1279.9px) and (max-width: 750px) {
   .parent .booked-rooms-container {
@@ -2567,6 +2612,39 @@ html, body, .parent {
     color: rgb(98, 98, 98);
     font-size: 26px;
   }
+  .sort-button-container .check-my-cards {
+    height: 100%;
+    margin: 20px 0px 0px 0px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sort-button-container .check-my-cards .check-all-cards-checkbox, .sort-button-container .check-my-cards .check-my-cards-checkbox {
+    width: 25px;
+    height: 25px;
+    border: 6px solid rgb(98, 98, 98);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .sort-button-container .check-my-cards .check-all-cards-checkbox .all-checkbox-heart, .sort-button-container .check-my-cards .check-all-cards-checkbox .my-checkbox-heart, .sort-button-container .check-my-cards .check-my-cards-checkbox .all-checkbox-heart, .sort-button-container .check-my-cards .check-my-cards-checkbox .my-checkbox-heart {
+    display: none;
+    width: 13px;
+    height: 13px;
+    background-color: rgb(94, 200, 212);
+  }
+  .sort-button-container .check-my-cards .check-all-cards-checkbox .active-checkbox, .sort-button-container .check-my-cards .check-my-cards-checkbox .active-checkbox {
+    display: block;
+  }
+  .sort-button-container .check-my-cards .all-checkbox-name, .sort-button-container .check-my-cards .my-checkbox-name {
+    color: rgb(94, 200, 212);
+    font-size: 20px;
+    font-family: roboto;
+    font-weight: 300;
+  }
+  .sort-button-container .check-my-cards .all-checkbox-name {
+    margin-right: 20px;
+  }
   .usp-block .usp-section {
     margin: 0px auto 80px;
   }
@@ -2580,13 +2658,25 @@ html, body, .parent {
     justify-content: end;
     align-items: center;
   }
-  .guest-favorite-rooms-container, .usp-block, .hotel-container, .room-container, .sort-button-container, .room-filter, .other-room-container {
+  .guest-favorite-rooms-container, .usp-block, .hotel-container, .room-container, .room-filter, .other-room-container {
     width: 730px;
     padding: 20px 0px;
     margin: 0px auto;
     display: grid;
     grid-template-columns: auto auto;
     gap: 50px 30px;
+  }
+  .sort-button-container {
+    width: 730px;
+    padding: 20px 0px;
+    margin: 0px auto;
+    display: grid;
+    grid-template-columns: 20% auto;
+    gap: 50px 30px;
+  }
+  .sort-button-container .check-my-cards {
+    grid-column: 1/3;
+    margin-top: 10px;
   }
   .room-filter {
     gap: 10px;
@@ -2681,38 +2771,59 @@ html, body, .parent {
     margin: 0px auto;
   }
 }
-@media screen and (max-width: 1279.9px) and (max-width: 399.9px) {
-  .sort-button-container .container-for-sort-buttons .room-type-button {
+@media screen and (max-width: 399.9px) {
+  html, body, .parent {
+    min-height: 100vh;
+  }
+  header nav ul li {
+    text-align: center;
+  }
+  .parent .between-section-title {
+    grid-template-columns: auto 170px auto;
+  }
+  .parent .header-nav-home-span, .parent .header-nav-hotels-span, .parent .header-nav-rooms-span, .parent .header-nav-booked-rooms-span {
+    text-align: center;
+  }
+  .parent .sort-button-container .container-for-sort-buttons .room-type-button {
     padding: 0px 5px;
   }
-  .guest-favorite-rooms-container .room-card, .hotel-container .hotel-card, .room-container .room-card, .other-room-container .room-card {
-    width: 250px !important;
+  .parent .guest-favorite-rooms-container .room-card, .parent .guest-favorite-rooms-container .hotel-card, .parent .guest-favorite-rooms-container .room-card, .parent .guest-favorite-rooms-container .room-card, .parent .hotel-container .room-card, .parent .hotel-container .hotel-card, .parent .hotel-container .room-card, .parent .hotel-container .room-card, .parent .room-container .room-card, .parent .room-container .hotel-card, .parent .room-container .room-card, .parent .room-container .room-card, .parent .other-room-container .room-card, .parent .other-room-container .hotel-card, .parent .other-room-container .room-card, .parent .other-room-container .room-card {
+    width: 250px;
   }
-  .guest-favorite-rooms-container .room-card .hotel-card-img, .guest-favorite-rooms-container .room-card .room-card-img, .hotel-container .hotel-card .hotel-card-img, .hotel-container .hotel-card .room-card-img, .room-container .room-card .hotel-card-img, .room-container .room-card .room-card-img, .other-room-container .room-card .hotel-card-img, .other-room-container .room-card .room-card-img {
-    height: 166px !important;
+  .parent .guest-favorite-rooms-container .room-card .hotel-card-img, .parent .guest-favorite-rooms-container .room-card .room-card-img, .parent .guest-favorite-rooms-container .hotel-card .hotel-card-img, .parent .guest-favorite-rooms-container .hotel-card .room-card-img, .parent .guest-favorite-rooms-container .room-card .hotel-card-img, .parent .guest-favorite-rooms-container .room-card .room-card-img, .parent .guest-favorite-rooms-container .room-card .hotel-card-img, .parent .guest-favorite-rooms-container .room-card .room-card-img, .parent .hotel-container .room-card .hotel-card-img, .parent .hotel-container .room-card .room-card-img, .parent .hotel-container .hotel-card .hotel-card-img, .parent .hotel-container .hotel-card .room-card-img, .parent .hotel-container .room-card .hotel-card-img, .parent .hotel-container .room-card .room-card-img, .parent .hotel-container .room-card .hotel-card-img, .parent .hotel-container .room-card .room-card-img, .parent .room-container .room-card .hotel-card-img, .parent .room-container .room-card .room-card-img, .parent .room-container .hotel-card .hotel-card-img, .parent .room-container .hotel-card .room-card-img, .parent .room-container .room-card .hotel-card-img, .parent .room-container .room-card .room-card-img, .parent .room-container .room-card .hotel-card-img, .parent .room-container .room-card .room-card-img, .parent .other-room-container .room-card .hotel-card-img, .parent .other-room-container .room-card .room-card-img, .parent .other-room-container .hotel-card .hotel-card-img, .parent .other-room-container .hotel-card .room-card-img, .parent .other-room-container .room-card .hotel-card-img, .parent .other-room-container .room-card .room-card-img, .parent .other-room-container .room-card .hotel-card-img, .parent .other-room-container .room-card .room-card-img {
+    height: 166px;
   }
-  .guest-favorite-rooms-container .room-card .book-button-slide .title-price-container h2, .hotel-container .hotel-card .book-button-slide .title-price-container h2, .room-container .room-card .book-button-slide .title-price-container h2, .other-room-container .room-card .book-button-slide .title-price-container h2 {
-    padding-left: 20px !important;
+  .parent .guest-favorite-rooms-container .room-card .book-button-slide .title-price-container h2, .parent .guest-favorite-rooms-container .hotel-card .book-button-slide .title-price-container h2, .parent .guest-favorite-rooms-container .room-card .book-button-slide .title-price-container h2, .parent .guest-favorite-rooms-container .room-card .book-button-slide .title-price-container h2, .parent .hotel-container .room-card .book-button-slide .title-price-container h2, .parent .hotel-container .hotel-card .book-button-slide .title-price-container h2, .parent .hotel-container .room-card .book-button-slide .title-price-container h2, .parent .hotel-container .room-card .book-button-slide .title-price-container h2, .parent .room-container .room-card .book-button-slide .title-price-container h2, .parent .room-container .hotel-card .book-button-slide .title-price-container h2, .parent .room-container .room-card .book-button-slide .title-price-container h2, .parent .room-container .room-card .book-button-slide .title-price-container h2, .parent .other-room-container .room-card .book-button-slide .title-price-container h2, .parent .other-room-container .hotel-card .book-button-slide .title-price-container h2, .parent .other-room-container .room-card .book-button-slide .title-price-container h2, .parent .other-room-container .room-card .book-button-slide .title-price-container h2 {
+    padding-left: 20px;
   }
-  .guest-favorite-rooms-container .room-card .book-button-slide .title-price-container p, .hotel-container .hotel-card .book-button-slide .title-price-container p, .room-container .room-card .book-button-slide .title-price-container p, .other-room-container .room-card .book-button-slide .title-price-container p {
-    width: 40% !important;
+  .parent .guest-favorite-rooms-container .room-card .book-button-slide .title-price-container p, .parent .guest-favorite-rooms-container .hotel-card .book-button-slide .title-price-container p, .parent .guest-favorite-rooms-container .room-card .book-button-slide .title-price-container p, .parent .guest-favorite-rooms-container .room-card .book-button-slide .title-price-container p, .parent .hotel-container .room-card .book-button-slide .title-price-container p, .parent .hotel-container .hotel-card .book-button-slide .title-price-container p, .parent .hotel-container .room-card .book-button-slide .title-price-container p, .parent .hotel-container .room-card .book-button-slide .title-price-container p, .parent .room-container .room-card .book-button-slide .title-price-container p, .parent .room-container .hotel-card .book-button-slide .title-price-container p, .parent .room-container .room-card .book-button-slide .title-price-container p, .parent .room-container .room-card .book-button-slide .title-price-container p, .parent .other-room-container .room-card .book-button-slide .title-price-container p, .parent .other-room-container .hotel-card .book-button-slide .title-price-container p, .parent .other-room-container .room-card .book-button-slide .title-price-container p, .parent .other-room-container .room-card .book-button-slide .title-price-container p {
+    width: 40%;
   }
-  .guest-favorite-rooms-container .room-card .book-button-slide, .guest-favorite-rooms-container .room-card .book-now-link, .guest-favorite-rooms-container .room-card .view-rooms-link, .hotel-container .hotel-card .book-button-slide, .hotel-container .hotel-card .book-now-link, .hotel-container .hotel-card .view-rooms-link, .room-container .room-card .book-button-slide, .room-container .room-card .book-now-link, .room-container .room-card .view-rooms-link, .other-room-container .room-card .book-button-slide, .other-room-container .room-card .book-now-link, .other-room-container .room-card .view-rooms-link {
-    padding: 0px !important;
+  .parent .guest-favorite-rooms-container .room-card .view-rooms-button-slide .book-now-link, .parent .guest-favorite-rooms-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .guest-favorite-rooms-container .room-card .book-button-slide .book-now-link, .parent .guest-favorite-rooms-container .room-card .book-button-slide .view-rooms-link, .parent .guest-favorite-rooms-container .hotel-card .view-rooms-button-slide .book-now-link, .parent .guest-favorite-rooms-container .hotel-card .view-rooms-button-slide .view-rooms-link, .parent .guest-favorite-rooms-container .hotel-card .book-button-slide .book-now-link, .parent .guest-favorite-rooms-container .hotel-card .book-button-slide .view-rooms-link, .parent .guest-favorite-rooms-container .room-card .view-rooms-button-slide .book-now-link, .parent .guest-favorite-rooms-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .guest-favorite-rooms-container .room-card .book-button-slide .book-now-link, .parent .guest-favorite-rooms-container .room-card .book-button-slide .view-rooms-link, .parent .guest-favorite-rooms-container .room-card .view-rooms-button-slide .book-now-link, .parent .guest-favorite-rooms-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .guest-favorite-rooms-container .room-card .book-button-slide .book-now-link, .parent .guest-favorite-rooms-container .room-card .book-button-slide .view-rooms-link, .parent .hotel-container .room-card .view-rooms-button-slide .book-now-link, .parent .hotel-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .hotel-container .room-card .book-button-slide .book-now-link, .parent .hotel-container .room-card .book-button-slide .view-rooms-link, .parent .hotel-container .hotel-card .view-rooms-button-slide .book-now-link, .parent .hotel-container .hotel-card .view-rooms-button-slide .view-rooms-link, .parent .hotel-container .hotel-card .book-button-slide .book-now-link, .parent .hotel-container .hotel-card .book-button-slide .view-rooms-link, .parent .hotel-container .room-card .view-rooms-button-slide .book-now-link, .parent .hotel-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .hotel-container .room-card .book-button-slide .book-now-link, .parent .hotel-container .room-card .book-button-slide .view-rooms-link, .parent .hotel-container .room-card .view-rooms-button-slide .book-now-link, .parent .hotel-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .hotel-container .room-card .book-button-slide .book-now-link, .parent .hotel-container .room-card .book-button-slide .view-rooms-link, .parent .room-container .room-card .view-rooms-button-slide .book-now-link, .parent .room-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .room-container .room-card .book-button-slide .book-now-link, .parent .room-container .room-card .book-button-slide .view-rooms-link, .parent .room-container .hotel-card .view-rooms-button-slide .book-now-link, .parent .room-container .hotel-card .view-rooms-button-slide .view-rooms-link, .parent .room-container .hotel-card .book-button-slide .book-now-link, .parent .room-container .hotel-card .book-button-slide .view-rooms-link, .parent .room-container .room-card .view-rooms-button-slide .book-now-link, .parent .room-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .room-container .room-card .book-button-slide .book-now-link, .parent .room-container .room-card .book-button-slide .view-rooms-link, .parent .room-container .room-card .view-rooms-button-slide .book-now-link, .parent .room-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .room-container .room-card .book-button-slide .book-now-link, .parent .room-container .room-card .book-button-slide .view-rooms-link, .parent .other-room-container .room-card .view-rooms-button-slide .book-now-link, .parent .other-room-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .other-room-container .room-card .book-button-slide .book-now-link, .parent .other-room-container .room-card .book-button-slide .view-rooms-link, .parent .other-room-container .hotel-card .view-rooms-button-slide .book-now-link, .parent .other-room-container .hotel-card .view-rooms-button-slide .view-rooms-link, .parent .other-room-container .hotel-card .book-button-slide .book-now-link, .parent .other-room-container .hotel-card .book-button-slide .view-rooms-link, .parent .other-room-container .room-card .view-rooms-button-slide .book-now-link, .parent .other-room-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .other-room-container .room-card .book-button-slide .book-now-link, .parent .other-room-container .room-card .book-button-slide .view-rooms-link, .parent .other-room-container .room-card .view-rooms-button-slide .book-now-link, .parent .other-room-container .room-card .view-rooms-button-slide .view-rooms-link, .parent .other-room-container .room-card .book-button-slide .book-now-link, .parent .other-room-container .room-card .book-button-slide .view-rooms-link {
+    padding: 0px;
   }
-  .room-carousel-holder {
-    height: 300px !important;
+  .parent .room-carousel-holder {
+    height: 300px;
   }
-  .room-carousel-holder .room-img-carousel {
-    height: 300px !important;
+  .parent .room-carousel-holder .room-img-carousel {
+    height: 300px;
   }
-  .room-carousel-holder .room-img-carousel .room-img-bullets .bullet {
-    width: 12px !important;
-    height: 12px !important;
-    margin: 3px !important;
+  .parent .room-carousel-holder .room-img-carousel .room-img-bullets .bullet {
+    width: 12px;
+    height: 12px;
+    margin: 3px;
   }
-  .room-features-container {
-    grid-template-columns: 100% !important;
-    grid-template-rows: repeat(4, 25%) !important;
+  .parent .room-details .room-detail-holder .room-features-container {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(4, 25%);
+  }
+  .parent .room-details .room-form-holder .room-reservation-title-holder {
+    margin-bottom: 10px;
+  }
+  .parent .room-details .room-overview-holder .room-overview-container .overview span, .parent .room-details .room-overview-holder .room-overview-container .facilities span, .parent .room-details .room-overview-holder .room-overview-container .extra span {
+    font-size: 14px;
+  }
+  .parent .booked-rooms-container .each-booked-room {
+    grid-template-columns: 75px repeat(3, auto);
   }
 }/*# sourceMappingURL=style.css.map */

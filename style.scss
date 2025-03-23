@@ -102,6 +102,7 @@ html, body, .parent{
 
                         .header-nav-home-span, .header-nav-hotels-span, .header-nav-rooms-span, .header-nav-booked-rooms-span{
                             @include text-properties-optional($primary-color-2, 18px, roboto, 300); 
+                            text-align: center;
                         }
                     }
                 }
@@ -519,22 +520,30 @@ html, body, .parent{
                 @include display-flex-align-items(center);
                 gap: 10px;
 
-                .check-my-cards-checkbox{
+                .check-all-cards-checkbox, .check-my-cards-checkbox{
                     width: 25px;
                     height: 25px;
                     border: 6px solid $border-color-4;
                     @include display-flex-all-center;
 
-                    .checkbox-heart{
+                    .all-checkbox-heart, .my-checkbox-heart{
                         display: none;
-                        width: 14px;
-                        height: 14px;
+                        width: 13px;
+                        height: 13px;
                         background-color: $button-backcolor-1;
+                    }
+
+                    .active-checkbox{
+                        display: block
                     }
                 }
 
-                .my-checkbox-name{
+                .all-checkbox-name, .my-checkbox-name{
                     @include text-properties-optional($primary-color-3, 20px, roboto, 300);
+                }
+
+                .all-checkbox-name{
+                    margin-right: 20px;
                 }
             }
         }
@@ -1129,7 +1138,6 @@ html, body, .parent{
 
                     .span-for-overview, .span-for-facilities, .span-for-extra{
                         display: block;
-                        width: 100%;
                         height: auto;
                         position: absolute;
                         top: 20px;
@@ -1277,6 +1285,7 @@ html, body, .parent{
                 color: white;
                 font-size: 20px;
                 font-family: roboto;
+                cursor: pointer;
             }
         }
     }
@@ -1388,6 +1397,7 @@ html, body, .parent{
 
                         .header-nav-home-span, .header-nav-hotels-span, .header-nav-rooms-span, .header-nav-booked-rooms-span{
                             @include text-properties-optional($primary-color-3, 40px, roboto, 300); 
+                            text-align: center;
                         }
                     }
                 }
@@ -1424,6 +1434,8 @@ html, body, .parent{
 
     .parent{
         width: 100%;
+        position: relative;
+        padding: 0px 0px 150px;
 
         .bg-img{
             width: 100%;
@@ -1884,22 +1896,40 @@ html, body, .parent{
             }
         }
 
-        footer{
-            width: 100%;
-            height: 70px;
+        .check-my-cards{
+            height: 100%;
+            margin: 20px 0px 0px 0px;
+            @include display-flex-align-items(center);
+            gap: 10px;
 
-            .footer-text{
-                @include width-height-100;
-                @include display-flex-align-items(center);
-                background-color: black;
+            .check-all-cards-checkbox, .check-my-cards-checkbox{
+                width: 25px;
+                height: 25px;
+                border: 6px solid $border-color-4;
+                @include display-flex-all-center;
 
-                p{
-                    width: auto;
-                    margin: 0px 40px;
-                    @include text-properties-optional($primary-color-1, 14px, roboto, 100);
+                .all-checkbox-heart, .my-checkbox-heart{
+                    display: none;
+                    width: 13px;
+                    height: 13px;
+                    background-color: $button-backcolor-1;
+                }
+
+                .active-checkbox{
+                    display: block
                 }
             }
+
+            .all-checkbox-name, .my-checkbox-name{
+                @include text-properties-optional($primary-color-3, 20px, roboto, 300);
+            }
+
+            .all-checkbox-name{
+                margin-right: 20px;
+            }
         }
+
+        
 
 
         .room-details{
@@ -2400,6 +2430,25 @@ html, body, .parent{
             }
         }
 
+        footer{
+            width: 100%;
+            height: 70px;
+            position: absolute;
+            bottom: 0px;
+
+            .footer-text{
+                @include width-height-100;
+                @include display-flex-align-items(center);
+                background-color: black;
+
+                p{
+                    width: auto;
+                    margin: 0px 40px;
+                    @include text-properties-optional($primary-color-1, 14px, roboto, 100);
+                }
+            }
+        }
+
         @media screen and (max-width: 750px) {
             .booked-rooms-container{
                 grid-template-columns: 100% !important;
@@ -2521,7 +2570,42 @@ html, body, .parent{
                     }
                 }
             }
+
+            .check-my-cards{
+                height: 100%;
+                margin: 20px 0px 0px 0px;
+                @include display-flex-align-items(center);
+                gap: 10px;
+
+                .check-all-cards-checkbox, .check-my-cards-checkbox{
+                    width: 25px;
+                    height: 25px;
+                    border: 6px solid $border-color-4;
+                    @include display-flex-all-center;
+
+                    .all-checkbox-heart, .my-checkbox-heart{
+                        display: none;
+                        width: 13px;
+                        height: 13px;
+                        background-color: $button-backcolor-1;
+                    }
+
+                    .active-checkbox{
+                        display: block
+                    }
+                }
+
+                .all-checkbox-name, .my-checkbox-name{
+                    @include text-properties-optional($primary-color-3, 20px, roboto, 300);
+                }
+
+                .all-checkbox-name{
+                    margin-right: 20px;
+                }
+            }
         }
+
+
 
         .usp-block .usp-section{
             margin: 0px auto 80px;
@@ -2540,13 +2624,27 @@ html, body, .parent{
             @include display-flex-all-optional(end, center);
         }
 
-        .guest-favorite-rooms-container, .usp-block, .hotel-container, .room-container, .sort-button-container, .room-filter, .other-room-container{
+        .guest-favorite-rooms-container, .usp-block, .hotel-container, .room-container, .room-filter, .other-room-container{
             width: 730px;
             padding: 20px 0px;
             margin: 0px auto;
             display: grid;
             grid-template-columns: auto auto;
             gap: 50px 30px;
+        }
+
+        .sort-button-container{
+            width: 730px;
+            padding: 20px 0px;
+            margin: 0px auto;
+            display: grid;
+            grid-template-columns: 20% auto;
+            gap: 50px 30px;
+
+            .check-my-cards{
+                grid-column: 1/3;
+                margin-top: 10px;
+            }
         }
 
         .room-filter{
@@ -2647,48 +2745,102 @@ html, body, .parent{
         }
     } 
     
-    @media screen and (max-width: 399.9px) {
+    
+}
+
+@media screen and (max-width: 399.9px) {
+
+    html, body, .parent{
+        min-height: 100vh;
+    }
+
+    header nav ul li{
+        text-align: center;
+    }
+        
+    .parent{
+
+        .between-section-title{
+            grid-template-columns: auto 170px auto;
+        }
+
+        .header-nav-home-span, .header-nav-hotels-span, .header-nav-rooms-span, .header-nav-booked-rooms-span{ 
+            text-align: center;
+        }
+        
         .sort-button-container .container-for-sort-buttons .room-type-button{
             padding: 0px 5px;
         }
 
-        .guest-favorite-rooms-container .room-card, .hotel-container .hotel-card, .room-container .room-card, .other-room-container .room-card{
-            width: 250px !important;
+        .guest-favorite-rooms-container, .hotel-container, .room-container, .other-room-container{
 
-            .hotel-card-img, .room-card-img{
-                height: 166px !important;
-            }
+            .room-card, .hotel-card, .room-card, .room-card{
+                width: 250px ;
+        
+                .hotel-card-img, .room-card-img{
+                    height: 166px;
+                }
+        
+                .book-button-slide .title-price-container h2{
+                    padding-left: 20px;
+                }
+                
+                .book-button-slide .title-price-container p{
+                    width: 40%;
+                }
 
-            .book-button-slide .title-price-container h2{
-                padding-left: 20px !important;
-            }
-            
-            .book-button-slide .title-price-container p{
-                width: 40% !important;
-            }
+                .view-rooms-button-slide, .book-button-slide{
 
-            .book-button-slide, .book-now-link, .view-rooms-link{
-                padding: 0px !important;
+                    .book-now-link, .view-rooms-link{
+                        padding: 0px;
+                    }
+                }
+        
+                
             }
         }
 
         .room-carousel-holder{
-            height: 300px !important;
+            height: 300px;
             
             .room-img-carousel{
-                height: 300px !important;
-
+                height: 300px;
+    
                 .room-img-bullets .bullet{
-                    width: 12px !important;
-                    height: 12px !important;
-                    margin: 3px !important;
+                    width: 12px;
+                    height: 12px;
+                    margin: 3px;
                 }
             }
         }
+    
+        .room-details{
 
-        .room-features-container{
-            grid-template-columns: 100% !important;
-            grid-template-rows: repeat(4, 25%) !important;
+            .room-detail-holder .room-features-container{
+                grid-template-columns: 100%;
+                grid-template-rows: repeat(4, 25%);
+            }
+
+            .room-form-holder .room-reservation-title-holder{
+                margin-bottom: 10px;
+            }
+
+            .room-overview-holder .room-overview-container{
+
+                .overview span, .facilities span, .extra span{
+                    font-size: 14px;
+                }
+            }
+        } 
+
+        .booked-rooms-container {
+
+            .each-booked-room{
+                grid-template-columns: 75px repeat(3, auto);
+            }
         }
     }
+    
+
+
 }

@@ -108,6 +108,10 @@ document.addEventListener('DOMContentLoaded', async() => {
             favoriteRooms(roomData);
         }
 
+        if(otherRooms){
+            otherRoomsForRoomDetails(roomData)
+        }
+
         if(reservedRoomsContainer){
             getbookedRooms(hotelData, bookedRoomsdata, roomData);
         }
@@ -115,10 +119,6 @@ document.addEventListener('DOMContentLoaded', async() => {
         // if(roomReservationForm){
         //     checkReservedDays(bookedRoomsdata);
         // }
-
-        if(otherRooms){
-            checkOtherRooms(roomData);
-        }
 
     } catch(error){
         console.error("Error in DOMContentLoaded:", error);
@@ -544,6 +544,97 @@ async function roomsForDisplay(rooms) {
 // --------------------------------- rooms html end -------------------------------------
 
 
+async function otherRoomsForRoomDetails(rooms) {
+    try {
+        let otherRooms = rooms;
+        let threeOthers = [];
+        threeOthers = otherRooms.splice(Math.floor(Math.random()*(otherRooms.length - 3)), 3);
+
+        let otherRoomContainer = document.getElementById('other-room-container');
+
+        threeOthers.forEach(room => {
+            let roomCard = document.createElement('div');
+            roomCard.classList.add('room-card');
+            roomCard.setAttribute('data-room-id', `${room.roomTypeId}`)
+            roomCard.dataset.cardName = room.name.toLowerCase();
+            // console.log(room.id)
+
+            let roomCardImg = document.createElement('div');
+            roomCardImg.classList.add('room-card-img');
+            roomCardImg.innerHTML = `<img src="${room.images[0]?.source}" alt="${room.name}">`;
+
+            let bookButtonSlide = document.createElement('div');
+            bookButtonSlide.classList.add('book-button-slide');
+            bookButtonSlide.innerHTML = `
+                <div class="title-price-container">
+                    <h2><span class="card-name-holder">${room.name}</span></h2>
+                    <p>
+                        <span class="price-holder">${room.pricePerNight} $</span>
+                        <span class="text-holder">a night</span>
+                    </p>
+                </div>
+                <a class="book-now-link" href="./room-details.html">Book Now</a>
+            `
+
+            otherRoomContainer.appendChild(roomCard);
+            roomCard.appendChild(roomCardImg);
+            roomCard.appendChild(bookButtonSlide);
+
+
+            let bookButton = bookButtonSlide.querySelector('.book-now-link');
+            bookButton.addEventListener('click', (event) => {
+                event.preventDefault(); 
+
+                localStorage.setItem('selectedRoom', JSON.stringify(room));
+
+                window.location.href = './room-details.html';
+            });
+        })
+    } catch (error) {
+        console.error('Other rooms:', error)
+    }
+}
+
+
+if(document.getElementById('room-overview-holder')){
+    let clickOverview = document.getElementById('overview');
+    let clickFacilities = document.getElementById('facilities');
+    let clickExtra = document.getElementById('extra');
+
+    let spanForOverview = document.getElementById('span-for-overview');
+    let spanForFacilities = document.getElementById('span-for-facilities');
+    let spanForExtra = document.getElementById('span-for-extra');
+
+    clickOverview.addEventListener('click', () => {
+        clickOverview.classList.add('active');
+        clickFacilities.classList.remove('active');
+        clickExtra.classList.remove('active');
+
+        spanForOverviewclassList.add('active-Lorem');
+        spanForFacilities.classList.remove('active-Lorem');
+        spanForExtra.classList.remove('active-Lorem');
+    });
+
+    clickFacilities.addEventListener('click', () => {
+        clickOverview.classList.remove('active');
+        clickFacilities.classList.add('active');
+        clickExtra.classList.remove('active');
+
+        spanForOverview.classList.remove('active-Lorem');
+        spanForFacilities.classList.add('active-Lorem');
+        spanForExtra.classList.remove('active-Lorem');
+    });
+
+    clickExtra.addEventListener('click', () => {
+        clickOverview.classList.remove('active');
+        clickFacilities.classList.remove('active');
+        clickExtra.classList.add('active');
+
+        spanForOverview.classList.remove('active-Lorem');
+        spanForFacilities.classList.remove('active-Lorem');
+        spanForExtra.classList.add('active-Lorem');
+    });
+}
 
 
 if(document.getElementById('room-details')){

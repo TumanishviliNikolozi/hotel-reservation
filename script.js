@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', async() => {
         }
 
         if(roomFilter){
-            tryDates(bookedRoomsdata, roomData);
+            tryDates();
         }
 
     } catch(error){
@@ -955,86 +955,21 @@ async function checkReservedDays(bookedRoomsdata, roomData){
 
 
 
-async function tryDates(bookedRoomsdata, roomData) {
+async function tryDates() {
     try {
-        let tryAllReservedRooms = [...bookedRoomsdata];
-        let tryAllRooms = [...roomData];
-
-        let tryDisabledDates = [];
-
-        tryAllReservedRooms.forEach(room => {
-            let startDate = new Date(room.checkInDate);
-            let endDate = new Date(room.checkOutDate);
-
-            while (startDate <= endDate) {
-                tryDisabledDates.push(startDate.toISOString().split("T")[0]);
-                startDate.setDate(startDate.getDate() + 1);
-            }
-        })
-        // console.log(tryDisabledDates)
-
-        tryAllRooms.forEach(room => {
-            room.bookedDates.forEach(dates => {
-                let newDate = dates.date;
-
-                if (typeof newDate === "string") {
-                    tryDisabledDates.push(newDate);
-                } else {
-                    tryDisabledDates.push(newDate.toISOString().split("T")[0]);
-                }
-            })
-        })
-
-        // console.log(tryDisabledDates)
-        let validDisabledDates = tryDisabledDates.filter(date => date !== "0000-12-31").map(date => {
-            let dateObj = new Date(date);
-            return dateObj.toISOString().split('T')[0];
-        }); 
-
-        // console.log(validDisabledDates)
-
         let checkInPicker = flatpickr('#check-in', {
             minDate: new Date(),
-            disable: validDisabledDates,
             dateFormat: "Y-m-d",
-            onChange: function (selectedDates) {
-                if (selectedDates.length === 0) return;
-
-                let checkInDate = selectedDates[0];
-                let checkOutMaxDate = null;
-
-                for (let i = 1; i < 90; i++){
-                    let nextDate = new Date(checkInDate);
-                    // console.log(checkInDate)
-
-                    nextDate.setDate(nextDate.getDate() + i);
-                    // console.log(nextDate)
-
-                    let nextDateStr = nextDate.toISOString().split("T")[0];
-                    // console.log(nextDateStr)
-
-                    if (validDisabledDates.includes(nextDateStr)) {
-                        checkOutMaxDate = new Date(nextDateStr);
-                        console.log(checkOutMaxDate.toISOString().split("T")[0])
-                        break;
-                    }
-                }
-                // console.log(checkOutMaxDate)
-
-                if (checkOutMaxDate) {
-                    checkOutPicker.set("minDate", checkInDate);
-                    checkOutPicker.set("maxDate", checkOutMaxDate);
-                } else {
-                    checkOutPicker.set("minDate", checkInDate);
-                    checkOutPicker.set("maxDate", null);
-                }
+            onChange: function(selectedDates) {
+                let minCheckOutDate = new Date(selectedDates[0]);
+                minCheckOutDate.setDate(minCheckOutDate.getDate() + 1);
+                checkOutPicker.set("minDate", minCheckOutDate);
             }
         });
 
         const checkOutPicker = flatpickr("#check-out", {
             minDate: new Date(),
             dateFormat: "Y-m-d",
-            disable: validDisabledDates
         });
 
     } catch (error) {
